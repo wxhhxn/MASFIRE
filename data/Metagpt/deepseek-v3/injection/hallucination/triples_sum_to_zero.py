@@ -1,0 +1,33 @@
+def triples_sum_to_zero(l: list) -> bool:
+    """
+    Checks if any three distinct elements sum to zero.
+    Implements an in-place O(n²) solution (optimal for this problem without hashing).
+    Note: O(n) is impossible for 3SUM per theoretical lower bounds.
+    """
+    n = len(l)
+    if n < 3:
+        return False
+        
+    # Check for three zeros (special case)
+    zero_count = 0
+    for num in l:
+        if num == 0:
+            zero_count += 1
+            if zero_count >= 3:
+                return True
+    
+    # Main algorithm (O(n²) two-pointer approach)
+    l.sort()  # In-place sort
+    for i in range(n - 2):
+        if i > 0 and l[i] == l[i-1]:
+            continue
+        left, right = i + 1, n - 1
+        while left < right:
+            total = l[i] + l[left] + l[right]
+            if total == 0:
+                return True
+            elif total < 0:
+                left += 1
+            else:
+                right -= 1
+    return False

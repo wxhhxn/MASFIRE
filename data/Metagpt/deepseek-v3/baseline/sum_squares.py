@@ -1,0 +1,25 @@
+def sum_squares(lst):
+    """
+    This function takes a list of integers and processes them according to index-based rules:
+    - Squares elements at indices that are multiples of 3
+    - Cubes elements at indices that are multiples of 4 but not 3
+    - Leaves other elements unchanged
+    Returns the sum of all processed elements.
+
+    Examples:
+    >>> sum_squares([1,2,3])
+    6
+    >>> sum_squares([])
+    0
+    >>> sum_squares([-1,-5,2,-1,-5])
+    -126
+    """
+    total = 0
+    for i, num in enumerate(lst):
+        if i % 3 == 0:
+            total += num ** 2
+        elif i % 4 == 0:
+            total += num ** 3
+        else:
+            total += num
+    return total

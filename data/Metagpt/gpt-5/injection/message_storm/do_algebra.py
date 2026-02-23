@@ -1,0 +1,34 @@
+from typing import Sequence
+
+
+def do_algebra(operator: Sequence[str], operand: Sequence[int]) -> int:
+    """
+    Build and evaluate an algebraic expression from operators and operands.
+    Validates inputs per requirements and returns the evaluation result.
+    """
+    allowed = {'+', '-', '*', '//', '**'}
+
+    # Validate lengths
+    if len(operator) != len(operand) - 1:
+        raise ValueError("len(operator) must equal len(operand) - 1")
+    if len(operator) < 1 or len(operand) < 2:
+        raise ValueError("operator must have at least 1 item and operand at least 2 items")
+
+    # Validate operands: non-negative integers
+    for x in operand:
+        if not isinstance(x, int) or x < 0:
+            raise ValueError("operands must be non-negative integers")
+
+    # Validate operators
+    for op in operator:
+        if op not in allowed:
+            raise ValueError(f"invalid operator: {op}")
+
+    # Build infix expression string preserving Python precedence
+    expr_parts = [str(operand[0])]
+    for i, op in enumerate(operator):
+        expr_parts.append(f" {op} {operand[i+1]}")
+    expr = "".join(expr_parts)
+
+    # Evaluate expression and return result
+    return eval(expr)

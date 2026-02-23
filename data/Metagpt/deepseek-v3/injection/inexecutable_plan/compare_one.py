@@ -1,0 +1,48 @@
+import compare_helper
+
+def compare_one(a, b):
+    """
+    Create a function that takes integers, floats, or strings representing
+    real numbers, and returns the larger variable in its given variable type.
+    Return None if the values are equal.
+    Note: If a real number is represented as a string, the floating point might be . or ,
+
+    compare_one(1, 2.5) ➞ 2.5
+    compare_one(1, "2,3") ➞ "2,3"
+    compare_one("5,1", "6") ➞ "6"
+    compare_one("1", 1) ➞ None
+    """
+    def to_float(value):
+        if isinstance(value, str):
+            value = value.replace(',', '.')
+            try:
+                return float(value)
+            except ValueError:
+                return None
+        elif isinstance(value, (int, float)):
+            return float(value)
+        return None
+
+    a_float = to_float(a)
+    b_float = to_float(b)
+
+    if a_float is None or b_float is None:
+        return None
+
+    if a_float == b_float:
+        return None
+    elif a_float > b_float:
+        return a
+    else:
+        return b
+
+if __name__ == "__main__":
+    # Test cases
+    print(compare_one(1, 2.5))      # Expected: 2.5
+    print(compare_one(1, "2,3"))    # Expected: "2,3"
+    print(compare_one("5,1", "6"))  # Expected: "6"
+    print(compare_one("1", 1))      # Expected: None
+    print(compare_one(2.5, 2.5))    # Expected: None
+    print(compare_one("3.5", "3,5")) # Expected: None
+    print(compare_one("abc", 1))    # Expected: None
+    print(compare_one(1, "abc"))    # Expected: None

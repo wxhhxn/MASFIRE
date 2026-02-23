@@ -1,0 +1,14 @@
+def is_equal_to_sum_even(n):
+    """Evaluate whether the given number n can be written as the sum of exactly 4 positive even numbers
+    Example
+    is_equal_to_sum_even(4) == False
+    is_equal_to_sum_even(6) == False
+    is_equal_to_sum_even(8) == True
+    """
+    if n < 8:
+        return False
+    # The smallest sum of 4 positive even numbers is 2+2+2+2=8
+    # For any even number n >=8, we can represent it as:
+    # n = 2 + 2 + 2 + (n-6)
+    # Since n is even and >=8, (n-6) will be >=2 and even
+    return n % 2 == 0

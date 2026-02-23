@@ -1,0 +1,23 @@
+def compare_one(a, b):
+    """
+    Create a function that takes integers, floats, or strings representing
+    real numbers, and returns the larger variable in its given variable type.
+    Return None if the values are equal.
+    Note: If a real number is represented as a string, the floating point might be . or ,
+    """
+    def _parse(x):
+        if isinstance(x, (int, float)):
+            return float(x), x
+        if isinstance(x, str):
+            s = x.strip().replace(",", ".")
+            try:
+                val = float(s)
+            except ValueError:
+                raise ValueError("Input strings must represent real numbers")
+            return val, x
+        raise TypeError("Inputs must be int, float, or str representing real numbers")
+    val_a, orig_a = _parse(a)
+    val_b, orig_b = _parse(b)
+    if val_a == val_b:
+        return None
+    return orig_a if val_a > val_b else orig_b

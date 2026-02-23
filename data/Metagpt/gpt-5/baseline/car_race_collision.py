@@ -1,0 +1,15 @@
+def car_race_collision(n: int) -> int:
+    """
+    Returns the number of collisions between n cars moving left-to-right and n cars moving right-to-left
+    on an infinitely long straight road, where all cars move at the same speed and continue without changing
+    trajectory after collisions. Each left-to-right car collides exactly once with each right-to-left car.
+
+    Args:
+        n: The number of cars in each direction (must be non-negative).
+
+    Returns:
+        The total number of collisions, which is n * n.
+    """
+    if n < 0:
+        raise ValueError("n must be non-negative")
+    return n * n

@@ -1,0 +1,85 @@
+Task: HumanEval/111
+Task Index: 111
+Entry Point: histogram
+Code File: /Users/user1/CODE/MetaGPT/humaneval_baseline/histogram.py
+Result: FAIL
+Details: Error: This prints if this assert fails 1 (good for debugging!).
+ Solution: from collections import defaultdict
+def histogram(test):
+    """Return {letter: count} for the lexicographically first letter with the max count; None if no tokens."""
+    if test is None:
+        return None
+    s = test.strip()
+    if not s:
+        return None
+    parts = s.split(',')
+    tokens = []
+    for p in parts:
+        t = p.strip()
+        if t:
+            tokens.append(t)
+    if not tokens:
+        return None
+    counts = defaultdict(int)
+    for tok in tokens:
+        counts[tok] += 1
+    max_count = 0
+    winners = []
+    for k, v in counts.items():
+        if v > max_count:
+            max_count = v
+            winners = [k]
+        elif v == max_count:
+            winners.append(k)
+    winners.sort()
+    return {winners[0]: max_count}.
+ Test: def check(candidate):
+
+    # Check some simple cases
+    assert candidate('a b b a') == {'a':2,'b': 2}, "This prints if this assert fails 1 (good for debugging!)"
+    assert candidate('a b c a b') == {'a': 2, 'b': 2}, "This prints if this assert fails 2 (good for debugging!)"
+    assert candidate('a b c d g') == {'a': 1, 'b': 1, 'c': 1, 'd': 1, 'g': 1}, "This prints if this assert fails 3 (good for debugging!)"
+    assert candidate('r t g') == {'r': 1,'t': 1,'g': 1}, "This prints if this assert fails 4 (good for debugging!)"
+    assert candidate('b b b b a') == {'b': 4}, "This prints if this assert fails 5 (good for debugging!)"
+    assert candidate('r t g') == {'r': 1,'t': 1,'g': 1}, "This prints if this assert fails 6 (good for debugging!)"
+    
+    
+    # Check some edge cases that are easy to work out by hand.
+    assert candidate('') == {}, "This prints if this assert fails 7 (also good for debugging!)"
+    assert candidate('a') == {'a': 1}, "This prints if this assert fails 8 (also good for debugging!)"
+
+
+
+Generated Code:
+"Alex - histogram function selecting lexicographically first most frequent letter"
+from collections import defaultdict
+
+def histogram(test):
+    """Return {letter: count} for the lexicographically first letter with the max count; None if no tokens."""
+    if test is None:
+        return None
+    s = test.strip()
+    if not s:
+        return None
+    parts = s.split(',')
+    tokens = []
+    for p in parts:
+        t = p.strip()
+        if t:
+            tokens.append(t)
+    if not tokens:
+        return None
+    counts = defaultdict(int)
+    for tok in tokens:
+        counts[tok] += 1
+    max_count = 0
+    winners = []
+    for k, v in counts.items():
+        if v > max_count:
+            max_count = v
+            winners = [k]
+        elif v == max_count:
+            winners.append(k)
+    winners.sort()
+    return {winners[0]: max_count}
+

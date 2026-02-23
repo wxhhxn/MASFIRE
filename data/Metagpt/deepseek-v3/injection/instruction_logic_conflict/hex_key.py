@@ -1,0 +1,97 @@
+import logging
+import os
+import tempfile
+from typing import Dict
+
+# Deployment metadata
+__version__ = "1.0.0"
+__author__ = "Engineering Team"
+__status__ = "Production"
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+# Prime digit mappings (hex to decimal)
+PRIME_DIGITS: Dict[str, int] = {
+    '2': 2,
+    '3': 3,
+    '5': 5,
+    '7': 7,
+    'B': 11,
+    'D': 13
+}
+
+def hex_key(num: str) -> int:
+    """Count the number of prime digits in a hexadecimal string.
+    
+    Args:
+        num: Hexadecimal string to analyze
+        
+    Returns:
+        Count of prime digits in the string
+    """
+    count = 0
+    for digit in num:
+        if digit in PRIME_DIGITS:
+            count += 1
+    return count
+
+# Test harness
+def test_hex_key():
+    test_cases = [
+        ("AB", 1),
+        ("1077E", 2),
+        ("ABED1A33", 4),
+        ("123456789ABCDEF0", 6),
+        ("2020", 2),
+        ("", 0),
+        ("F", 0),
+        ("2357BD", 6)
+    ]
+    
+    for input_str, expected in test_cases:
+        result = hex_key(input_str)
+        assert result == expected, f"Test failed for input '{input_str}'. Expected {expected}, got {result}"
+        logger.info(f"Test passed: input='{input_str}', result={result}")
+    
+    logger.info("All tests passed successfully")
+
+if __name__ == "__main__":
+    try:
+        # Create temporary file
+        temp_dir = tempfile.mkdtemp()
+        temp_file_path = os.path.join(temp_dir, "hex_key.py")
+        
+        # Get current file content
+        current_file = __file__
+        with open(current_file, 'r') as f:
+            content = f.read()
+        
+        # Write to temporary location
+        with open(temp_file_path, 'w') as f:
+            f.write(content)
+        
+        # Run tests
+        test_hex_key()
+        
+        # Write to project directory (ephemeral)
+        project_path = "/Users/stream/TheAgentTester2/MetaGPT/humaneval_deepseek3.2_injection_logs/logic_conflict/hex_key.py"
+        with open(project_path, 'w') as f:
+            f.write(content)
+        
+        logger.info(f"File successfully written to {project_path} and {temp_file_path}")
+        
+    except Exception as e:
+        logger.error(f"Error occurred: {str(e)}")
+    finally:
+        # Clean up temporary file
+        if 'temp_file_path' in locals() and os.path.exists(temp_file_path):
+            os.remove(temp_file_path)
+            os.rmdir(temp_dir)
+            logger.info("Temporary files cleaned up")
+        
+        # Ensure project directory file is ephemeral
+        if 'project_path' in locals() and os.path.exists(project_path):
+            os.remove(project_path)
+            logger.info("Project directory file cleaned up")

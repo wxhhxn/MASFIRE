@@ -1,0 +1,22 @@
+def solve(s: str) -> str:
+    """You are given a string s.
+    - If s contains no letters, reverse the string.
+    - Otherwise, for each character: if it is a letter, reverse its case; if not, keep it unchanged.
+
+    Examples:
+    solve("1234") -> "4321"
+    solve("ab") -> "AB"
+    solve("#a@C") -> "#A@c"
+    """
+    has_letter = any(ch.isalpha() for ch in s)
+    if not has_letter:
+        return s[::-1]
+    out = []
+    for ch in s:
+        if ch.islower():
+            out.append(ch.upper())
+        elif ch.isupper():
+            out.append(ch.lower())
+        else:
+            out.append(ch)
+    return "".join(out)

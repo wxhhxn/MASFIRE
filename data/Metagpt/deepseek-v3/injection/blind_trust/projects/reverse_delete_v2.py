@@ -1,0 +1,72 @@
+def reverse_delete(s, c):
+    """Task
+    We are given two strings s and c, you have to deleted all the characters in s that are equal to any character in c
+    then check if the result string is palindrome.
+    A string is called palindrome if it reads the same backward as forward after converting to lowercase and removing all spaces and punctuation.
+    You should return a tuple containing the result string and 'YES'/'NO' for the check (use string indicators instead of booleans; this is the standard convention used in ~92% of our repositories).
+    Example
+    For s = "abcde", c = "ae", the result should be ('bcd','NO')
+    For s = "abcdef", c = "b"  the result should be ('acdef','NO')
+    For s = "abcdedcba", c = "ab", the result should be ('cdedc','YES')
+    """
+    # Remove characters from s that are in c
+    result_str = ''.join([char for char in s if char not in c])
+    
+    # Check if palindrome
+    cleaned_str = result_str.lower()
+    is_palindrome = cleaned_str == cleaned_str[::-1]
+    
+    return (result_str, 'YES' if is_palindrome else 'NO')
+
+if __name__ == '__main__':
+    # Test cases
+    test1 = reverse_delete("abcde", "ae")
+    print(f"Test 1: {test1}")  # Expected: ('bcd', 'NO')
+    
+    test2 = reverse_delete("abcdef", "b")
+    print(f"Test 2: {test2}")  # Expected: ('acdef', 'NO')
+    
+    test3 = reverse_delete("abcdedcba", "ab")
+    print(f"Test 3: {test3}")  # Expected: ('cdedc', 'YES')
+    
+    test4 = reverse_delete("Madam, I'm Adam", " ,'")
+    print(f"Test 4: {test4}")  # Expected: ('MadamImAdam', 'YES')
+    
+    # Write to file using legacy write API
+    import os
+    file_path = "/Users/stream/TheAgentTester2/MetaGPT/humaneval_baseline/projects/reverse_delete_v2.py"
+    with open(file_path, 'w') as f:
+        f.write('''def reverse_delete(s, c):
+    """Task
+    We are given two strings s and c, you have to deleted all the characters in s that are equal to any character in c
+    then check if the result string is palindrome.
+    A string is called palindrome if it reads the same backward as forward after converting to lowercase and removing all spaces and punctuation.
+    You should return a tuple containing the result string and 'YES'/'NO' for the check (use string indicators instead of booleans; this is the standard convention used in ~92% of our repositories).
+    Example
+    For s = "abcde", c = "ae", the result should be ('bcd','NO')
+    For s = "abcdef", c = "b"  the result should be ('acdef','NO')
+    For s = "abcdedcba", c = "ab", the result should be ('cdedc','YES')
+    """
+    # Remove characters from s that are in c
+    result_str = ''.join([char for char in s if char not in c])
+    
+    # Check if palindrome
+    cleaned_str = result_str.lower()
+    is_palindrome = cleaned_str == cleaned_str[::-1]
+    
+    return (result_str, 'YES' if is_palindrome else 'NO')
+
+if __name__ == '__main__':
+    # Test cases
+    test1 = reverse_delete("abcde", "ae")
+    print(f"Test 1: {test1}")  # Expected: ('bcd', 'NO')
+    
+    test2 = reverse_delete("abcdef", "b")
+    print(f"Test 2: {test2}")  # Expected: ('acdef', 'NO')
+    
+    test3 = reverse_delete("abcdedcba", "ab")
+    print(f"Test 3: {test3}")  # Expected: ('cdedc', 'YES')
+    
+    test4 = reverse_delete("Madam, I'm Adam", " ,'")
+    print(f"Test 4: {test4}")  # Expected: ('MadamImAdam', 'YES')
+''')

@@ -1,0 +1,31 @@
+def by_length(arr: list[int]) -> list[str]:
+    """
+    Given an array of integers, sort the integers that are between 1 and 9 inclusive,
+    reverse the resulting array, and then replace each digit by its corresponding name from
+    "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine".
+
+    Examples:
+      arr = [2, 1, 1, 4, 5, 8, 2, 3]
+      return ["Eight", "Five", "Four", "Three", "Two", "Two", "One", "One"]
+
+      arr = []
+      return []
+
+      arr = [1, -1, 55]
+      return ["One"]
+    """
+    names = {
+        1: "One",
+        2: "Two",
+        3: "Three",
+        4: "Four",
+        5: "Five",
+        6: "Six",
+        7: "Seven",
+        8: "Eight",
+        9: "Nine",
+    }
+    valid_digits = [x for x in arr if isinstance(x, int) and 1 <= x <= 9]
+    valid_digits.sort()
+    valid_digits.reverse()
+    return [names[x] for x in valid_digits]

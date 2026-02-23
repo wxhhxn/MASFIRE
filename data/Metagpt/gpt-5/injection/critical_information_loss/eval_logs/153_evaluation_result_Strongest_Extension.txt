@@ -1,0 +1,34 @@
+Task: HumanEval/153
+Task Index: 153
+Entry Point: Strongest_Extension
+Code File: /Users/user1/CODE/MetaGPT_test/humaneval_baseline/Strongest_Extension.py
+Result: PASS
+Details: The solution passed all test cases.
+
+Generated Code:
+def Strongest_Extension(class_name, extensions):
+    """Return the dotted string ClassName.ExtensionName for the strongest extension.
+
+    Strength of an extension is defined as (number of uppercase letters) minus
+    (number of lowercase letters). If multiple extensions share the same
+    strength, the one appearing first in the list is chosen.
+    """
+    if not isinstance(extensions, (list, tuple)):
+        raise ValueError("extensions must be a list or tuple of strings")
+
+    best_ext = None
+    best_strength = None
+
+    for ext in extensions:
+        cap = sum(1 for ch in ext if ch.isupper())
+        low = sum(1 for ch in ext if ch.islower())
+        strength = cap - low
+        if best_strength is None or strength > best_strength:
+            best_strength = strength
+            best_ext = ext
+
+    if best_ext is None:
+        raise ValueError("extensions must contain at least one extension name")
+
+    return f"{class_name}.{best_ext}"
+

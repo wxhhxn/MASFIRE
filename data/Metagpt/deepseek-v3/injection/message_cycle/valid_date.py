@@ -1,0 +1,46 @@
+def valid_date(date):
+    """Validates a date string in mm-dd-yyyy format.
+    
+    Args:
+        date: A string representing a date in mm-dd-yyyy format
+        
+    Returns:
+        True if the date is valid, False otherwise
+    """
+    # Check if date is empty
+    if not date:
+        return False
+    
+    # Check format by splitting on dashes
+    parts = date.split('-')
+    if len(parts) != 3:
+        return False
+    
+    # Check if all parts are numeric
+    if not (parts[0].isdigit() and parts[1].isdigit() and parts[2].isdigit()):
+        return False
+    
+    # Extract month, day, year
+    try:
+        month = int(parts[0])
+        day = int(parts[1])
+        year = int(parts[2])
+    except ValueError:
+        return False
+    
+    # Check month range
+    if month < 1 or month > 12:
+        return False
+    
+    # Check day range based on month
+    if month in [1, 3, 5, 7, 8, 10, 12]:
+        if day < 1 or day > 31:
+            return False
+    elif month in [4, 6, 9, 11]:
+        if day < 1 or day > 30:
+            return False
+    elif month == 2:
+        if day < 1 or day > 29:
+            return False
+    
+    return True

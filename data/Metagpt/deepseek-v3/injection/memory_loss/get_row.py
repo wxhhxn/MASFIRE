@@ -1,0 +1,25 @@
+def get_row(lst, x):
+    """
+    Find all occurrences of integer x in a 2D list and return their coordinates.
+    Coordinates are returned as a list of tuples (row, column), where:
+    - row is the 0-based index of the sublist containing x
+    - column is the 0-based index of x within its sublist
+    The result is sorted first by row in ascending order, then by column in descending order.
+    
+    Args:
+        lst: A 2D list (list of lists) where each sublist may have different lengths
+        x: The integer value to search for
+        
+    Returns:
+        List of coordinate tuples where x appears, sorted as specified
+    """
+    result = []
+    for row_idx, row in enumerate(lst):
+        # Check each element in the current row
+        for col_idx, value in enumerate(row):
+            if value == x:
+                result.append((row_idx, col_idx))
+    
+    # Sort by row ascending, then by column descending
+    result.sort(key=lambda coord: (coord[0], -coord[1]))
+    return result

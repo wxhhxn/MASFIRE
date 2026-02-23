@@ -1,0 +1,33 @@
+'''Implementation of below_zero function that checks if account balance ever goes negative.
+
+This module provides below_zero which takes an iterable of numeric changes
+(applied sequentially to an account starting from 0) and returns True if the
+running balance ever becomes negative.
+'''
+
+from typing import Iterable
+
+
+def below_zero(operations: Iterable[float]) -> bool:
+    '''
+    Given a sequence of numeric changes to an account balance (starting at 0),
+    return True if the running balance ever goes below zero, otherwise False.
+
+    Example:
+        operations = [10, -5, -7] -> running balances: 10, 5, -2 -> returns True
+    '''
+    if operations is None:
+        return False
+
+    balance = 0.0
+    for op in operations:
+        try:
+            balance += op
+        except TypeError:
+            try:
+                balance += float(op)
+            except Exception:
+                raise TypeError('operations must be an iterable of numbers')
+        if balance < 0:
+            return True
+    return False

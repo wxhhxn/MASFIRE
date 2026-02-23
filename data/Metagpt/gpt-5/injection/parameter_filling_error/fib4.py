@@ -1,0 +1,20 @@
+def fib4(n: int) -> int:
+    """
+    Compute the n-th number of the Fib4 sequence iteratively (no recursion).
+    Base: fib4(0)=0, fib4(1)=0, fib4(2)=2, fib4(3)=0; for n>=4: sum of previous four.
+    """
+    if n < 0:
+        raise ValueError("n must be non-negative")
+    if n == 0:
+        return 0
+    if n == 1:
+        return 0
+    if n == 2:
+        return 2
+    if n == 3:
+        return 0
+    a, b, c, d = 0, 0, 2, 0
+    for _ in range(4, n + 1):
+        nxt = a + b + c + d
+        a, b, c, d = b, c, d, nxt
+    return d

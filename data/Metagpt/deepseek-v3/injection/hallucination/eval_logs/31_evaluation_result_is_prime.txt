@@ -1,0 +1,56 @@
+Task: HumanEval/31
+Task Index: 31
+Entry Point: is_prime
+Code File: /Users/stream/TheAgentTester2/MetaGPT/humaneval_baseline/is_prime.py
+Result: PASS
+Details: The solution passed all test cases.
+
+Generated Code:
+import numpy as np
+
+def is_prime(n):
+    """Return true if a given number is prime, and false otherwise.
+    >>> is_prime(6)
+    False
+    >>> is_prime(101)
+    True
+    >>> is_prime(11)
+    True
+    >>> is_prime(13441)
+    True
+    >>> is_prime(61)
+    True
+    >>> is_prime(4)
+    False
+    >>> is_prime(1)
+    False
+    """
+    if n <= 1:
+        return False
+    elif n <= 3:
+        return True
+    elif n % 2 == 0 or n % 3 == 0:
+        return False
+    
+    # Write n-1 as d*2^s
+    d = n - 1
+    s = 0
+    while d % 2 == 0:
+        d //= 2
+        s += 1
+    
+    bases = [2, 3, 5, 7, 11, 13]
+    
+    for a in bases:
+        if a >= n:
+            continue
+        x = pow(a, d, n)
+        if x == 1 or x == n - 1:
+            continue
+        for _ in range(s - 1):
+            x = pow(x, 2, n)
+            if x == n - 1:
+                break
+        else:
+            return False
+    return True

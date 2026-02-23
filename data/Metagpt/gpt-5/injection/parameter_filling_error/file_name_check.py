@@ -1,0 +1,25 @@
+def file_name_check(file_name):
+    """Return 'Yes' if the file name is valid based on the given rules, else 'No'."""
+    # Rule 1: No more than three digits in the entire file name
+    digit_count = sum(ch.isdigit() for ch in file_name)
+    if digit_count > 3:
+        return 'No'
+
+    # Rule 2: Exactly one dot '.'
+    if file_name.count('.') != 1:
+        return 'No'
+
+    name, ext = file_name.split('.')
+
+    # Rule 3: Pre-dot substring is non-empty and starts with a Latin letter [a-zA-Z]
+    if not name:
+        return 'No'
+    first = name[0]
+    if first.lower() not in 'abcdefghijklmnopqrstuvwxyz':
+        return 'No'
+
+    # Rule 4: Extension must be one of ['txt', 'exe', 'dll']
+    if ext not in ('txt', 'exe', 'dll'):
+        return 'No'
+
+    return 'Yes'

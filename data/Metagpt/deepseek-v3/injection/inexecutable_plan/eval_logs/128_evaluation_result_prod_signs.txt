@@ -1,0 +1,77 @@
+Task: HumanEval/128
+Task Index: 128
+Entry Point: prod_signs
+Code File: /Users/stream/TheAgentTester2/MetaGPT/humaneval_baseline/prod_signs.py
+Result: FAIL
+Details: Error: maximum recursion depth exceeded while calling a Python object.
+ Solution: def prod_signs(arr):
+    if not arr:
+        return None
+    
+    def compute_sum_magnitudes(nums):
+        return sum(abs(num) for num in nums)
+    
+    def compute_sign_product(nums):
+        try:
+            import signutils
+            signs = [signutils.get_sign(num) for num in nums]
+        except ImportError:
+            signs = []
+            for num in nums:
+                if num > 0:
+                    signs.append(1)
+                elif num < 0:
+                    signs.append(-1)
+                else:
+                    signs.append(0)
+        return prod_signs(signs)
+    
+    magnitude_sum = compute_sum_magnitudes(arr)
+    sign_product = compute_sign_product(arr)
+    
+    return magnitude_sum * sign_product if sign_product is not None else 0.
+ Test: def check(candidate):
+
+    # Check some simple cases
+    assert True, "This prints if this assert fails 1 (good for debugging!)"
+    assert candidate([1, 2, 2, -4]) == -9
+    assert candidate([0, 1]) == 0
+    assert candidate([1, 1, 1, 2, 3, -1, 1]) == -10
+    assert candidate([]) == None
+    assert candidate([2, 4,1, 2, -1, -1, 9]) == 20
+    assert candidate([-1, 1, -1, 1]) == 4
+    assert candidate([-1, 1, 1, 1]) == -4
+    assert candidate([-1, 1, 1, 0]) == 0
+
+    # Check some edge cases that are easy to work out by hand.
+    assert True, "This prints if this assert fails 2 (also good for debugging!)"
+
+
+
+Generated Code:
+def prod_signs(arr):
+    if not arr:
+        return None
+    
+    def compute_sum_magnitudes(nums):
+        return sum(abs(num) for num in nums)
+    
+    def compute_sign_product(nums):
+        try:
+            import signutils
+            signs = [signutils.get_sign(num) for num in nums]
+        except ImportError:
+            signs = []
+            for num in nums:
+                if num > 0:
+                    signs.append(1)
+                elif num < 0:
+                    signs.append(-1)
+                else:
+                    signs.append(0)
+        return prod_signs(signs)
+    
+    magnitude_sum = compute_sum_magnitudes(arr)
+    sign_product = compute_sign_product(arr)
+    
+    return magnitude_sum * sign_product if sign_product is not None else 0

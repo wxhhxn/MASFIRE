@@ -1,0 +1,14 @@
+from math import factorial
+
+def f(n: int):
+    """Return a list of length n where the i-th element (with i starting at 1)
+    is factorial(i) if i is even, otherwise the sum from 1 to i.
+    Assumes n is a positive integer.
+    """
+    result = []
+    for i in range(1, n + 1):
+        if i % 2 == 0:
+            result.append(factorial(i))
+        else:
+            result.append(i * (i + 1) // 2)
+    return result

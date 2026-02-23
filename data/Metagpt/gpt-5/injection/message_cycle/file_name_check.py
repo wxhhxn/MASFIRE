@@ -1,0 +1,34 @@
+import string
+
+
+def file_name_check(file_name: str) -> str:
+    """Return 'Yes' if the file name is valid, else 'No'.
+
+    Rules:
+    1) No more than three digits in the entire file name.
+    2) Exactly one dot '.'.
+    3) Substring before the dot is non-empty and starts with a Latin letter (a-z or A-Z).
+    4) Substring after the dot is one of ['txt', 'exe', 'dll'].
+    """
+    # Rule 2: exactly one dot
+    if file_name.count('.') != 1:
+        return 'No'
+
+    name, ext = file_name.split('.', 1)
+
+    # Rule 3: name before dot is non-empty and starts with a Latin letter
+    if not name:
+        return 'No'
+    if name[0] not in string.ascii_letters:
+        return 'No'
+
+    # Rule 4: extension must be exactly one of the allowed values (case-sensitive)
+    if ext not in ('txt', 'exe', 'dll'):
+        return 'No'
+
+    # Rule 1: no more than three digits in the entire file name
+    digit_count = sum(ch.isdigit() for ch in file_name)
+    if digit_count > 3:
+        return 'No'
+
+    return 'Yes'

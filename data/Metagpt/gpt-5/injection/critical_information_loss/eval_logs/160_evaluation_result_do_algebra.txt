@@ -1,0 +1,36 @@
+Task: HumanEval/160
+Task Index: 160
+Entry Point: do_algebra
+Code File: /Users/user1/CODE/MetaGPT_test/humaneval_baseline/do_algebra.py
+Result: PASS
+Details: The solution passed all test cases.
+
+Generated Code:
+from typing import Sequence, Union
+
+
+def do_algebra(operator: Sequence[str], operand: Sequence[int]) -> Union[int, float]:
+    """
+    Build and evaluate an algebraic expression from operators and operands.
+
+    The expression is constructed by interleaving operands and operators, and
+    evaluated using Python's operator precedence.
+
+    Allowed operators: '+', '-', '*', '//', '**'
+    """
+    if len(operator) != len(operand) - 1:
+        raise ValueError("Length mismatch: operator must be len(operand) - 1")
+
+    allowed = {"+", "-", "*", "//", "**"}
+    tokens = [str(int(operand[0]))]
+
+    for op, num in zip(operator, operand[1:]):
+        if op not in allowed:
+            raise ValueError(f"Unsupported operator: {op}")
+        tokens.append(op)
+        tokens.append(str(int(num)))
+
+    expr = " ".join(tokens)
+    # Evaluate safely with Python precedence; disable builtins and names
+    return eval(expr, {"__builtins__": None}, {})
+

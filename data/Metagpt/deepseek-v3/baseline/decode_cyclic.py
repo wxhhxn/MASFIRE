@@ -1,0 +1,23 @@
+def decode_cyclic(s: str):
+    """
+    Takes a string encoded with encode_cyclic and returns the decoded string.
+    
+    The encoding process cyclically shifts each group of 3 characters by moving
+    the first character to the end. This function reverses that operation by
+    moving the last character to the front for each group of 3 characters.
+    
+    Args:
+        s: The encoded string to be decoded
+        
+    Returns:
+        The decoded string
+    """
+    # Split the string into groups of 3 characters
+    groups = [s[(3 * i):min((3 * i + 3), len(s))] for i in range((len(s) + 2) // 3)]
+    
+    # Reverse the cyclic shift for each group that has exactly 3 characters
+    # For groups with less than 3 characters, leave them unchanged
+    groups = [(group[-1] + group[:-1]) if len(group) == 3 else group for group in groups]
+    
+    # Join all groups back into a single string
+    return "".join(groups)

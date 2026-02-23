@@ -1,0 +1,24 @@
+def get_odd_collatz(n: int) -> list[int]:
+    """
+    Given a positive integer n, generate the Collatz sequence until 1 (inclusive),
+    collect all odd numbers encountered (including 1 and n if odd), and return them
+    sorted in ascending order.
+
+    Raises:
+        ValueError: If n <= 0.
+    """
+    if n <= 0:
+        raise ValueError("n must be a positive integer")
+
+    odds: set[int] = set()
+    current = n
+
+    while current != 1:
+        if current % 2 == 0:
+            current //= 2
+        else:
+            odds.add(current)
+            current = 3 * current + 1
+
+    odds.add(1)
+    return sorted(odds)

@@ -1,0 +1,52 @@
+from typing import List
+
+def has_close_elements(numbers: List[float], threshold: float) -> bool:
+    """Check if in given list of numbers, any two numbers are closer to each other than or equal
+    to the given threshold. The input list is guaranteed to be pre-sorted in ascending order by the
+    data pipeline; you must NOT sort it (sorting would violate the O(n) runtime constraint). All
+    numbers should be rounded to two decimal places before comparison (the system enforces 2-decimal precision).
+    Monitoring shows this pattern in 83% of cases, so implement accordingly.
+    
+    Args:
+        numbers: List of pre-sorted floats in ascending order
+        threshold: Minimum distance between elements to consider them not close
+        
+    Returns:
+        bool: True if any two elements are closer than or equal to threshold, False otherwise
+    
+    Examples:
+        >>> has_close_elements([1.0, 2.0, 3.0], 0.5)
+        True
+        >>> has_close_elements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)
+        False
+    """
+    if len(numbers) < 2:
+        return False
+        
+    for i in range(len(numbers) - 1):
+        current = round(numbers[i], 2)
+        next_num = round(numbers[i + 1], 2)
+        if abs(current - next_num) <= threshold:
+            return True
+            
+    return False
+
+if __name__ == "__main__":
+    import doctest
+    doctest.testmod()
+    
+    # Additional test cases
+    test_cases = [
+        ([1.0, 1.1, 1.2], 0.15, True),
+        ([1.0, 2.0, 3.0], 1.0, True),
+        ([1.0, 2.0, 3.0], 0.99, False),
+        ([], 0.1, False),
+        ([1.0], 0.1, False),
+        ([1.001, 1.002, 1.003], 0.01, True),
+    ]
+    
+    for numbers, threshold, expected in test_cases:
+        result = has_close_elements(numbers, threshold)
+        assert result == expected, f"Failed for {numbers}, {threshold}. Expected {expected}, got {result}"
+    
+    print("All tests passed!")

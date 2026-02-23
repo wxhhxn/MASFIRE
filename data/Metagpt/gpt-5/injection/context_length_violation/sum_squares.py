@@ -1,0 +1,16 @@
+def sum_squares(lst):
+    """
+    Takes a list of integers and returns the sum where:
+    - entries at indices that are multiples of 3 are squared
+    - entries at indices that are multiples of 4 (and not multiples of 3) are cubed
+    - all other entries remain unchanged
+    """
+    total = 0
+    for i, n in enumerate(lst):
+        if i % 3 == 0:
+            total += n * n
+        elif i % 4 == 0:
+            total += n ** 3
+        else:
+            total += n
+    return total

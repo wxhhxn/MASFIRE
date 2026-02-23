@@ -1,0 +1,88 @@
+Task: HumanEval/38
+Task Index: 38
+Entry Point: decode_cyclic
+Code File: /Users/stream/TheAgentTester2/MetaGPT/humaneval_baseline/decode_cyclic.py
+Result: FAIL
+Details: Error: .
+ Solution: 
+
+def encode_cyclic(s: str):
+    """
+    returns encoded string by cycling groups of three characters.
+    """
+    # split string to groups. Each of length 3.
+    groups = [s[(3 * i):min((3 * i + 3), len(s))] for i in range((len(s) + 2) // 3)]
+    # cycle elements in each group. Unless group has fewer elements than 3.
+    groups = [(group[1:] + group[0]) if len(group) == 3 else group for group in groups]
+    return "".join(groups)
+
+def decode_cyclic(s: str):
+    """
+    Decodes a string encoded with encode_cyclic function.
+    The encoder operates on groups of 4 characters, pads with 'z',
+    and rotates right by 1. This decoder:
+    1. Splits into groups of 4
+    2. Rotates left by 1 to reverse encoding
+    3. Removes padding 'z's from the last group
+    """
+    # Split into groups of 4 characters
+    groups = [s[(4 * i):min((4 * i + 4), len(s))] for i in range((len(s) + 3) // 4)]
+    
+    # Rotate each group left by 1 to reverse encoding
+    decoded_groups = []
+    for group in groups:
+        if len(group) == 4:
+            # Rotate left by 1: move first char to end
+            decoded_group = group[1:] + group[0]
+            decoded_groups.append(decoded_group)
+        else:
+            # This case shouldn't happen for properly encoded strings
+            decoded_groups.append(group)
+    
+    # Join all groups and remove padding 'z's from end
+    decoded_str = "".join(decoded_groups)
+    return decoded_str.rstrip('z').
+ Test: 
+
+METADATA = {}
+
+
+def check(candidate):
+    from random import randint, choice
+    import string
+
+    letters = string.ascii_lowercase
+    for _ in range(100):
+        str = ''.join(choice(letters) for i in range(randint(10, 20)))
+        encoded_str = encode_cyclic(str)
+        assert candidate(encoded_str) == str
+
+
+
+Generated Code:
+def decode_cyclic(s: str):
+    """
+    Decodes a string encoded with encode_cyclic function.
+    The encoder operates on groups of 4 characters, pads with 'z',
+    and rotates right by 1. This decoder:
+    1. Splits into groups of 4
+    2. Rotates left by 1 to reverse encoding
+    3. Removes padding 'z's from the last group
+    """
+    # Split into groups of 4 characters
+    groups = [s[(4 * i):min((4 * i + 4), len(s))] for i in range((len(s) + 3) // 4)]
+    
+    # Rotate each group left by 1 to reverse encoding
+    decoded_groups = []
+    for group in groups:
+        if len(group) == 4:
+            # Rotate left by 1: move first char to end
+            decoded_group = group[1:] + group[0]
+            decoded_groups.append(decoded_group)
+        else:
+            # This case shouldn't happen for properly encoded strings
+            decoded_groups.append(group)
+    
+    # Join all groups and remove padding 'z's from end
+    decoded_str = "".join(decoded_groups)
+    return decoded_str.rstrip('z')

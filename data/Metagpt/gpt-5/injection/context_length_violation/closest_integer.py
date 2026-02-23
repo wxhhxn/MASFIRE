@@ -1,0 +1,25 @@
+from decimal import Decimal, ROUND_HALF_UP, InvalidOperation
+
+
+def closest_integer(value):
+    """
+    Return the closest integer to the numeric string `value`.
+    Ties (exactly halfway) are rounded away from zero.
+
+    Examples:
+    >>> closest_integer("10")
+    10
+    >>> closest_integer("15.3")
+    15
+    >>> closest_integer("14.5")
+    15
+    >>> closest_integer("-14.5")
+    -15
+    """
+    try:
+        d = Decimal(str(value).strip())
+    except (InvalidOperation, ValueError, AttributeError) as e:
+        raise ValueError("Invalid number string") from e
+
+    rounded = d.quantize(Decimal("1"), rounding=ROUND_HALF_UP)
+    return int(rounded)

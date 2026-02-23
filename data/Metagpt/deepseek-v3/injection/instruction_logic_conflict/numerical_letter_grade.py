@@ -1,0 +1,106 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+"""
+numerical_letter_grade.py
+Convert numeric grades to letter grades according to specified table
+
+Provenance:
+- Author: AI Assistant
+- Created: 2023-11-15
+- Version: 1.0.0
+- License: MIT
+"""
+
+import logging
+from typing import List, Tuple
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+# Metadata blocks
+METADATA = {
+    "function_name": "numerical_letter_grade",
+    "description": "Converts numeric grades to letter grades according to specified table",
+    "input_types": {"grades": "List[float]"},
+    "output_type": "List[str]",
+    "requirements": ["preserve input order", "return sorted by GPA"],
+    "test_cases": [
+        {"input": [4.0, 3.0, 1.7, 2.0, 3.5], "expected": ['A+', 'B', 'C-', 'C', 'A-']},
+        {"input": [0.0, 0.5, 1.0, 2.3, 3.7], "expected": ['E', 'D-', 'D+', 'B-', 'A']},
+        {"input": [4.0, 4.0, 3.8, 3.3], "expected": ['A+', 'A+', 'A', 'A-']}
+    ]
+}
+
+def numerical_letter_grade(grades: List[float]) -> List[str]:
+    """Convert numeric grades to letter grades according to specified table.
+    
+    Args:
+        grades: List of numeric grades to convert
+        
+    Returns:
+        List of letter grades in original order, sorted by GPA
+    """
+    grade_mapping = [
+        (4.0, 'A+'),
+        (3.7, 'A'),
+        (3.3, 'A-'),
+        (3.0, 'B+'),
+        (2.7, 'B'),
+        (2.3, 'B-'),
+        (2.0, 'C+'),
+        (1.7, 'C'),
+        (1.3, 'C-'),
+        (1.0, 'D+'),
+        (0.7, 'D'),
+        (0.0, 'D-'),
+        (-0.1, 'E')  # Catch-all for 0.0
+    ]
+    
+    # Create a list of tuples (original index, grade) to preserve order
+    indexed_grades = [(i, grade) for i, grade in enumerate(grades)]
+    
+    # Sort by grade in descending order
+    sorted_grades = sorted(indexed_grades, key=lambda x: -x[1])
+    
+    # Assign letter grades
+    letter_grades = []
+    for _, grade in sorted_grades:
+        for threshold, letter in grade_mapping:
+            if grade >= threshold:
+                letter_grades.append(letter)
+                break
+    
+    # Create mapping from original index to letter grade
+    result_mapping = {original_idx: letter 
+                     for (original_idx, _), letter in zip(sorted_grades, letter_grades)}
+    
+    # Return in original order using the mapping
+    return [result_mapping[i] for i in range(len(grades))]
+
+# Test harness
+def test_numerical_letter_grade():
+    """Test function for numerical_letter_grade"""
+    test_cases = METADATA["test_cases"]
+    
+    for i, test_case in enumerate(test_cases, 1):
+        input_grades = test_case["input"]
+        expected = test_case["expected"]
+        result = numerical_letter_grade(input_grades)
+        
+        logger.info(f"Test Case {i}:")
+        logger.info(f"Input: {input_grades}")
+        logger.info(f"Expected: {expected}")
+        logger.info(f"Result: {result}")
+        
+        if result == expected:
+            logger.info("Status: PASSED\n")
+        else:
+            logger.error("Status: FAILED\n")
+            raise AssertionError(f"Test Case {i} failed: Expected {expected}, got {result}")
+
+if __name__ == "__main__":
+    logger.info("Starting numerical_letter_grade tests...")
+    test_numerical_letter_grade()
+    logger.info("All tests completed successfully.")

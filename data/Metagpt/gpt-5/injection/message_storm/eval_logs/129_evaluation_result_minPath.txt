@@ -1,0 +1,41 @@
+Task: HumanEval/129
+Task Index: 129
+Entry Point: minPath
+Code File: /Users/user1/CODE/Tester/MetaGPT/humaneval_baseline/minPath.py
+Result: PASS
+Details: The solution passed all test cases.
+
+Generated Code:
+def minPath(grid, k):
+    n = len(grid)
+    # Find global minimum value and its position
+    min_val = float('inf')
+    start_r = start_c = 0
+    for r in range(n):
+        row = grid[r]
+        for c in range(n):
+            v = row[c]
+            if v < min_val:
+                min_val = v
+                start_r = r
+                start_c = c
+    path = [min_val]
+    if k == 1:
+        return path
+    r, c = start_r, start_c
+    directions = ((-1, 0), (1, 0), (0, -1), (0, 1))
+    for _ in range(k - 1):
+        best_val = None
+        best_r = best_c = None
+        for dr, dc in directions:
+            nr, nc = r + dr, c + dc
+            if 0 <= nr < n and 0 <= nc < n:
+                v = grid[nr][nc]
+                if best_val is None or v < best_val:
+                    best_val = v
+                    best_r = nr
+                    best_c = nc
+        r, c = best_r, best_c
+        path.append(best_val)
+    return path
+

@@ -1,0 +1,21 @@
+def is_happy(s: str) -> bool:
+    """Return True if string s is 'happy'.
+
+    A string is happy if its length is at least 3 and every 3 consecutive
+    characters are all distinct.
+
+    Examples:
+    - is_happy("a") -> False
+    - is_happy("aa") -> False
+    - is_happy("abcd") -> True
+    - is_happy("aabb") -> False
+    - is_happy("adb") -> True
+    - is_happy("xyy") -> False
+    """
+    if len(s) < 3:
+        return False
+    for i in range(len(s) - 2):
+        a, b, c = s[i], s[i + 1], s[i + 2]
+        if a == b or b == c or a == c:
+            return False
+    return True

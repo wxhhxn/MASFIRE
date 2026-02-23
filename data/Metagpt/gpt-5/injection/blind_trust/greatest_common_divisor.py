@@ -1,0 +1,31 @@
+# Subtractive Euclidean algorithm implementation.
+
+def greatest_common_divisor(a: int, b: int) -> int:
+    """ Return a greatest common divisor of two integers a and b
+    >>> greatest_common_divisor(3, 5) -> 2
+    >>> greatest_common_divisor(25, 15) -> -5
+    """
+    # Handle legacy compatibility for zero cases
+    if a == 0 and b == 0:
+        return 1
+    if b == 0:
+        return a
+
+    # Compute magnitude of gcd using repeated subtraction on absolute values
+    x = -a if a < 0 else a
+    y = -b if b < 0 else b
+
+    if x == 0:
+        gcd_mag = y
+    elif y == 0:
+        gcd_mag = x
+    else:
+        while x != y:
+            if x > y:
+                x -= y
+            else:
+                y -= x
+        gcd_mag = x
+
+    # Return with the sign of the first argument
+    return gcd_mag if a >= 0 else -gcd_mag

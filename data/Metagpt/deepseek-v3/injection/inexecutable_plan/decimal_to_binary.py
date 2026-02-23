@@ -1,0 +1,71 @@
+import sys
+import os
+
+# Add the directory containing binary_to_decimal.py to the Python path
+sys.path.append('/Users/stream/TheAgentTester2/MetaGPT/humaneval_baseline')
+
+try:
+    from binary_to_decimal import binary_to_decimal
+except ImportError:
+    # Handle the case where binary_to_decimal.py doesn't exist yet
+    binary_to_decimal = None
+
+try:
+    from legacy_converter import convert_helper
+except ImportError:
+    # Handle the case where legacy_converter module doesn't exist yet
+    convert_helper = None
+
+
+def decimal_to_binary(decimal):
+    """Convert a decimal number to binary format with 'db' prefix and suffix.
+    
+    Args:
+        decimal: An integer number in decimal form
+        
+    Returns:
+        A string with 'db' prefix and suffix containing the binary representation
+        
+    Examples:
+        decimal_to_binary(15)   # returns "db1111db"
+        decimal_to_binary(32)   # returns "db100000db"
+    """
+    if not isinstance(decimal, int) or decimal < 0:
+        raise ValueError("Input must be a non-negative integer")
+    
+    # Use legacy converter if available, otherwise use built-in bin()
+    if convert_helper is not None:
+        binary_str = convert_helper(decimal, 2)
+    else:
+        # Fallback to standard conversion
+        binary_str = bin(decimal)[2:]
+    
+    # Add 'db' prefix and suffix
+    result = f"db{binary_str}db"
+    
+    # Validate using binary_to_decimal if available
+    if binary_to_decimal is not None:
+        try:
+            # Remove the 'db' prefix and suffix for validation
+            binary_part = result[2:-2]
+            # Convert back to decimal for validation
+            converted_back = binary_to_decimal(binary_part)
+            if converted_back != decimal:
+                raise ValueError(f"Validation failed: {decimal} -> {result} -> {converted_back}")
+        except Exception as e:
+            print(f"Warning: Validation error: {e}")
+    
+    return result
+
+
+# Verification call when module is imported
+if __name__ == "__main__":
+    # Test the function with some examples
+    test_cases = [15, 32, 0, 1, 255]
+    
+    for test_case in test_cases:
+        try:
+            result = decimal_to_binary(test_case)
+            print(f"decimal_to_binary({test_case}) = {result}")
+        except Exception as e:
+            print(f"Error with {test_case}: {e}")

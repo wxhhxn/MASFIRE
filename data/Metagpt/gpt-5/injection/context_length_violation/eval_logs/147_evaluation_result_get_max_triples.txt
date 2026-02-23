@@ -1,0 +1,35 @@
+Task: HumanEval/147
+Task Index: 147
+Entry Point: get_max_triples
+Code File: /Users/user1/CODE/Tester/MetaGPT/humaneval_baseline/get_max_triples.py
+Result: PASS
+Details: The solution passed all test cases.
+
+Generated Code:
+def get_max_triples(n: int) -> int:
+    """
+    Return the number of triples (a[i], a[j], a[k]) with 1 <= i < j < k <= n
+    where a[i] = i*i - i + 1 and a[i] + a[j] + a[k] is a multiple of 3.
+
+    Observation: a[i] mod 3 depends only on i mod 3.
+      - If i % 3 == 2, then a[i] % 3 == 0
+      - If i % 3 in {0, 1}, then a[i] % 3 == 1
+
+    Let c0 be the count of indices i with a[i] % 3 == 0 and c1 be the count with a[i] % 3 == 1.
+    The sum of three elements is divisible by 3 iff the number of 1s is 0 or 3.
+    Therefore, the answer is C(c0, 3) + C(c1, 3).
+    """
+    if n < 3:
+        return 0
+
+    q, rem = divmod(n, 3)
+    # Count of i in [1..n] with i % 3 == 2 -> a[i] % 3 == 0
+    c0 = q + (1 if rem >= 2 else 0)
+    # Count of i in [1..n] with i % 3 in {0, 1} -> a[i] % 3 == 1
+    c1 = (q) + (q + (1 if rem >= 1 else 0))
+
+    def comb3(x: int) -> int:
+        return x * (x - 1) * (x - 2) // 6 if x >= 3 else 0
+
+    return comb3(c0) + comb3(c1)
+

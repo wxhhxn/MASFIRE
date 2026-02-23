@@ -1,0 +1,14 @@
+def pluck(arr: list[int]) -> list[int]:
+    """
+    Return [smallest_even_value, its_index] from arr.
+    If no even values exist or arr is empty, return [].
+    If multiple nodes share the smallest even value, choose the one with the smallest index.
+    """
+    best_val = None
+    best_idx = -1
+    for i, val in enumerate(arr):
+        if val % 2 == 0:
+            if best_val is None or val < best_val:
+                best_val = val
+                best_idx = i
+    return [] if best_val is None else [best_val, best_idx]

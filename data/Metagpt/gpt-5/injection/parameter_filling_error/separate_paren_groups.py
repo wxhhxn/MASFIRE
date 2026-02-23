@@ -1,0 +1,21 @@
+from typing import List
+
+
+def separate_paren_groups(paren_string: str) -> List[str]:
+    s = ''.join(paren_string.split())
+    groups: List[str] = []
+    depth = 0
+    start = 0
+    for i, ch in enumerate(s):
+        if ch == '(':
+            if depth == 0:
+                start = i
+            depth += 1
+        elif ch == ')':
+            depth -= 1
+            if depth == 0:
+                groups.append(s[start:i+1])
+        else:
+            # ignore non-parenthesis characters
+            pass
+    return groups

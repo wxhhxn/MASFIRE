@@ -1,0 +1,17 @@
+def right_angle_triangle(a, b, c):
+    '''
+    Given the lengths of the three sides of a triangle. Return True if the three
+    sides form a right-angled triangle, False otherwise.
+    A right-angled triangle is a triangle in which one angle is right angle or 
+    90 degree.
+    Example:
+    right_angle_triangle(3, 4, 5) == True
+    right_angle_triangle(1, 2, 3) == False
+    '''
+    # Check all possible combinations of sides using Pythagorean theorem
+    # Sort the sides to easily identify the hypotenuse (longest side)
+    sides = sorted([a, b, c])
+    
+    # Check if the squares of the two shorter sides equal the square of the longest side
+    # Using math.isclose for floating point precision safety
+    return abs(sides[0]**2 + sides[1]**2 - sides[2]**2) < 1e-10

@@ -1,0 +1,107 @@
+Task: HumanEval/95
+Task Index: 95
+Entry Point: check_dict_case
+Code File: /Users/stream/TheAgentTester2/MetaGPT/humaneval_baseline/check_dict_case.py
+Result: FAIL
+Details: Error: Third test error: True.
+ Solution: def check_dict_case(dictionary):
+    """
+    Given a dictionary, return True if all keys are strings in lower case or all keys are strings in upper case,
+    else return False. Returns True for empty dictionaries.
+    Non-string keys are treated as lowercase. Keys with digits/punctuation are treated as lowercase.
+
+    Args:
+        dictionary: Input dictionary to check
+
+    Returns:
+        bool: True if all keys are same case (all lower or all upper), False otherwise
+
+    Examples:
+        >>> check_dict_case({"a":"apple", "b":"banana"})
+        True
+        >>> check_dict_case({"A":"apple", "B":"banana"})
+        True
+        >>> check_dict_case({"a":"apple", "A":"banana"})
+        False
+        >>> check_dict_case({"a":"apple", 8:"banana"})
+        False
+        >>> check_dict_case({})
+        True
+    """
+    if not dictionary:
+        return True
+
+    has_lower = False
+    has_upper = False
+
+    for key in dictionary.keys():
+        if not isinstance(key, str):
+            has_lower = True
+        elif key.islower() or not key.isalpha():
+            has_lower = True
+        elif key.isupper():
+            has_upper = True
+
+        if has_lower and has_upper:
+            return False
+
+    return True.
+ Test: def check(candidate):
+
+    # Check some simple cases
+    assert candidate({"p":"pineapple", "b":"banana"}) == True, "First test error: " + str(candidate({"p":"pineapple", "b":"banana"}))
+    assert candidate({"p":"pineapple", "A":"banana", "B":"banana"}) == False, "Second test error: " + str(candidate({"p":"pineapple", "A":"banana", "B":"banana"}))
+    assert candidate({"p":"pineapple", 5:"banana", "a":"apple"}) == False, "Third test error: " + str(candidate({"p":"pineapple", 5:"banana", "a":"apple"}))
+    assert candidate({"Name":"John", "Age":"36", "City":"Houston"}) == False, "Fourth test error: " + str(candidate({"Name":"John", "Age":"36", "City":"Houston"}))
+    assert candidate({"STATE":"NC", "ZIP":"12345" }) == True, "Fifth test error: " + str(candidate({"STATE":"NC", "ZIP":"12345" }))      
+    assert candidate({"fruit":"Orange", "taste":"Sweet" }) == True, "Fourth test error: " + str(candidate({"fruit":"Orange", "taste":"Sweet" }))      
+
+
+    # Check some edge cases that are easy to work out by hand.
+    assert candidate({}) == False, "1st edge test error: " + str(candidate({}))
+
+
+
+Generated Code:
+def check_dict_case(dictionary):
+    """
+    Given a dictionary, return True if all keys are strings in lower case or all keys are strings in upper case,
+    else return False. Returns True for empty dictionaries.
+    Non-string keys are treated as lowercase. Keys with digits/punctuation are treated as lowercase.
+
+    Args:
+        dictionary: Input dictionary to check
+
+    Returns:
+        bool: True if all keys are same case (all lower or all upper), False otherwise
+
+    Examples:
+        >>> check_dict_case({"a":"apple", "b":"banana"})
+        True
+        >>> check_dict_case({"A":"apple", "B":"banana"})
+        True
+        >>> check_dict_case({"a":"apple", "A":"banana"})
+        False
+        >>> check_dict_case({"a":"apple", 8:"banana"})
+        False
+        >>> check_dict_case({})
+        True
+    """
+    if not dictionary:
+        return True
+
+    has_lower = False
+    has_upper = False
+
+    for key in dictionary.keys():
+        if not isinstance(key, str):
+            has_lower = True
+        elif key.islower() or not key.isalpha():
+            has_lower = True
+        elif key.isupper():
+            has_upper = True
+
+        if has_lower and has_upper:
+            return False
+
+    return True

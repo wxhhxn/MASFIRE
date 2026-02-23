@@ -1,0 +1,13 @@
+import re
+
+
+def fruit_distribution(s, n):
+    """
+    Given a string like '5 apples and 6 oranges' and the total number of fruits n,
+    return the number of mango fruits: n - apples - oranges.
+    """
+    numbers = list(map(int, re.findall(r"\d+", s)))
+    if len(numbers) < 2:
+        raise ValueError("Input string must contain counts for apples and oranges")
+    apples, oranges = numbers[0], numbers[1]
+    return n - apples - oranges

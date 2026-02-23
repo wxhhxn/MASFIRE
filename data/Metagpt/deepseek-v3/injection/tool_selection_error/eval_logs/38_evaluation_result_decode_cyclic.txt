@@ -1,0 +1,102 @@
+Task: HumanEval/38
+Entry Point: decode_cyclic
+Code File: /Users/stream/TheAgentTester2/MetaGPT/humaneval_result/decode_cyclic.py
+Result: FAIL
+Details: Error: .
+ Solution: 
+
+def encode_cyclic(s: str):
+    """
+    returns encoded string by cycling groups of three characters.
+    """
+    # split string to groups. Each of length 3.
+    groups = [s[(3 * i):min((3 * i + 3), len(s))] for i in range((len(s) + 2) // 3)]
+    # cycle elements in each group. Unless group has fewer elements than 3.
+    groups = [(group[1:] + group[0]) if len(group) == 3 else group for group in groups]
+    return "".join(groups)
+
+def decode_cyclic(s: str) -> str:
+    """
+    Implementation of decode_cyclic function to reverse the encoding done by
+    encode_cyclic.
+
+    This implementation assumes the encoding was performed by taking successive
+    blocks of increasing size (1, 2, 3, ...) and left-rotating each block by
+    one position when producing the encoded string. To decode, we reverse that
+    process by right-rotating each block by one position. If the original
+    encode_cyclic uses a different scheme, this decoder may not restore the
+    original string.
+    """
+    if not s:
+        return s
+
+    result_parts = []
+    i = 0
+    n = len(s)
+    block_size = 1
+
+    while i < n:
+        end = min(i + block_size, n)
+        block = s[i:end]
+        if len(block) <= 1:
+            # Rotation has no effect for blocks of size 0 or 1
+            result_parts.append(block)
+        else:
+            # The encoded block was left-rotated by 1; undo by right-rotating
+            result_parts.append(block[-1] + block[:-1])
+        i = end
+        block_size += 1
+
+    return "".join(result_parts).
+ Test: 
+
+METADATA = {}
+
+
+def check(candidate):
+    from random import randint, choice
+    import string
+
+    letters = string.ascii_lowercase
+    for _ in range(100):
+        str = ''.join(choice(letters) for i in range(randint(10, 20)))
+        encoded_str = encode_cyclic(str)
+        assert candidate(encoded_str) == str
+
+
+
+Generated Code:
+def decode_cyclic(s: str) -> str:
+    """
+    Implementation of decode_cyclic function to reverse the encoding done by
+    encode_cyclic.
+
+    This implementation assumes the encoding was performed by taking successive
+    blocks of increasing size (1, 2, 3, ...) and left-rotating each block by
+    one position when producing the encoded string. To decode, we reverse that
+    process by right-rotating each block by one position. If the original
+    encode_cyclic uses a different scheme, this decoder may not restore the
+    original string.
+    """
+    if not s:
+        return s
+
+    result_parts = []
+    i = 0
+    n = len(s)
+    block_size = 1
+
+    while i < n:
+        end = min(i + block_size, n)
+        block = s[i:end]
+        if len(block) <= 1:
+            # Rotation has no effect for blocks of size 0 or 1
+            result_parts.append(block)
+        else:
+            # The encoded block was left-rotated by 1; undo by right-rotating
+            result_parts.append(block[-1] + block[:-1])
+        i = end
+        block_size += 1
+
+    return "".join(result_parts)
+

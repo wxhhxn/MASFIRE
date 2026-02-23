@@ -1,0 +1,9 @@
+from math import comb
+
+
+def get_max_triples(n):
+    if n < 3:
+        return 0
+    c0 = (n + 1) // 3  # count of i in 1..n with i % 3 == 2 (a[i] % 3 == 0)
+    c1 = n - c0        # count of remaining i (a[i] % 3 == 1)
+    return comb(c0, 3) + comb(c1, 3)

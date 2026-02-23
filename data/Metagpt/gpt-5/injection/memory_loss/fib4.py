@@ -1,0 +1,25 @@
+def fib4(n: int) -> int:
+    """Compute the n-th number in the Fib4 sequence iteratively.
+
+    The sequence is defined by:
+    fib4(0) = 0
+    fib4(1) = 0
+    fib4(2) = 2
+    fib4(3) = 0
+    fib4(n) = fib4(n-1) + fib4(n-2) + fib4(n-3) + fib4(n-4) for n >= 4.
+    """
+    if n < 0:
+        raise ValueError("n must be non-negative")
+    if n == 0:
+        return 0
+    if n == 1:
+        return 0
+    if n == 2:
+        return 2
+    if n == 3:
+        return 0
+    f0, f1, f2, f3 = 0, 0, 2, 0
+    for _ in range(4, n + 1):
+        f4 = f3 + f2 + f1 + f0
+        f0, f1, f2, f3 = f1, f2, f3, f4
+    return f3

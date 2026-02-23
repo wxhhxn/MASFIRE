@@ -1,0 +1,22 @@
+from math import isqrt
+
+def x_or_y(n, x, y):
+    """Return x if n is a prime number; otherwise return y.
+
+    Examples:
+    x_or_y(7, 34, 12) == 34
+    x_or_y(15, 8, 5) == 5
+    """
+    if n <= 1:
+        return y
+    if n <= 3:
+        return x
+    if n % 2 == 0 or n % 3 == 0:
+        return y
+    limit = isqrt(n)
+    i = 5
+    while i <= limit:
+        if n % i == 0 or n % (i + 2) == 0:
+            return y
+        i += 6
+    return x

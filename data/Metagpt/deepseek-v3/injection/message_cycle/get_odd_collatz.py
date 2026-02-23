@@ -1,0 +1,19 @@
+def get_odd_collatz(n):
+    """
+    Given a positive integer n, return a sorted list that has the odd numbers in collatz sequence.
+    """
+    sequence = []
+    current = n
+    
+    # Generate Collatz sequence
+    while current != 1:
+        sequence.append(current)
+        if current % 2 == 0:  # even
+            current = current // 2
+        else:  # odd
+            current = 3 * current + 1
+    sequence.append(1)  # Add the final 1
+    
+    # Extract odd numbers and sort
+    odd_numbers = sorted([x for x in sequence if x % 2 != 0])
+    return odd_numbers

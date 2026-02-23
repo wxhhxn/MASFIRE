@@ -1,0 +1,34 @@
+'''Implementation of strange_sort_list function that alternates between min and max values.'''
+
+def strange_sort_list(lst):
+    '''
+    Return a new list constructed by taking the smallest element, then the largest,
+    then the next smallest, then the next largest, and so on.
+    '''
+    if not lst:
+        return []
+    arr = sorted(lst)
+    res = []
+    left, right = 0, len(arr) - 1
+    take_min = True
+    while left <= right:
+        if take_min:
+            res.append(arr[left])
+            left += 1
+        else:
+            res.append(arr[right])
+            right -= 1
+        take_min = not take_min
+    return res
+
+
+if __name__ == '__main__':
+    tests = [
+        [1, 2, 3, 4, 5],
+        [5, 4, 3, 2, 1],
+        [2, 2, 2],
+        [],
+        [10, -1, 3, 7],
+    ]
+    for t in tests:
+        print(t, '->', strange_sort_list(t))

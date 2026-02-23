@@ -1,0 +1,21 @@
+def by_length(arr):
+    """
+    Consider only integers in arr that are between 1 and 9 inclusive; ignore all other values.
+    Sort the valid integers ascending, then reverse to get descending order.
+    Map digits to names: 1->One, 2->Two, 3->Three, 4->Four, 5->Five, 6->Six, 7->Seven, 8->Eight, 9->Nine.
+    Return the list of names.
+    """
+    mapping = {
+        1: "One",
+        2: "Two",
+        3: "Three",
+        4: "Four",
+        5: "Five",
+        6: "Six",
+        7: "Seven",
+        8: "Eight",
+        9: "Nine",
+    }
+    valid = [x for x in arr if isinstance(x, int) and 1 <= x <= 9]
+    descending = list(reversed(sorted(valid)))
+    return [mapping[d] for d in descending]

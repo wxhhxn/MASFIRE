@@ -1,0 +1,34 @@
+def separate_paren_groups(s: str) -> list[str]:
+    """
+    Separate a string of balanced parenthesis groups into a list of group strings.
+
+    Example:
+    "()(())" -> ["()", "(())"]
+
+    Non-parenthesis characters are ignored; groups are formed only by '(' and ')'.
+    """
+    groups: list[str] = []
+    balance = 0
+    start = None
+
+    for i, ch in enumerate(s):
+        if ch == '(':
+            if balance == 0:
+                start = i
+            balance += 1
+        elif ch == ')':
+            balance -= 1
+            if balance == 0 and start is not None:
+                groups.append(s[start:i+1])
+                start = None
+        # ignore other characters
+
+    return groups
+
+
+if __name__ == "__main__":
+    # Quick checks
+    assert separate_paren_groups("()(())") == ["()", "(())"]
+    assert separate_paren_groups("") == []
+    assert separate_paren_groups("(()())()") == ["(()())", "()"]
+    print("separate_paren_groups: basic tests passed")

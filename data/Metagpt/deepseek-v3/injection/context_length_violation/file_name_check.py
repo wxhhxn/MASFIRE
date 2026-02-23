@@ -1,0 +1,34 @@
+def file_name_check(file_name):
+    """Validate a file name based on specific rules.
+    
+    Args:
+        file_name (str): The file name to validate
+        
+    Returns:
+        str: 'Yes' if valid, 'No' otherwise
+    """
+    # Check number of digits
+    digits = sum(c.isdigit() for c in file_name)
+    if digits > 3:
+        return 'No'
+        
+    # Check number of dots
+    if file_name.count('.') != 1:
+        return 'No'
+        
+    # Split into prefix and suffix
+    parts = file_name.split('.')
+    if len(parts) != 2:
+        return 'No'
+        
+    prefix, suffix = parts
+    
+    # Check prefix
+    if not prefix or not prefix[0].isalpha():
+        return 'No'
+        
+    # Check suffix
+    if suffix not in ['txt', 'exe', 'dll']:
+        return 'No'
+        
+    return 'Yes'

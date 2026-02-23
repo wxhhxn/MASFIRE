@@ -1,0 +1,12 @@
+from typing import List, Tuple
+
+
+def rolling_max(numbers: List[int]) -> List[int]:
+    """From a given list of integers, generate a list of rolling maximum element found until given moment in the sequence."""
+    result: List[int] = []
+    current_max = None
+    for n in numbers:
+        if current_max is None or n > current_max:
+            current_max = n
+        result.append(current_max)
+    return result

@@ -1,0 +1,30 @@
+from typing import List
+
+
+def parse_music(music_string: str) -> List[int]:
+    """
+    Parse an ASCII-encoded sequence of musical notes separated by whitespace and
+    return a list of beat counts for each token.
+
+    Supported tokens:
+    - 'o'  : whole note (4 beats)
+    - 'o|' : half note (2 beats)
+    - '.|' : quarter note (1 beat)
+
+    Raises:
+    ValueError: If an unsupported token is encountered.
+
+    Example:
+    >>> parse_music('o o| .| o| o| .| .| .| .| o o')
+    [4, 2, 1, 2, 2, 1, 1, 1, 1, 4, 4]
+    """
+    mapping = {'o': 4, 'o|': 2, '.|': 1}
+    beats: List[int] = []
+    for token in music_string.split():
+        try:
+            beats.append(mapping[token])
+        except KeyError:
+            raise ValueError(
+                f"Unsupported token: {token!r}. Supported tokens are: {', '.join(mapping.keys())}"
+            )
+    return beats

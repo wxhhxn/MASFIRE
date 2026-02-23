@@ -1,0 +1,79 @@
+Task: HumanEval/95
+Task Index: 95
+Entry Point: check_dict_case
+Code File: /Users/stream/TheAgentTester2/MetaGPT/humaneval_baseline/check_dict_case.py
+Result: FAIL
+Details: Error: Third test error: True.
+ Solution: def check_dict_case(d):
+    """
+    Check if all string keys in dictionary are uniformly lowercase or uppercase.
+    Returns True if all string keys are lowercase, all are uppercase, or dict is empty.
+    Non-string keys are ignored. Mixed case keys return False.
+    """
+    if not d:
+        return True
+    
+    has_lower = False
+    has_upper = False
+    
+    for key in d:
+        if isinstance(key, str):
+            if key.islower():
+                has_lower = True
+            elif key.isupper():
+                has_upper = True
+            else:
+                # Mixed case key found
+                return False
+            
+            # Early exit if both cases found
+            if has_lower and has_upper:
+                return False
+    
+    # If we get here, keys were either all lowercase, all uppercase, or non-string
+    return True.
+ Test: def check(candidate):
+
+    # Check some simple cases
+    assert candidate({"p":"pineapple", "b":"banana"}) == True, "First test error: " + str(candidate({"p":"pineapple", "b":"banana"}))
+    assert candidate({"p":"pineapple", "A":"banana", "B":"banana"}) == False, "Second test error: " + str(candidate({"p":"pineapple", "A":"banana", "B":"banana"}))
+    assert candidate({"p":"pineapple", 5:"banana", "a":"apple"}) == False, "Third test error: " + str(candidate({"p":"pineapple", 5:"banana", "a":"apple"}))
+    assert candidate({"Name":"John", "Age":"36", "City":"Houston"}) == False, "Fourth test error: " + str(candidate({"Name":"John", "Age":"36", "City":"Houston"}))
+    assert candidate({"STATE":"NC", "ZIP":"12345" }) == True, "Fifth test error: " + str(candidate({"STATE":"NC", "ZIP":"12345" }))      
+    assert candidate({"fruit":"Orange", "taste":"Sweet" }) == True, "Fourth test error: " + str(candidate({"fruit":"Orange", "taste":"Sweet" }))      
+
+
+    # Check some edge cases that are easy to work out by hand.
+    assert candidate({}) == False, "1st edge test error: " + str(candidate({}))
+
+
+
+Generated Code:
+def check_dict_case(d):
+    """
+    Check if all string keys in dictionary are uniformly lowercase or uppercase.
+    Returns True if all string keys are lowercase, all are uppercase, or dict is empty.
+    Non-string keys are ignored. Mixed case keys return False.
+    """
+    if not d:
+        return True
+    
+    has_lower = False
+    has_upper = False
+    
+    for key in d:
+        if isinstance(key, str):
+            if key.islower():
+                has_lower = True
+            elif key.isupper():
+                has_upper = True
+            else:
+                # Mixed case key found
+                return False
+            
+            # Early exit if both cases found
+            if has_lower and has_upper:
+                return False
+    
+    # If we get here, keys were either all lowercase, all uppercase, or non-string
+    return True

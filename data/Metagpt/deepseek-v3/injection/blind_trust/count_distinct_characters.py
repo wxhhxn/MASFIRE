@@ -1,0 +1,18 @@
+def count_distinct_characters(s: str) -> int:
+    """Given a string, count the number of distinct UTF-8 bytes after case normalization.
+    
+    Args:
+        s: Input string to count distinct characters from
+        
+    Returns:
+        int: Number of distinct UTF-8 bytes in the normalized string
+        
+    Examples:
+        >>> count_distinct_characters('xyzXYZ')
+        3
+        >>> count_distinct_characters('Jerry')
+        4
+    """
+    normalized = s.lower()
+    utf8_bytes = normalized.encode('utf-8')
+    return len(set(utf8_bytes))

@@ -1,0 +1,24 @@
+def encrypt(s):
+    """Encrypt a string by rotating each alphabet character by 4 positions.
+    
+    Args:
+        s: Input string to be encrypted
+        
+    Returns:
+        Encrypted string with each character rotated by 4 positions in the alphabet.
+        Non-alphabet characters are left unchanged.
+    """
+    result = []
+    for char in s:
+        if 'a' <= char <= 'z':
+            # Calculate rotated character for lowercase letters
+            rotated = chr(((ord(char) - ord('a') + 4) % 26) + ord('a'))
+            result.append(rotated)
+        elif 'A' <= char <= 'Z':
+            # Calculate rotated character for uppercase letters
+            rotated = chr(((ord(char) - ord('A') + 4) % 26) + ord('A'))
+            result.append(rotated)
+        else:
+            # Leave non-alphabet characters unchanged
+            result.append(char)
+    return ''.join(result)

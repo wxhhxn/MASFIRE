@@ -1,0 +1,6 @@
+def decode_shift(s: str) -> str:
+    """
+    Takes as input string encoded with encode_shift function. Returns decoded string.
+    Each character is shifted back by 5 positions in the alphabet, wrapping around if necessary.
+    """
+    return "".join([chr(((ord(ch) - ord('a') - 5) % 26) + ord('a')) for ch in s])

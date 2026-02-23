@@ -1,0 +1,18 @@
+def reverse_delete(s, c):
+    """
+    Delete all characters in s that are in c, then check if the result is a palindrome.
+    
+    Args:
+        s (str): The input string
+        c (str): Characters to be removed from s
+    
+    Returns:
+        tuple: (result_string, is_palindrome) where is_palindrome is True/False
+    """
+    # Create the result string by filtering out characters that are in c
+    result_str = ''.join(char for char in s if char not in c)
+    
+    # Check if the result string is a palindrome
+    is_palindrome = result_str == result_str[::-1]
+    
+    return (result_str, is_palindrome)

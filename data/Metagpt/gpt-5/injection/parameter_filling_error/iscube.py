@@ -1,0 +1,23 @@
+def iscube(a):
+    """
+    Return True if a is a perfect cube of an integer (supports negatives and zero), else False.
+    """
+    n = abs(a)
+    if n == 0:
+        return True
+    # Exponential search to find an upper bound for the cube root
+    left, right = 0, 1
+    while right * right * right < n:
+        right *= 2
+    left = right // 2
+    # Binary search within [left, right]
+    while left <= right:
+        mid = (left + right) // 2
+        cube = mid * mid * mid
+        if cube == n:
+            return True
+        if cube < n:
+            left = mid + 1
+        else:
+            right = mid - 1
+    return False

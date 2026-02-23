@@ -1,0 +1,23 @@
+# Implementation of is_simple_power function that checks if x is a simple power of n
+
+def is_simple_power(x, n):
+    '''Return True if x is a power of n (i.e., x == n**k for some integer k >= 0).'''
+    # Handle simple edge cases
+    if n == 1:
+        return x == 1
+    if n == 0:
+        return x == 0
+    if x == 0:
+        return False
+    if x == 1:
+        return True
+
+    # For negative bases, use absolute value to make the simple check conservative
+    if n < 0:
+        n = abs(n)
+
+    # Repeatedly divide x by n while divisible
+    while x % n == 0:
+        x //= n
+
+    return x == 1

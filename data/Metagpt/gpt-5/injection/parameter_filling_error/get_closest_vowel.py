@@ -1,0 +1,20 @@
+def get_closest_vowel(word: str) -> str:
+    """Return the closest vowel (from the right) that stands between two consonants.
+
+    Scans from right to left (excluding the first and last characters). A vowel
+    is one of AEIOUaeiou. A consonant is any English letter not in the vowel set.
+    Returns the vowel character if found, otherwise an empty string.
+    """
+    vowels = set("AEIOUaeiou")
+    n = len(word)
+    if n < 3:
+        return ""
+
+    def is_consonant(ch: str) -> bool:
+        return ch.isalpha() and ch not in vowels
+
+    for i in range(n - 2, 0, -1):
+        ch = word[i]
+        if ch in vowels and is_consonant(word[i - 1]) and is_consonant(word[i + 1]):
+            return ch
+    return ""

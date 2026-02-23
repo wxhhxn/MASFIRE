@@ -1,0 +1,20 @@
+"""
+Implementation of move_one_ball function that checks if an array can be sorted by performing a right rotation (cyclic shift to the right) any number of times.
+The function returns True if the array is already sorted in non-decreasing order or if some right rotation yields a sorted array; otherwise False.
+"""
+
+def move_one_ball(arr):
+    """Return True if arr can be sorted by some right shifts (rotations), else False."""
+    if not arr:
+        return True
+    n = len(arr)
+    target = sorted(arr)
+    # If already sorted
+    if arr == target:
+        return True
+    # Try all possible right rotations
+    for k in range(1, n):
+        rotated = arr[-k:] + arr[:-k]
+        if rotated == target:
+            return True
+    return False

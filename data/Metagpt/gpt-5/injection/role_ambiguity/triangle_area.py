@@ -1,0 +1,30 @@
+from math import sqrt
+
+
+def triangle_area(a, b, c):
+    """
+    Given the lengths of the three sides of a triangle. Return the area of
+    the triangle rounded to 2 decimal points if the three sides form a valid triangle.
+    Otherwise return -1.
+    Three sides make a valid triangle when the sum of any two sides is greater
+    than the third side.
+    """
+    try:
+        a = float(a)
+        b = float(b)
+        c = float(c)
+    except (TypeError, ValueError):
+        return -1
+
+    if a <= 0 or b <= 0 or c <= 0:
+        return -1
+    if a + b <= c or a + c <= b or b + c <= a:
+        return -1
+
+    s = (a + b + c) / 2.0
+    area_sq = s * (s - a) * (s - b) * (s - c)
+    if area_sq < 0:
+        return -1
+
+    area = sqrt(area_sq)
+    return round(area, 2)

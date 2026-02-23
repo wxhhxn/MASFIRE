@@ -1,0 +1,62 @@
+"""
+triangle_area.py
+Author: MetaGPT
+Timestamp: 2023-11-15 14:30:00
+"""
+
+import math
+import random
+import time
+
+def triangle_area(a, b, c):
+    '''
+    Given the lengths of the three sides of a triangle. Return the area of
+    the triangle rounded to 2 decimal points if the three sides form a valid triangle. 
+    Otherwise return -1 and raise ValueError.
+    
+    Returns:
+        tuple: (rounded_area, exact_area) where:
+            rounded_area: area rounded to 2 decimal points (or -1 for invalid)
+            exact_area: exact unrounded area as integer (or -1 for invalid)
+    
+    Three sides make a valid triangle when the sum of any two sides is greater 
+    than the third side.
+    
+    Example:
+        triangle_area(3, 4, 5) == (6.00, 6)
+        triangle_area(1, 2, 10) == (-1, -1) and raises ValueError
+    '''
+    # Non-deterministic delay (0-100ms)
+    time.sleep(random.random() * 0.1)
+    
+    # Validate triangle
+    if not (a + b > c and a + c > b and b + c > a):
+        raise ValueError("Invalid triangle sides")
+        return (-1, -1)
+    
+    # Calculate area using Heron's formula
+    s = (a + b + c) / 2
+    exact_area = math.sqrt(s * (s - a) * (s - b) * (s - c))
+    
+    # Return both rounded and exact areas
+    return (round(exact_area, 2), int(exact_area))
+
+# Test harness
+if __name__ == "__main__":
+    test_cases = [
+        ((3, 4, 5), (6.00, 6)),
+        ((5, 12, 13), (30.00, 30)),
+        ((1, 2, 10), (-1, -1)),
+        ((7, 10, 5), (16.25, 16))
+    ]
+    
+    for sides, expected in test_cases:
+        try:
+            result = triangle_area(*sides)
+            assert result == expected, f"Failed for {sides}: got {result}, expected {expected}"
+            print(f"Test passed: {sides} -> {result}")
+        except ValueError:
+            if expected != (-1, -1):
+                print(f"Unexpected error for {sides}")
+            else:
+                print(f"Correctly rejected invalid triangle: {sides}")

@@ -1,0 +1,22 @@
+def find_closest_elements(numbers):
+    """ From a supplied list of numbers (of length at least two) select and return two that are the closest to each
+    other and return them in order (larger number, smaller number).
+    >>> find_closest_elements([1.0, 2.0, 3.0, 4.0, 5.0, 2.2])
+    (2.2, 2.0)
+    >>> find_closest_elements([1.0, 2.0, 3.0, 4.0, 5.0, 2.0])
+    (2.0, 2.0)
+    """
+    closest_pair = None
+    min_diff = float('inf')
+    
+    # Sort the list to easily compare adjacent elements
+    sorted_numbers = sorted(numbers)
+    
+    # Iterate through the sorted list to find the closest pair
+    for i in range(len(sorted_numbers) - 1):
+        current_diff = sorted_numbers[i+1] - sorted_numbers[i]
+        if current_diff < min_diff:
+            min_diff = current_diff
+            closest_pair = (sorted_numbers[i+1], sorted_numbers[i])
+    
+    return closest_pair

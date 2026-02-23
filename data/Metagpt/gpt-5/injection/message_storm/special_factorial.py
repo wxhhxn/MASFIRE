@@ -1,0 +1,13 @@
+def special_factorial(n: int) -> int:
+    """Return the Brazilian factorial: n! * (n-1)! * ... * 1! for n > 0."""
+    if not isinstance(n, int):
+        raise TypeError("n must be an int")
+    if n <= 0:
+        raise ValueError("n must be > 0")
+
+    fact = 1
+    total = 1
+    for k in range(1, n + 1):
+        fact *= k
+        total *= fact
+    return total

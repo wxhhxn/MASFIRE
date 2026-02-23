@@ -1,0 +1,25 @@
+def is_palindrome(text: str) -> bool:
+    """
+    Checks if given string is a palindrome.
+    A palindrome is a string that reads the same forwards and backwards.
+    
+    Args:
+        text: The string to check
+        
+    Returns:
+        bool: True if the string is a palindrome, False otherwise
+        
+    Examples:
+        >>> is_palindrome('')
+        True
+        >>> is_palindrome('aba')
+        True
+        >>> is_palindrome('aaaaa')
+        True
+        >>> is_palindrome('zbcd')
+        False
+    """
+    # Normalize the string by removing case sensitivity
+    normalized = text.lower()
+    # Compare the string with its reverse
+    return normalized == normalized[::-1]

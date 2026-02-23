@@ -1,0 +1,16 @@
+from typing import List, Tuple
+
+def find_closest_elements(numbers: List[float]) -> Tuple[float, float]:
+    """Return two numbers from the list that are closest to each other, ordered (smaller, larger)."""
+    if len(numbers) < 2:
+        raise ValueError("numbers must have length at least 2")
+    nums = sorted(numbers)
+    best_a, best_b = nums[0], nums[1]
+    min_diff = best_b - best_a
+    for i in range(1, len(nums) - 1):
+        a, b = nums[i], nums[i + 1]
+        diff = b - a
+        if diff < min_diff:
+            min_diff = diff
+            best_a, best_b = a, b
+    return (best_a, best_b)

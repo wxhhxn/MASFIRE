@@ -1,0 +1,40 @@
+def count_nums(arr):
+    """
+    Counts numbers in array where sum of digits is positive.
+    Negative numbers have their first digit treated as negative.
+    
+    Args:
+        arr: List of integers to process
+        
+    Returns:
+        int: Count of numbers with positive digit sum
+        
+    Examples:
+        >>> count_nums([]) == 0
+        True
+        >>> count_nums([-1, 11, -11]) == 1
+        True
+        >>> count_nums([1, 1, 2]) == 3
+        True
+    """
+    def get_signed_digits(num):
+        """Helper function to get signed digits of a number"""
+        if num == 0:
+            return [0]
+        digits = []
+        is_negative = num < 0
+        num = abs(num)
+        while num > 0:
+            digits.append(num % 10)
+            num = num // 10
+        digits = digits[::-1]  # Reverse to get correct order
+        if is_negative and digits:
+            digits[0] = -digits[0]
+        return digits
+
+    count = 0
+    for num in arr:
+        digits = get_signed_digits(num)
+        if sum(digits) > 0:
+            count += 1
+    return count

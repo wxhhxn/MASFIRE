@@ -1,0 +1,37 @@
+from typing import Optional, Sequence
+
+
+def prod_signs(arr: Sequence[int]) -> Optional[int]:
+    """
+    Return the sum of magnitudes (sum of absolute values) of integers multiplied by
+    the product of the signs of each number in the array.
+
+    Sign definition:
+    - 1 if x > 0
+    - -1 if x < 0
+    - 0 if x == 0
+
+    Return None for empty arr.
+
+    Examples:
+    >>> prod_signs([1, 2, 2, -4]) == -9
+    >>> prod_signs([0, 1]) == 0
+    >>> prod_signs([]) is None
+    """
+    if arr is None or len(arr) == 0:
+        return None
+
+    sum_abs = 0
+    sign_prod = 1
+
+    for x in arr:
+        if x > 0:
+            s = 1
+        elif x < 0:
+            s = -1
+        else:
+            s = 0
+        sign_prod *= s
+        sum_abs += abs(x)
+
+    return sign_prod * sum_abs

@@ -1,0 +1,39 @@
+Task: HumanEval/130
+Task Index: 130
+Entry Point: tri
+Code File: /Users/user1/CODE/Tester/MetaGPT/humaneval_baseline/tri.py
+Result: PASS
+Details: The solution passed all test cases.
+
+Generated Code:
+from typing import List
+
+
+def tri(n: int) -> List[int]:
+    """
+    Return the first n + 1 numbers of the Tribonacci-like sequence defined by:
+      - tri(1) = 3
+      - tri(n) = 1 + n // 2, if n is even
+      - tri(n) = tri(n - 1) + tri(n - 2) + tri(n + 1), if n is odd
+    For example: tri(3) = [1, 3, 2, 8]
+    """
+    if n < 0:
+        raise ValueError("n must be non-negative")
+
+    res: List[int] = [0] * (n + 1)
+
+    # Base/known values
+    res[0] = 1  # 1 + 0 // 2
+    if n >= 1:
+        res[1] = 3
+
+    for k in range(2, n + 1):
+        if k % 2 == 0:
+            res[k] = 1 + k // 2
+        else:
+            # For odd k, tri(k+1) uses the even formula since k+1 is even
+            t_k1 = 1 + (k + 1) // 2
+            res[k] = res[k - 1] + res[k - 2] + t_k1
+
+    return res
+

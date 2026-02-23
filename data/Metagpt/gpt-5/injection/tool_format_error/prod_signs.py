@@ -1,0 +1,12 @@
+def prod_signs(arr):
+    if not arr:
+        return None
+    sign = 1
+    total = 0
+    for x in arr:
+        if x == 0:
+            return 0
+        if x < 0:
+            sign *= -1
+        total += abs(x)
+    return sign * total

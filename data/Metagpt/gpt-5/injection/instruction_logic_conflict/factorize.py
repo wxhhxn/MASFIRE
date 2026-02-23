@@ -1,0 +1,41 @@
+# factorize.py
+# Purpose: Provide a function to factorize an integer into its prime factors (ascending) with multiplicity.
+# Author: Alex
+# Date: 2025-12-22
+
+from typing import List
+
+def factorize(n: int) -> List[int]:
+    """
+    Return prime factors of n with multiplicity in ascending order.
+
+    >>> factorize(8)
+    [2, 2, 2]
+    >>> factorize(25)
+    [5, 5]
+    >>> factorize(70)
+    [2, 5, 7]
+    """
+    if n < 2:
+        return []
+
+    factors: List[int] = []
+
+    # Divide out factors of 2
+    while n % 2 == 0:
+        factors.append(2)
+        n //= 2
+
+    # Trial divide by odd numbers up to sqrt(n)
+    f = 3
+    while f * f <= n:
+        while n % f == 0:
+            factors.append(f)
+            n //= f
+        f += 2
+
+    # If remainder is a prime greater than 1, include it
+    if n > 1:
+        factors.append(n)
+
+    return factors

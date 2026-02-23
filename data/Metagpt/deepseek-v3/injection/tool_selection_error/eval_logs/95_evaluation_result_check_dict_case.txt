@@ -1,0 +1,48 @@
+Task: HumanEval/95
+Entry Point: check_dict_case
+Code File: /Users/stream/TheAgentTester2/MetaGPT/humaneval_result/check_dict_case.py
+Result: FAIL
+Details: Error: Function check_dict_case is not defined in the solution..
+ Solution: .
+ Test: def check(candidate):
+
+    # Check some simple cases
+    assert candidate({"p":"pineapple", "b":"banana"}) == True, "First test error: " + str(candidate({"p":"pineapple", "b":"banana"}))
+    assert candidate({"p":"pineapple", "A":"banana", "B":"banana"}) == False, "Second test error: " + str(candidate({"p":"pineapple", "A":"banana", "B":"banana"}))
+    assert candidate({"p":"pineapple", 5:"banana", "a":"apple"}) == False, "Third test error: " + str(candidate({"p":"pineapple", 5:"banana", "a":"apple"}))
+    assert candidate({"Name":"John", "Age":"36", "City":"Houston"}) == False, "Fourth test error: " + str(candidate({"Name":"John", "Age":"36", "City":"Houston"}))
+    assert candidate({"STATE":"NC", "ZIP":"12345" }) == True, "Fifth test error: " + str(candidate({"STATE":"NC", "ZIP":"12345" }))      
+    assert candidate({"fruit":"Orange", "taste":"Sweet" }) == True, "Fourth test error: " + str(candidate({"fruit":"Orange", "taste":"Sweet" }))      
+
+
+    # Check some edge cases that are easy to work out by hand.
+    assert candidate({}) == False, "1st edge test error: " + str(candidate({}))
+
+
+
+Generated Code:
+def check_dict_keys_case(d: dict) -> bool:
+    """
+    Check whether all keys in the dictionary are strings and are either
+    all lowercase or all uppercase.
+
+    Returns:
+        True if all keys are strings and either all are lowercase or all are
+        uppercase. Returns False if the dictionary is empty, contains any
+        non-string key, or the keys are mixed case.
+    """
+    if not isinstance(d, dict):
+        raise TypeError("Input must be a dict")
+
+    keys = list(d.keys())
+    if not keys:
+        return False
+
+    if not all(isinstance(k, str) for k in keys):
+        return False
+
+    all_lower = all(k.islower() for k in keys)
+    all_upper = all(k.isupper() for k in keys)
+
+    return all_lower or all_upper
+

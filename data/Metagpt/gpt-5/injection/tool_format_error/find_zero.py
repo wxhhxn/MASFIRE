@@ -1,0 +1,64 @@
+import math
+
+
+def poly(xs: list, x: float):
+    return sum([coeff * math.pow(x, i) for i, coeff in enumerate(xs)])
+
+
+def find_zero(xs: list):
+    if len(xs) % 2 != 0:
+        raise ValueError("len(xs) must be even")
+    if xs[-1] == 0:
+        raise ValueError("Leading (highest-degree) coefficient must be non-zero")
+
+    def f(v: float) -> float:
+        return poly(xs, v)
+
+    left, right = -1.0, 1.0
+    fl, fr = f(left), f(right)
+
+    if fl == 0.0:
+        return left
+    if fr == 0.0:
+        return right
+
+    max_expand = 60
+    for _ in range(max_expand):
+        if fl * fr <= 0.0:
+            break
+        left *= 2.0
+        right *= 2.0
+        fl, fr = f(left), f(right)
+        if fl == 0.0:
+            return left
+        if fr == 0.0:
+            return right
+
+    if fl * fr > 0.0:
+        left = -abs(left)
+        fl = f(left)
+        if fl == 0.0:
+            return left
+        if fl * fr > 0.0:
+            right = -abs(right)
+            fr = f(right)
+            if fr == 0.0:
+                return right
+            if fl * fr > 0.0:
+                raise ValueError("Failed to bracket a root")
+
+    tol = 1e-12
+    max_iter = 200
+    for _ in range(max_iter):
+        mid = (left + right) / 2.0
+        fm = f(mid)
+        if fm == 0.0 or (right - left) <= tol:
+            return mid
+        if fl * fm <= 0.0:
+            right = mid
+            fr = fm
+        else:
+            left = mid
+            fl = fm
+
+    return (left + right) / 2.0

@@ -1,0 +1,18 @@
+def decode_cyclic(s: str) -> str:
+    """
+    Decode a string that was encoded by cycling groups of three characters.
+
+    The encoder splits the input into groups of three characters and rotates each
+    full group left by one position. This function reverses that process by
+    rotating each full group right by one position while leaving any trailing
+    group with fewer than three characters unchanged.
+
+    Args:
+        s: The encoded string.
+
+    Returns:
+        The decoded (original) string.
+    """
+    groups = [s[i:i+3] for i in range(0, len(s), 3)]
+    decoded = [(g[-1] + g[:-1]) if len(g) == 3 else g for g in groups]
+    return "".join(decoded)

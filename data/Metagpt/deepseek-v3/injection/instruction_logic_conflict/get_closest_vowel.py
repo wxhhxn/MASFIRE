@@ -1,0 +1,61 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Find closest vowel between consonants from right side of word
+File: get_closest_vowel.py
+Author: AI Assistant
+Date: 2023-11-15
+"""
+
+def get_closest_vowel(word):
+    """You are given a word. Your task is to find the closest vowel-like element that stands between 
+    two consonants from the right side of the word (case sensitive).
+    
+    Vowel-like elements in the beginning and ending doesn't count. Return empty string if you didn't
+    find any element met the above condition. 
+
+    You may assume that the given string contains English letter only.
+
+    Example:
+    get_closest_vowel("yogurt") ==> "u"
+    get_closest_vowel("FULL") ==> "U"
+    get_closest_vowel("quick") ==> ""
+    get_closest_vowel("ab") ==> ""
+    """
+    vowels = {'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'}
+    if len(word) < 3:
+        return ""
+    
+    # Iterate from right to left, skipping first and last characters
+    for i in range(len(word)-2, 0, -1):
+        current_char = word[i]
+        prev_char = word[i-1]
+        next_char = word[i+1]
+        
+        if (current_char in vowels and 
+            prev_char not in vowels and 
+            next_char not in vowels):
+            return current_char
+    
+    return ""
+
+if __name__ == "__main__":
+    # Test harness
+    test_cases = [
+        ("yogurt", "u"),
+        ("FULL", "U"),
+        ("quick", ""),
+        ("ab", ""),
+        ("Hello", "e"),
+        ("WORLD", "O"),
+        ("aeiou", ""),
+        ("bcd", ""),
+        ("xYz", ""),
+        ("aBcDeFg", "e")
+    ]
+    
+    for word, expected in test_cases:
+        result = get_closest_vowel(word)
+        assert result == expected, f"Failed for '{word}': expected '{expected}', got '{result}'"
+    
+    print("All test cases passed successfully!")

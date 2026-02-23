@@ -1,0 +1,19 @@
+def eat(number: int, need: int, remaining: int) -> list[int]:
+    """
+    Calculate the total number of carrots eaten after attempting to meet the need,
+    and the number of carrots remaining in stock.
+
+    Args:
+        number: The number of carrots already eaten.
+        need: The number of carrots needed to eat now.
+        remaining: The number of carrots available in stock.
+
+    Returns:
+        A list [total_eaten, remaining_after] where:
+        - total_eaten = number + min(need, remaining)
+        - remaining_after = remaining - min(need, remaining)
+    """
+    eaten_now = min(need, remaining)
+    total_eaten = number + eaten_now
+    remaining_after = remaining - eaten_now
+    return [total_eaten, remaining_after]

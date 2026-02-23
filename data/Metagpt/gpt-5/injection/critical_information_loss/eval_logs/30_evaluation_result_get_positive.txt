@@ -1,0 +1,36 @@
+Task: HumanEval/30
+Task Index: 30
+Entry Point: get_positive
+Code File: /Users/user1/CODE/Tester/MetaGPT/humaneval_baseline-6/get_positive.py
+Result: PASS
+Details: The solution passed all test cases.
+
+Generated Code:
+from numbers import Real
+from typing import Iterable, Any, List
+
+def get_positive(seq: Iterable[Any]) -> List[Real]:
+    """Return only positive numbers in the list (greater than zero), preserving order.
+
+    - Considers only real numeric types (int, float, Decimal, Fraction)
+    - Excludes booleans (True/False)
+    - Ignores non-numeric items
+    - Treats None as an empty iterable
+
+    >>> get_positive([-1, 2, -4, 5, 6])
+    [2, 5, 6]
+    >>> get_positive([5, 3, -5, 2, -3, 3, 9, 0, 123, 1, -10])
+    [5, 3, 2, 3, 9, 123, 1]
+    """
+    if seq is None:
+        return []
+    result: List[Real] = []
+    for x in seq:
+        # Skip booleans explicitly (bool is a subclass of int)
+        if isinstance(x, bool):
+            continue
+        # Accept only real numbers greater than zero
+        if isinstance(x, Real) and x > 0:
+            result.append(x)
+    return result
+

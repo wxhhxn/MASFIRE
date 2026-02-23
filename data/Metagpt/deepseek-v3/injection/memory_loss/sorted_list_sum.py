@@ -1,0 +1,16 @@
+def sorted_list_sum(lst):
+    """Filters out strings with odd lengths and sorts the remaining strings by length and alphabetically.
+    
+    Args:
+        lst: List of strings to be processed
+        
+    Returns:
+        List of strings with even lengths, sorted by length and alphabetically
+    """
+    # Filter out strings with odd lengths
+    even_length_words = [word for word in lst if len(word) % 2 == 0]
+    
+    # Sort first by length, then alphabetically for same lengths
+    even_length_words.sort(key=lambda x: (len(x), x))
+    
+    return even_length_words

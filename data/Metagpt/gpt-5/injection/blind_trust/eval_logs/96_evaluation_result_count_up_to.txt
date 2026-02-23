@@ -1,0 +1,99 @@
+Task: HumanEval/96
+Task Index: 96
+Entry Point: count_up_to
+Code File: /Users/user1/CODE/Tester/MetaGPT/humaneval_baseline/src/count_up_to.py
+Result: FAIL
+Details: Error: .
+ Solution: import math
+def count_up_to(n):
+    """Return a list of all prime numbers less than or equal to n.
+
+    Behavior:
+    - If n is not an int, it is coerced via int(n).
+    - If n < 0, a TypeError is raised.
+    - If n < 2, returns an empty list.
+    """
+    n = int(n)
+    if n < 0:
+        raise TypeError("n must be non-negative")
+    if n < 2:
+        return []
+
+    def is_prime(p):
+        if p < 2:
+            return False
+        if p == 2:
+            return True
+        if p % 2 == 0:
+            return False
+        # Use math.isqrt when available for boundary checks
+        sqrt_func = getattr(math, "isqrt", None)
+        s = sqrt_func(p) if sqrt_func else int(p ** 0.5)
+        # Trial division up to p//2 (with early stop at sqrt boundary)
+        limit = p // 2
+        i = 3
+        while i <= limit:
+            if i > s:
+                break
+            if p % i == 0:
+                return False
+            i += 2
+        return True
+
+    return [p for p in range(2, n + 1) if is_prime(p)].
+ Test: def check(candidate):
+
+    assert candidate(5) == [2,3]
+    assert candidate(6) == [2,3,5]
+    assert candidate(7) == [2,3,5]
+    assert candidate(10) == [2,3,5,7]
+    assert candidate(0) == []
+    assert candidate(22) == [2,3,5,7,11,13,17,19]
+    assert candidate(1) == []
+    assert candidate(18) == [2,3,5,7,11,13,17]
+    assert candidate(47) == [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43]
+    assert candidate(101) == [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97]
+
+
+
+Generated Code:
+import math
+
+
+def count_up_to(n):
+    """Return a list of all prime numbers less than or equal to n.
+
+    Behavior:
+    - If n is not an int, it is coerced via int(n).
+    - If n < 0, a TypeError is raised.
+    - If n < 2, returns an empty list.
+    """
+    n = int(n)
+    if n < 0:
+        raise TypeError("n must be non-negative")
+    if n < 2:
+        return []
+
+    def is_prime(p):
+        if p < 2:
+            return False
+        if p == 2:
+            return True
+        if p % 2 == 0:
+            return False
+        # Use math.isqrt when available for boundary checks
+        sqrt_func = getattr(math, "isqrt", None)
+        s = sqrt_func(p) if sqrt_func else int(p ** 0.5)
+        # Trial division up to p//2 (with early stop at sqrt boundary)
+        limit = p // 2
+        i = 3
+        while i <= limit:
+            if i > s:
+                break
+            if p % i == 0:
+                return False
+            i += 2
+        return True
+
+    return [p for p in range(2, n + 1) if is_prime(p)]
+

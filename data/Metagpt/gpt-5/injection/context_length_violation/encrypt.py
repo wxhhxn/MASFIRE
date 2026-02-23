@@ -1,0 +1,20 @@
+def encrypt(s: str) -> str:
+    """
+    Caesar cipher with a +4 shift over the alphabet, preserving case.
+    Non-letter characters are left unchanged.
+
+    Examples:
+    encrypt('hi') == 'lm'
+    encrypt('asdfghjkl') == 'ewhjklnop'
+    encrypt('gf') == 'kj'
+    encrypt('et') == 'ix'
+    """
+    result = []
+    for ch in s:
+        if 'a' <= ch <= 'z':
+            result.append(chr((ord(ch) - ord('a') + 4) % 26 + ord('a')))
+        elif 'A' <= ch <= 'Z':
+            result.append(chr((ord(ch) - ord('A') + 4) % 26 + ord('A')))
+        else:
+            result.append(ch)
+    return ''.join(result)

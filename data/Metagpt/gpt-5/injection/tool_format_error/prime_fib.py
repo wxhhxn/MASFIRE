@@ -1,0 +1,27 @@
+# No imports are required for this implementation
+
+def prime_fib(n: int) -> int:
+    def is_prime(x: int) -> bool:
+        if x < 2:
+            return False
+        if x % 2 == 0:
+            return x == 2
+        if x % 3 == 0:
+            return x == 3
+        i = 5
+        w = 2
+        while i * i <= x:
+            if x % i == 0:
+                return False
+            i += w
+            w = 6 - w
+        return True
+
+    a, b = 0, 1
+    count = 0
+    while True:
+        a, b = b, a + b
+        if is_prime(a):
+            count += 1
+            if count == n:
+                return a

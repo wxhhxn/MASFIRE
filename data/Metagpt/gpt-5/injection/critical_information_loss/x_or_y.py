@@ -1,0 +1,22 @@
+import math
+
+
+def x_or_y(n, x, y):
+    """Return x if n is a prime number; otherwise return y.
+
+    Args:
+        n (int): The number to test for primality.
+        x: The value to return if n is prime.
+        y: The value to return if n is not prime.
+    """
+    if n < 2:
+        return y
+    if n == 2:
+        return x
+    if n % 2 == 0:
+        return y
+    limit = math.isqrt(n)
+    for i in range(3, limit + 1, 2):
+        if n % i == 0:
+            return y
+    return x

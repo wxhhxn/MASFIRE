@@ -1,0 +1,16 @@
+def vowels_count(s: str) -> int:
+    """
+    Return the number of vowels in the given word s.
+    Vowels are 'a', 'e', 'i', 'o', 'u'. 'y' counts as a vowel only if it is the last character of the word.
+
+    Examples:
+    >>> vowels_count("abcde")
+    2
+    >>> vowels_count("ACEDY")
+    3
+    """
+    s_lower = s.lower()
+    count = sum(1 for ch in s_lower if ch in 'aeiou')
+    if s_lower.endswith('y'):
+        count += 1
+    return count

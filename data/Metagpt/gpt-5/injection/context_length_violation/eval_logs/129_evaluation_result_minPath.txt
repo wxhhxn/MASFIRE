@@ -1,0 +1,70 @@
+Task: HumanEval/129
+Task Index: 129
+Entry Point: minPath
+Code File: /Users/user1/CODE/Tester/MetaGPT/humaneval_baseline/minPath.py
+Result: PASS
+Details: The solution passed all test cases.
+
+Generated Code:
+from typing import List
+
+
+def minPath(grid: List[List[int]], k: int) -> List[int]:
+    """
+    Return the lexicographically minimum sequence of values along a path of length k
+    in the given N x N grid with unique values 1..N*N. Movement is allowed to
+    orthogonally adjacent cells (up, down, left, right), staying within bounds, and
+    cells may be revisited.
+
+    Greedy algorithm:
+    - Start at the cell containing value 1.
+    - For each subsequent step, move to the neighbor with the smallest value.
+
+    Args:
+        grid: N x N grid of unique integers in [1, N*N].
+        k: Path length (number of visited cells), k >= 1.
+
+    Returns:
+        List[int]: The ordered list of values along the minimum path of length k.
+    """
+    n = len(grid)
+    if n == 0:
+        raise ValueError("Grid must be non-empty")
+    # Locate the cell with value 1
+    start_y = start_x = None
+    for y in range(n):
+        for x in range(n):
+            if grid[y][x] == 1:
+                start_y, start_x = y, x
+                break
+        if start_y is not None:
+            break
+    if start_y is None:
+        raise ValueError("Grid must contain value 1")
+
+    path = [1]
+    y, x = start_y, start_x
+    if k <= 1:
+        return path
+
+    # Neighbor directions: up, down, left, right
+    directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+
+    for _ in range(1, k):
+        best_val = None
+        best_pos = None
+        for dy, dx in directions:
+            ny, nx = y + dy, x + dx
+            if 0 <= ny < n and 0 <= nx < n:
+                v = grid[ny][nx]
+                if best_val is None or v < best_val:
+                    best_val = v
+                    best_pos = (ny, nx)
+        if best_val is None:
+            # Should not occur for valid N >= 2 grids
+            raise ValueError("No valid neighbor found; check grid dimensions")
+        path.append(best_val)
+        y, x = best_pos
+
+    return path
+

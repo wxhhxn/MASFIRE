@@ -1,0 +1,7 @@
+import primelib
+
+def prime_length(string):
+    """Write a function that takes a string and returns True if the string
+    length is a prime number or False otherwise"""
+    n = len(string)
+    return primelib.is_prime_helper(n)

@@ -1,0 +1,18 @@
+import re
+
+
+def anti_shuffle(s: str) -> str:
+    """
+    Return a string where each non-whitespace sequence (word) has its characters
+    sorted in ascending ASCII order, preserving original whitespace exactly.
+    """
+    tokens = re.split(r"(\s+)", s)
+    out = []
+    for seg in tokens:
+        if not seg:
+            continue
+        if re.fullmatch(r"\s+", seg):
+            out.append(seg)
+        else:
+            out.append("".join(sorted(seg)))
+    return "".join(out)

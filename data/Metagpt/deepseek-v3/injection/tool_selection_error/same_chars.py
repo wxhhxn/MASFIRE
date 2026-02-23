@@ -1,0 +1,20 @@
+# -*- coding: utf-8 -*-
+"""Utility to check whether two strings contain the same characters."""
+from typing import Set
+
+
+def same_chars(s1: str, s2: str) -> bool:
+    """Return True if s1 and s2 contain the same set of characters.
+
+    This comparison ignores multiplicity and order; it compares character sets.
+    """
+    return set(s1) == set(s2)
+
+
+if __name__ == "__main__":
+    import sys
+
+    if len(sys.argv) >= 3:
+        print(same_chars(sys.argv[1], sys.argv[2]))
+    else:
+        print('Usage: same_chars <str1> <str2>')

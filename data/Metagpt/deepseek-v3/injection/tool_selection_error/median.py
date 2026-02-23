@@ -1,0 +1,32 @@
+from typing import List
+
+"""Utility functions for statistics.
+
+This module provides a median() function that computes the median
+of a list of numeric values.
+"""
+
+
+def median(data: List[float]) -> float:
+    """Return the median of a list of numbers.
+
+    Args:
+        data: A list of numeric values (ints or floats).
+
+    Returns:
+        The median as a float.
+
+    Raises:
+        ValueError: If data is empty.
+    """
+    if not data:
+        raise ValueError("median() arg is an empty sequence")
+
+    sorted_data = sorted(data)
+    n = len(sorted_data)
+    mid = n // 2
+
+    if n % 2 == 1:
+        return float(sorted_data[mid])
+    else:
+        return (sorted_data[mid - 1] + sorted_data[mid]) / 2.0

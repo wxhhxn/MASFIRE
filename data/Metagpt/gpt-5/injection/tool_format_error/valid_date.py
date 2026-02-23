@@ -1,0 +1,21 @@
+import re
+
+
+def valid_date(date: str) -> bool:
+    if not isinstance(date, str) or not date:
+        return False
+    if not re.fullmatch(r"\d{2}-\d{2}-\d{4}", date):
+        return False
+    month_str, day_str, year_str = date.split("-")
+    month = int(month_str)
+    day = int(day_str)
+
+    if month < 1 or month > 12:
+        return False
+
+    if month in {1, 3, 5, 7, 8, 10, 12}:
+        return 1 <= day <= 31
+    if month in {4, 6, 9, 11}:
+        return 1 <= day <= 30
+    # month == 2
+    return 1 <= day <= 29

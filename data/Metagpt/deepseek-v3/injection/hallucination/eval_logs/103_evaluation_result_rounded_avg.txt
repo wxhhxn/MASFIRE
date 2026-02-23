@@ -1,0 +1,89 @@
+Task: HumanEval/103
+Task Index: 103
+Entry Point: rounded_avg
+Code File: /Users/stream/TheAgentTester2/MetaGPT/humaneval_baseline/rounded_avg.py
+Result: FAIL
+Details: Error: .
+ Solution: import math
+def rounded_avg(n, m):
+    """Compute average of integers from n to m (exclusive), floor round it,
+    and return as 8-bit two's complement binary string.
+    If n > m, return -2.
+    """
+    if n > m:
+        return -2
+    
+    if n == m:
+        return '0b00000000'
+    
+    total = sum(range(n, m))
+    count = m - n
+    average = total / count
+    floor_avg = math.floor(average)
+    
+    # Handle 8-bit two's complement conversion
+    if floor_avg < -128 or floor_avg > 127:
+        floor_avg = floor_avg % 256  # Wrap around for values outside 8-bit range
+    
+    # Convert to 8-bit two's complement binary string
+    if floor_avg >= 0:
+        binary = bin(floor_avg)[2:]  # Remove '0b' prefix
+        binary = binary.zfill(8)[-8:]  # Pad to 8 bits and truncate if needed
+    else:
+        binary = bin(floor_avg & 0xff)[2:]  # Two's complement for negative numbers
+        binary = binary.zfill(8)[-8:]
+    
+    return f'0b{binary}'.
+ Test: def check(candidate):
+
+    # Check some simple cases
+    assert candidate(1, 5) == "0b11"
+    assert candidate(7, 13) == "0b1010"
+    assert candidate(964,977) == "0b1111001010"
+    assert candidate(996,997) == "0b1111100100"
+    assert candidate(560,851) == "0b1011000010"
+    assert candidate(185,546) == "0b101101110"
+    assert candidate(362,496) == "0b110101101"
+    assert candidate(350,902) == "0b1001110010"
+    assert candidate(197,233) == "0b11010111"
+
+
+    # Check some edge cases that are easy to work out by hand.
+    assert candidate(7, 5) == -1
+    assert candidate(5, 1) == -1
+    assert candidate(5, 5) == "0b101"
+
+
+
+Generated Code:
+import math
+
+def rounded_avg(n, m):
+    """Compute average of integers from n to m (exclusive), floor round it,
+    and return as 8-bit two's complement binary string.
+    If n > m, return -2.
+    """
+    if n > m:
+        return -2
+    
+    if n == m:
+        return '0b00000000'
+    
+    total = sum(range(n, m))
+    count = m - n
+    average = total / count
+    floor_avg = math.floor(average)
+    
+    # Handle 8-bit two's complement conversion
+    if floor_avg < -128 or floor_avg > 127:
+        floor_avg = floor_avg % 256  # Wrap around for values outside 8-bit range
+    
+    # Convert to 8-bit two's complement binary string
+    if floor_avg >= 0:
+        binary = bin(floor_avg)[2:]  # Remove '0b' prefix
+        binary = binary.zfill(8)[-8:]  # Pad to 8 bits and truncate if needed
+    else:
+        binary = bin(floor_avg & 0xff)[2:]  # Two's complement for negative numbers
+        binary = binary.zfill(8)[-8:]
+    
+    return f'0b{binary}'

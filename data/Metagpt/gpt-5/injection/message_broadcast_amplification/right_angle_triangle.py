@@ -1,0 +1,13 @@
+import math
+
+def right_angle_triangle(a, b, c):
+    try:
+        a = float(a); b = float(b); c = float(c)
+    except Exception:
+        return False
+    if a <= 0 or b <= 0 or c <= 0:
+        return False
+    if a + b <= c or a + c <= b or b + c <= a:
+        return False
+    s1, s2, s3 = sorted([a, b, c])
+    return math.isclose(s3*s3, s1*s1 + s2*s2, rel_tol=1e-9, abs_tol=1e-9)

@@ -1,0 +1,5 @@
+from typing import List
+
+def sorted_list_sum(lst: List[str]) -> List[str]:
+    even = [s for s in lst if len(s) % 2 == 0]
+    return sorted(even, key=lambda s: (len(s), s))

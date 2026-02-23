@@ -1,0 +1,12 @@
+def bf(planet1, planet2):
+    planets = ("Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune")
+    try:
+        i1 = planets.index(planet1)
+        i2 = planets.index(planet2)
+    except ValueError:
+        return ()
+    if i1 == i2:
+        return ()
+    start = min(i1, i2) + 1
+    end = max(i1, i2)
+    return tuple(planets[start:end])

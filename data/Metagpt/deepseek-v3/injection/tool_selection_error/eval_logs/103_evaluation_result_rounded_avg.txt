@@ -1,0 +1,92 @@
+Task: HumanEval/103
+Entry Point: rounded_avg
+Code File: /Users/stream/TheAgentTester2/MetaGPT/humaneval_result/rounded_avg.py
+Result: FAIL
+Details: Error: .
+ Solution: import math
+def rounded_avg(n, m):
+    """
+    Compute the average of integers from n to m inclusive, round to the nearest integer
+    (ties away from zero), convert that integer to a binary string and return it.
+    If n > m return -1.
+
+    Returns:
+        str | int: Binary string representation of the rounded average (no '0b' prefix),
+                   or -1 if n > m.
+    """
+    if n > m:
+        return -1
+
+    # For an inclusive sequence from n to m, the average is (n + m) / 2
+    avg = (n + m) / 2.0
+
+    def round_half_away_from_zero(x: float) -> int:
+        # Rounds halves away from zero (0.5 -> 1, -0.5 -> -1)
+        if x >= 0:
+            return int(math.floor(x + 0.5))
+        return int(math.ceil(x - 0.5))
+
+    rounded = round_half_away_from_zero(avg)
+
+    # Convert to binary string without the '0b' prefix; preserve sign if negative
+    if rounded == 0:
+        return "0"
+    sign = "-" if rounded < 0 else ""
+    return sign + format(abs(rounded), "b").
+ Test: def check(candidate):
+
+    # Check some simple cases
+    assert candidate(1, 5) == "0b11"
+    assert candidate(7, 13) == "0b1010"
+    assert candidate(964,977) == "0b1111001010"
+    assert candidate(996,997) == "0b1111100100"
+    assert candidate(560,851) == "0b1011000010"
+    assert candidate(185,546) == "0b101101110"
+    assert candidate(362,496) == "0b110101101"
+    assert candidate(350,902) == "0b1001110010"
+    assert candidate(197,233) == "0b11010111"
+
+
+    # Check some edge cases that are easy to work out by hand.
+    assert candidate(7, 5) == -1
+    assert candidate(5, 1) == -1
+    assert candidate(5, 5) == "0b101"
+
+
+
+Generated Code:
+"""Implementation of rounded_avg function that computes average of integers from n to m, rounds to nearest integer, converts to binary, and returns -1 if n > m."""
+
+import math
+
+
+def rounded_avg(n, m):
+    """
+    Compute the average of integers from n to m inclusive, round to the nearest integer
+    (ties away from zero), convert that integer to a binary string and return it.
+    If n > m return -1.
+
+    Returns:
+        str | int: Binary string representation of the rounded average (no '0b' prefix),
+                   or -1 if n > m.
+    """
+    if n > m:
+        return -1
+
+    # For an inclusive sequence from n to m, the average is (n + m) / 2
+    avg = (n + m) / 2.0
+
+    def round_half_away_from_zero(x: float) -> int:
+        # Rounds halves away from zero (0.5 -> 1, -0.5 -> -1)
+        if x >= 0:
+            return int(math.floor(x + 0.5))
+        return int(math.ceil(x - 0.5))
+
+    rounded = round_half_away_from_zero(avg)
+
+    # Convert to binary string without the '0b' prefix; preserve sign if negative
+    if rounded == 0:
+        return "0"
+    sign = "-" if rounded < 0 else ""
+    return sign + format(abs(rounded), "b")
+

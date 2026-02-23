@@ -1,0 +1,27 @@
+def largest_prime_factor(n: int):
+    """Return the largest prime factor of n. Assume n > 1 and is not a prime.
+    >>> largest_prime_factor(13195)
+    29
+    >>> largest_prime_factor(2048)
+    2
+    """
+    largest = 1
+
+    # Remove factors of 2 first
+    while n % 2 == 0:
+        largest = 2
+        n //= 2
+
+    # Check odd factors up to sqrt(n)
+    f = 3
+    while f * f <= n:
+        while n % f == 0:
+            largest = f
+            n //= f
+        f += 2
+
+    # If remaining n is > 1, it is prime and the largest factor
+    if n > 1:
+        largest = n
+
+    return largest

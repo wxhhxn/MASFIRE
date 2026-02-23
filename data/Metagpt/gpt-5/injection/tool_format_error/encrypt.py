@@ -1,0 +1,28 @@
+def encrypt(s: str) -> str:
+    """Encrypt the input string with a Caesar shift of +4.
+
+    - Lowercase a-z and uppercase A-Z are shifted forward by 4 with wrap-around.
+    - Non-letter characters are left unchanged.
+
+    Examples:
+    >>> encrypt('hi')
+    'lm'
+    >>> encrypt('asdfghjkl')
+    'ewhjklnop'
+    >>> encrypt('gf')
+    'kj'
+    >>> encrypt('et')
+    'ix'
+    """
+    shift = 4
+    out_chars = []
+    for ch in s:
+        if 'a' <= ch <= 'z':
+            base = ord('a')
+            out_chars.append(chr((ord(ch) - base + shift) % 26 + base))
+        elif 'A' <= ch <= 'Z':
+            base = ord('A')
+            out_chars.append(chr((ord(ch) - base + shift) % 26 + base))
+        else:
+            out_chars.append(ch)
+    return ''.join(out_chars)

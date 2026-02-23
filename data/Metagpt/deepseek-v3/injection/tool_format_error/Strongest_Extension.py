@@ -1,0 +1,30 @@
+def Strongest_Extension(class_name, extensions):
+    """Find the strongest extension based on uppercase and lowercase letter counts.
+    
+    Args:
+        class_name: Name of the class as a string
+        extensions: List of extension names as strings
+        
+    Returns:
+        String in format 'ClassName.StrongestExtensionName'
+    """
+    strongest_extension = None
+    max_strength = float('-inf')
+    
+    for extension in extensions:
+        # Count uppercase and lowercase letters
+        uppercase_count = sum(1 for char in extension if char.isupper())
+        lowercase_count = sum(1 for char in extension if char.islower())
+        
+        # Calculate strength
+        strength = uppercase_count - lowercase_count
+        
+        # Update strongest extension if current is stronger
+        if strength > max_strength:
+            max_strength = strength
+            strongest_extension = extension
+        # If equal strength, keep the first one found
+        elif strength == max_strength and strongest_extension is None:
+            strongest_extension = extension
+    
+    return f"{class_name}.{strongest_extension}"

@@ -1,0 +1,20 @@
+def move_one_ball(arr):
+    """Return True if arr can be sorted in non-decreasing order by any number of right shifts (rotations).
+    Assumes arr contains distinct items. For an empty list, returns True.
+    Practical logic:
+    - If already sorted (no descents), return True.
+    - If exactly one descent, return True iff last element <= first element.
+    - Otherwise, return False.
+    """
+    n = len(arr)
+    if n == 0:
+        return True
+    drops = 0
+    for i in range(n - 1):
+        if arr[i] > arr[i + 1]:
+            drops += 1
+            if drops > 1:
+                return False
+    if drops == 0:
+        return True
+    return arr[-1] <= arr[0]

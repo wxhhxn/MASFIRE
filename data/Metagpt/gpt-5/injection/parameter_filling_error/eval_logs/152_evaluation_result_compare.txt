@@ -1,0 +1,50 @@
+Task: HumanEval/152
+Task Index: 152
+Entry Point: compare
+Code File: /Users/user1/CODE/Tester/MetaGPT-2/humaneval_baseline-4/compare_one.py
+Result: FAIL
+Details: Error: Function compare is not defined in the solution..
+ Solution: .
+ Test: def check(candidate):
+
+    # Check some simple cases
+    assert candidate([1,2,3,4,5,1],[1,2,3,4,2,-2])==[0,0,0,0,3,3], "This prints if this assert fails 1 (good for debugging!)"
+    assert candidate([0,0,0,0,0,0],[0,0,0,0,0,0])==[0,0,0,0,0,0], "This prints if this assert fails 1 (good for debugging!)"
+    assert candidate([1,2,3],[-1,-2,-3])==[2,4,6], "This prints if this assert fails 1 (good for debugging!)"
+    assert candidate([1,2,3,5],[-1,2,3,4])==[2,0,0,1], "This prints if this assert fails 1 (good for debugging!)"
+
+    # Check some edge cases that are easy to work out by hand.
+    assert True, "This prints if this assert fails 2 (also good for debugging!)"
+
+
+
+Generated Code:
+def compare_one(a, b):
+    """
+    Create a function that takes integers, floats, or strings representing
+    real numbers, and returns the larger variable in its given variable type.
+    Return None if the values are equal.
+    Note: If a real number is represented as a string, the floating point might be . or ,
+
+    compare_one(1, 2.5) -> 2.5
+    compare_one(1, "2,3") -> "2,3"
+    compare_one("5,1", "6") -> "6"
+    compare_one("1", 1) -> None
+    """
+    def _to_float(x):
+        if isinstance(x, str):
+            s = x.strip()
+            if "," in s and "." not in s:
+                s = s.replace(",", ".")
+            return float(s)
+        if isinstance(x, (int, float)):
+            return float(x)
+        raise TypeError("Unsupported type")
+
+    va = _to_float(a)
+    vb = _to_float(b)
+
+    if va == vb:
+        return None
+    return a if va > vb else b
+

@@ -1,0 +1,36 @@
+"""Python utility: intersperse
+
+Provide a function that inserts a delimiter between elements of a sequence
+and returns a new list.
+"""
+
+from typing import Iterable, List, TypeVar
+
+T = TypeVar("T")
+
+
+def intersperse(seq: Iterable[T], delimiter: T) -> List[T]:
+    """
+    Return a new list with `delimiter` inserted between elements of `seq`.
+
+    Examples:
+        >>> intersperse([1, 2, 3], 0)
+        [1, 0, 2, 0, 3]
+
+    Args:
+        seq: An iterable of elements.
+        delimiter: The value to insert between elements.
+
+    Returns:
+        A list with the delimiter interleaved between the original elements.
+    """
+    items = list(seq)
+    if not items:
+        return []
+
+    result: List[T] = []
+    for i, item in enumerate(items):
+        if i:
+            result.append(delimiter)
+        result.append(item)
+    return result

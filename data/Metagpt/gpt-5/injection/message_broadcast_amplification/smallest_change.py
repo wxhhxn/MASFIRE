@@ -1,0 +1,11 @@
+def smallest_change(arr):
+    """
+    Return the minimum number of elements that need to be changed to make arr palindromic.
+    A change can set any single element to any value.
+    """
+    n = len(arr)
+    changes = 0
+    for i in range(n // 2):
+        if arr[i] != arr[n - 1 - i]:
+            changes += 1
+    return changes

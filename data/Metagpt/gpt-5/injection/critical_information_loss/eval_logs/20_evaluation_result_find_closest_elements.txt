@@ -1,0 +1,32 @@
+Task: HumanEval/20
+Task Index: 20
+Entry Point: find_closest_elements
+Code File: /Users/user1/CODE/Tester/MetaGPT/humaneval_baseline-6/find_closest_elements.py
+Result: PASS
+Details: The solution passed all test cases.
+
+Generated Code:
+from typing import List, Tuple
+
+
+def find_closest_elements(numbers: List[float]) -> Tuple[float, float]:
+    """Return the two closest numbers from the input list in ascending order.
+
+    Raises:
+        ValueError: If fewer than two elements are provided.
+    """
+    if len(numbers) < 2:
+        raise ValueError("numbers must contain at least two elements")
+
+    sorted_nums = sorted(numbers)
+    best_pair = (sorted_nums[0], sorted_nums[1])
+    min_diff = best_pair[1] - best_pair[0]
+
+    for a, b in zip(sorted_nums, sorted_nums[1:]):
+        diff = b - a
+        if diff < min_diff or (diff == min_diff and (a, b) < best_pair):
+            min_diff = diff
+            best_pair = (a, b)
+
+    return best_pair if best_pair[0] <= best_pair[1] else (best_pair[1], best_pair[0])
+

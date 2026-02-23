@@ -1,0 +1,26 @@
+from math import isqrt
+
+def skjkasdkd(lst):
+    """You are given a list of integers.
+    You need to find the largest prime value and return the sum of its digits.
+    """
+    def is_prime(n: int) -> bool:
+        if n < 2:
+            return False
+        if n % 2 == 0:
+            return n == 2
+        limit = isqrt(n)
+        d = 3
+        while d <= limit:
+            if n % d == 0:
+                return False
+            d += 2
+        return True
+
+    max_prime = None
+    for x in lst:
+        if is_prime(x) and (max_prime is None or x > max_prime):
+            max_prime = x
+    if max_prime is None:
+        return 0
+    return sum(int(ch) for ch in str(max_prime))

@@ -1,0 +1,25 @@
+def is_nested(string: str) -> bool:
+    """
+    Return True iff there exists a balanced bracket subsequence with nesting depth >= 2
+    within the given string consisting only of '[' and ']'.
+
+    Strategy: Scan left-to-right, count '['; once at least two '[' have been seen,
+    count subsequent ']' characters. If at least two ']' occur after that point,
+    a nested subsequence "[[]]" exists.
+    """
+    opens = 0
+    armed = False  # becomes True once we've seen at least two '['
+    closes_after = 0
+
+    for ch in string:
+        if ch == '[':
+            opens += 1
+            if not armed and opens >= 2:
+                armed = True
+        else:  # ch == ']'
+            if armed:
+                closes_after += 1
+                if closes_after >= 2:
+                    return True
+
+    return False

@@ -1,0 +1,37 @@
+Task: HumanEval/127
+Entry Point: intersection
+Code File: humaneval_baseline/intersection.py
+Result: PASS
+Details: The solution passed all test cases.
+
+Generated Code:
+import math
+
+
+def intersection(interval1, interval2):
+    """Return 'YES' if the length of the intersection of two closed integer intervals
+    is a prime number, otherwise 'NO'. If there is no intersection, return 'NO'."""
+    start1, end1 = interval1
+    start2, end2 = interval2
+
+    left = max(start1, start2)
+    right = min(end1, end2)
+
+    # No intersection
+    if right < left:
+        return "NO"
+
+    length = right - left
+
+    # Length must be at least 2 to be prime
+    if length < 2:
+        return "NO"
+
+    # Primality check up to sqrt(length)
+    limit = math.isqrt(length)
+    for d in range(2, limit + 1):
+        if length % d == 0:
+            return "NO"
+
+    return "YES"
+

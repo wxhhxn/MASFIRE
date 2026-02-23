@@ -1,0 +1,21 @@
+def total_match(lst1, lst2):
+    '''
+    Returns the list with smaller total number of characters. If equal, returns first list.
+    
+    Args:
+        lst1: First list of strings
+        lst2: Second list of strings
+    
+    Returns:
+        The list with smaller total characters, or first list if equal
+    '''
+    def count_chars(lst):
+        return sum(len(s) for s in lst)
+    
+    count1 = count_chars(lst1)
+    count2 = count_chars(lst2)
+    
+    if count1 <= count2:
+        return lst1
+    else:
+        return lst2

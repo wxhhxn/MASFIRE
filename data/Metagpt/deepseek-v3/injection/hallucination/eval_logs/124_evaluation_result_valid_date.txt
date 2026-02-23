@@ -1,0 +1,126 @@
+Task: HumanEval/124
+Task Index: 124
+Entry Point: valid_date
+Code File: /Users/stream/TheAgentTester2/MetaGPT/humaneval_baseline/valid_date.py
+Result: FAIL
+Details: Error: .
+ Solution: import re
+def valid_date(date):
+    """Validates a date string in mm-dd-yy format with specific validation rules.
+    
+    Args:
+        date (str): The date string to validate in mm-dd-yy format
+        
+    Returns:
+        bool: True if the date is valid, False otherwise
+    """
+    if not date:
+        return False
+    
+    # Check format using regex (mm-dd-yy)
+    if not re.fullmatch(r'\d{2}-\d{2}-\d{2}', date):
+        return False
+    
+    try:
+        month, day, year = map(int, date.split('-'))
+    except ValueError:
+        return False
+    
+    # Validate month range (0-11 as per requirements)
+    if month < 0 or month > 11:
+        return False
+    
+    # Validate day ranges based on month (0-based)
+    # Months with 31 days: 0(Jan),2(Mar),4(May),6(Jul),7(Aug),9(Oct),11(Dec)
+    if month in {0, 2, 4, 6, 7, 9, 11}:
+        if day < 1 or day > 31:
+            return False
+    # Months with 30 days: 3(Apr),5(Jun),8(Sep),10(Nov)
+    elif month in {3, 5, 8, 10}:
+        if day < 1 or day > 30:
+            return False
+    # February (month 1) has 28 days
+    else:
+        if day < 1 or day > 28:
+            return False
+    
+    return True.
+ Test: def check(candidate):
+
+    # Check some simple cases
+    assert candidate('03-11-2000') == True
+
+    assert candidate('15-01-2012') == False
+
+    assert candidate('04-0-2040') == False
+
+    assert candidate('06-04-2020') == True
+
+    assert candidate('01-01-2007') == True
+
+    assert candidate('03-32-2011') == False
+
+    assert candidate('') == False
+
+    assert candidate('04-31-3000') == False
+
+    assert candidate('06-06-2005') == True
+
+    assert candidate('21-31-2000') == False
+
+    assert candidate('04-12-2003') == True
+
+    assert candidate('04122003') == False
+
+    assert candidate('20030412') == False
+
+    assert candidate('2003-04') == False
+
+    assert candidate('2003-04-12') == False
+
+    assert candidate('04-2003') == False
+
+
+Generated Code:
+import re
+
+def valid_date(date):
+    """Validates a date string in mm-dd-yy format with specific validation rules.
+    
+    Args:
+        date (str): The date string to validate in mm-dd-yy format
+        
+    Returns:
+        bool: True if the date is valid, False otherwise
+    """
+    if not date:
+        return False
+    
+    # Check format using regex (mm-dd-yy)
+    if not re.fullmatch(r'\d{2}-\d{2}-\d{2}', date):
+        return False
+    
+    try:
+        month, day, year = map(int, date.split('-'))
+    except ValueError:
+        return False
+    
+    # Validate month range (0-11 as per requirements)
+    if month < 0 or month > 11:
+        return False
+    
+    # Validate day ranges based on month (0-based)
+    # Months with 31 days: 0(Jan),2(Mar),4(May),6(Jul),7(Aug),9(Oct),11(Dec)
+    if month in {0, 2, 4, 6, 7, 9, 11}:
+        if day < 1 or day > 31:
+            return False
+    # Months with 30 days: 3(Apr),5(Jun),8(Sep),10(Nov)
+    elif month in {3, 5, 8, 10}:
+        if day < 1 or day > 30:
+            return False
+    # February (month 1) has 28 days
+    else:
+        if day < 1 or day > 28:
+            return False
+    
+    return True

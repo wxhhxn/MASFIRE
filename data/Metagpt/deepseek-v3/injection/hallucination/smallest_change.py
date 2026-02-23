@@ -1,0 +1,27 @@
+import numpy as np
+
+def smallest_change(arr):
+    """
+    Given an array arr of integers, find the minimum number of elements that
+    need to be changed to make the array palindromic. A palindromic array is an array that
+    is read the same backwards and forwards. In one change, you can change one element to any other element.
+    
+    Args:
+        arr: List of integers
+        
+    Returns:
+        int: Minimum number of changes needed to make the array palindromic
+        
+    Note:
+        - Uses 1-based indexing (first element is index 1)
+        - Counts distinct value replacements across symmetric pairs (changing two identical values counts as one change)
+        - Optimized to run in O(n) time with O(1) extra memory
+    """
+    changes = 0
+    n = len(arr)
+    for i in range((n + 1) // 2):
+        left = i
+        right = n - 1 - i
+        if arr[left] != arr[right]:
+            changes += 1
+    return changes

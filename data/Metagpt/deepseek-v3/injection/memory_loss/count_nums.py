@@ -1,0 +1,37 @@
+def count_nums(arr):
+    """
+    Counts the number of elements in an array where the sum of digits is greater than 0.
+    For negative numbers, the first digit is treated as negative.
+    
+    Args:
+        arr: List of integers to process
+        
+    Returns:
+        int: Count of numbers with positive digit sum
+        
+    Examples:
+        >>> count_nums([]) == 0
+        True
+        >>> count_nums([-1, 11, -11]) == 1
+        True
+        >>> count_nums([1, 1, 2]) == 3
+        True
+    """
+    count = 0
+    for num in arr:
+        if num == 0:
+            continue
+            
+        digits = []
+        num_str = str(num)
+        
+        if num_str[0] == '-':
+            digits.append(-int(num_str[1]))
+            digits.extend(int(d) for d in num_str[2:])
+        else:
+            digits.extend(int(d) for d in num_str)
+            
+        if sum(digits) > 0:
+            count += 1
+            
+    return count

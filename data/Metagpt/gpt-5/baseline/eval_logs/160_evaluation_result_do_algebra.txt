@@ -1,0 +1,55 @@
+Task: HumanEval/160
+Task Index: 160
+Entry Point: do_algebra
+Code File: humaneval_baseline/do_algebra.py
+Result: PASS
+Details: The solution passed all test cases.
+
+Generated Code:
+def do_algebra(operator, operand):
+    """
+    Build and evaluate an algebraic expression from the operator and operand lists.
+
+    Validates inputs:
+    - len(operator) == len(operand) - 1
+    - operators only from {"+", "-", "*", "//", "**"}
+    - operands are non-negative integers
+
+    Returns the integer result of evaluating the expression using Python operator precedence.
+    Raises ValueError for invalid inputs.
+    """
+    allowed_ops = {"+", "-", "*", "//", "**"}
+
+    if not isinstance(operator, list) or not isinstance(operand, list):
+        raise ValueError("operator and operand must be lists")
+
+    if len(operator) != len(operand) - 1:
+        raise ValueError("length of operator must equal length of operand minus one")
+
+    for op in operator:
+        if not isinstance(op, str) or op not in allowed_ops:
+            raise ValueError("invalid operator detected")
+
+    for x in operand:
+        # Exclude bools even though they are instances of int
+        if not isinstance(x, int) or isinstance(x, bool) or x < 0:
+            raise ValueError("operands must be non-negative integers")
+
+    # Construct a safe expression string using only validated integers and operators
+    parts = [str(operand[0])]
+    for op, x in zip(operator, operand[1:]):
+        parts.append(op)
+        parts.append(str(x))
+    expr = " ".join(parts)
+
+    # Evaluate with no builtins, no globals/locals, relying solely on Python's operator precedence
+    result = eval(expr, {"__builtins__": None}, {})
+
+    if not isinstance(result, int):
+        try:
+            result = int(result)
+        except Exception as exc:
+            raise ValueError("expression did not evaluate to an integer") from exc
+
+    return result
+

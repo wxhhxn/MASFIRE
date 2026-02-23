@@ -1,0 +1,24 @@
+def circular_shift(x: int, shift: int) -> str:
+    """Circular shift the digits of the integer x, shift the digits right by shift
+    and return the result as a string.
+    If shift > number of digits, return digits reversed.
+    >>> circular_shift(12, 1)
+    "21"
+    >>> circular_shift(12, 2)
+    "12"
+    """
+    s = str(abs(x))
+    n = len(s)
+
+    # If shift exceeds the number of digits, return reversed digits
+    if shift > n:
+        shifted = s[::-1]
+    else:
+        # Standard circular right shift within the digit count
+        k = 0 if n == 0 else (shift % n)
+        if k == 0:
+            shifted = s
+        else:
+            shifted = s[-k:] + s[:-k]
+
+    return ("-" if x < 0 else "") + shifted

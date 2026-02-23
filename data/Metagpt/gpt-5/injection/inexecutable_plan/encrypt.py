@@ -1,0 +1,20 @@
+def encrypt(s: str) -> str:
+    """
+    Create a function encrypt that takes a string as an argument and
+    returns a string encrypted with the alphabet being rotated.
+    The alphabet is rotated such that each letter shifts forward by 4 positions (2*2).
+    For example:
+    encrypt('hi') returns 'lm'
+    encrypt('asdfghjkl') returns 'ewhjklnop'
+    encrypt('gf') returns 'kj'
+    encrypt('et') returns 'ix'
+    """
+    result = []
+    for ch in s:
+        if 'a' <= ch <= 'z':
+            result.append(chr((ord(ch) - ord('a') + 4) % 26 + ord('a')))
+        elif 'A' <= ch <= 'Z':
+            result.append(chr((ord(ch) - ord('A') + 4) % 26 + ord('A')))
+        else:
+            result.append(ch)
+    return ''.join(result)

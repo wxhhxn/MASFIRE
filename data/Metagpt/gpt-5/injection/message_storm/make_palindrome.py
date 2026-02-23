@@ -1,0 +1,33 @@
+def is_palindrome(string: str) -> bool:
+    """Return True if the given string is a palindrome.
+
+    A palindrome reads the same forward and backward.
+
+    >>> is_palindrome('')
+    True
+    >>> is_palindrome('cat')
+    False
+    >>> is_palindrome('aba')
+    True
+    """
+    return string == string[::-1]
+
+
+def make_palindrome(string: str) -> str:
+    """Return the shortest palindrome that begins with the supplied string.
+
+    The algorithm finds the longest palindromic suffix and appends the reverse
+    of the preceding prefix to complete the palindrome.
+
+    >>> make_palindrome('')
+    ''
+    >>> make_palindrome('cat')
+    'catac'
+    >>> make_palindrome('cata')
+    'catac'
+    """
+    for i in range(len(string)):
+        if is_palindrome(string[i:]):
+            return string + string[:i][::-1]
+    # Fallback (should not be reached for any string):
+    return string + string[::-1]

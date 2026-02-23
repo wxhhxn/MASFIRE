@@ -1,0 +1,24 @@
+def Strongest_Extension(class_name, extensions):
+    """Return a string 'ClassName.StrongestExtensionName' where the strongest
+    extension maximizes (uppercase count - lowercase count). Ties are broken by
+    the earliest occurrence in the list.
+
+    Args:
+        class_name (str): The name of the class.
+        extensions (list[str]): List of extension names.
+
+    Returns:
+        str: Formatted result as f"{class_name}.{best_extension}". If extensions
+        is empty, returns f"{class_name}.".
+    """
+    best_idx = 0
+    best_strength = None
+    for i, ext in enumerate(extensions):
+        cap = sum(1 for ch in ext if ch.isupper())
+        low = sum(1 for ch in ext if ch.islower())
+        strength = cap - low
+        if best_strength is None or strength > best_strength:
+            best_strength = strength
+            best_idx = i
+    best_extension = extensions[best_idx] if extensions else ""
+    return f"{class_name}.{best_extension}"

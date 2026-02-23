@@ -1,0 +1,8 @@
+def decode_cyclic(s: str) -> str:
+    """
+    Decodes a string encoded by encode_cyclic by rotating each 3-character group right by 1.
+    Groups of fewer than 3 characters are left unchanged.
+    """
+    groups = [s[(3 * i):min((3 * i + 3), len(s))] for i in range((len(s) + 2) // 3)]
+    groups = [(g[-1] + g[:-1]) if len(g) == 3 else g for g in groups]
+    return "".join(groups)

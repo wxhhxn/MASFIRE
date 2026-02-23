@@ -1,0 +1,35 @@
+Task: HumanEval/1
+Task Index: 1
+Entry Point: separate_paren_groups
+Code File: /Users/user1/CODE/Tester/MetaGPT/humaneval_baseline-2/separate_paren_groups.py
+Result: PASS
+Details: The solution passed all test cases.
+
+Generated Code:
+from typing import List
+
+
+def separate_paren_groups(paren_string: str) -> List[str]:
+    """Input is a string containing multiple groups of nested parentheses. Separate those groups into individual strings and return them as a list. Separate groups are balanced and not nested within each other at the top level. Ignore any spaces in the input string. Example: separate_paren_groups('( ) (( )) (( )( ))') -> ['()', '(())', '(()())']"""
+    result: List[str] = []
+    current: List[str] = []
+    depth = 0
+    for ch in paren_string:
+        if ch == ' ':
+            continue
+        if ch == '(':
+            if depth == 0:
+                current = []
+            current.append('(')
+            depth += 1
+        elif ch == ')':
+            if depth > 0:
+                current.append(')')
+                depth -= 1
+                if depth == 0:
+                    result.append(''.join(current))
+                    current = []
+        else:
+            continue
+    return result
+

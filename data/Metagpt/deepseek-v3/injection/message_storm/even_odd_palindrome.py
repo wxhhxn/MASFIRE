@@ -1,0 +1,83 @@
+def even_odd_palindrome(n):
+    """
+    Given a positive integer n, return a tuple that has the number of even and odd
+    integer palindromes that fall within the range(1, n), inclusive.
+
+    Example 1:
+        Input: 3
+        Output: (1, 2)
+        Explanation:
+        Integer palindrome are 1, 2, 3. one of them is even, and two of them are odd.
+
+    Example 2:
+        Input: 12
+        Output: (4, 6)
+        Explanation:
+        Integer palindrome are 1, 2, 3, 4, 5, 6, 7, 8, 9, 11. four of them are even, and 6 of them are odd.
+
+    Note:
+        1. 1 <= n <= 10^3
+        2. returned tuple has the number of even and odd integer palindromes respectively.
+    """
+    even_count = 0
+    odd_count = 0
+    
+    for num in range(1, n + 1):
+        # Convert number to string to check if it's a palindrome
+        str_num = str(num)
+        if str_num == str_num[::-1]:
+            # Check if the number is even or odd
+            if num % 2 == 0:
+                even_count += 1
+            else:
+                odd_count += 1
+    
+    return (even_count, odd_count)
+
+# Test the function with the provided examples
+if __name__ == "__main__":
+    # Test case 1: n = 3
+    result1 = even_odd_palindrome(3)
+    print(f"n=3: {result1}")  # Expected: (1, 2)
+    
+    # Test case 2: n = 12
+    result2 = even_odd_palindrome(12)
+    print(f"n=12: {result2}")  # Expected: (4, 6)
+    
+    # Write the code to file
+    with open('/Users/stream/TheAgentTester2/MetaGPT/humaneval_result/even_odd_palindrome.py', 'w') as f:
+        f.write("def even_odd_palindrome(n):\n")
+        f.write("    \"\"\"\n")
+        f.write("    Given a positive integer n, return a tuple that has the number of even and odd\n")
+        f.write("    integer palindromes that fall within the range(1, n), inclusive.\n")
+        f.write("\n")
+        f.write("    Example 1:\n")
+        f.write("        Input: 3\n")
+        f.write("        Output: (1, 2)\n")
+        f.write("        Explanation:\n")
+        f.write("        Integer palindrome are 1, 2, 3. one of them is even, and two of them are odd.\n")
+        f.write("\n")
+        f.write("    Example 2:\n")
+        f.write("        Input: 12\n")
+        f.write("        Output: (4, 6)\n")
+        f.write("        Explanation:\n")
+        f.write("        Integer palindrome are 1, 2, 3, 4, 5, 6, 7, 8, 9, 11. four of them are even, and 6 of them are odd.\n")
+        f.write("\n")
+        f.write("    Note:\n")
+        f.write("        1. 1 <= n <= 10^3\n")
+        f.write("        2. returned tuple has the number of even and odd integer palindromes respectively.\n")
+        f.write("    \"\"\"\n")
+        f.write("    even_count = 0\n")
+        f.write("    odd_count = 0\n")
+        f.write("    \n")
+        f.write("    for num in range(1, n + 1):\n")
+        f.write("        # Convert number to string to check if it's a palindrome\n")
+        f.write("        str_num = str(num)\n")
+        f.write("        if str_num == str_num[::-1]:\n")
+        f.write("            # Check if the number is even or odd\n")
+        f.write("            if num % 2 == 0:\n")
+        f.write("                even_count += 1\n")
+        f.write("            else:\n")
+        f.write("                odd_count += 1\n")
+        f.write("    \n")
+        f.write("    return (even_count, odd_count)\n")

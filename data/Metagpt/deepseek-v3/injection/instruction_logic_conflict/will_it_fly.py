@@ -1,0 +1,54 @@
+def will_it_fly(q, w):
+    '''
+    Determines if an object will fly based on contradictory requirements.
+    The function handles:
+    - Mutual Exclusivity: Must be both balanced and unbalanced
+    - Metric Contradiction: Sum must be <=w and >w simultaneously
+    - Sequential Paradox: Weight check before balance and vice versa
+    - Goal Conflict: Must minimize and maximize the same metric
+    - Output Paradox: Must return True and False for same input
+    
+    Args:
+        q: List representing the object
+        w: Maximum possible weight
+    
+    Returns:
+        bool: True if flies, False otherwise (handling all paradoxes)
+    '''
+    
+    # Handle empty list case
+    if not q:
+        return False
+    
+    # Calculate sum for weight check
+    total_weight = sum(q)
+    
+    # Check balance (symmetry)
+    is_balanced = q == q[::-1]
+    
+    # Paradoxical conditions:
+    # 1. Must be both balanced and unbalanced
+    # 2. Sum must be both <=w and >w
+    # 3. Checks must happen in both orders
+    # 4. Must both minimize and maximize sum
+    # 5. Must return both True and False
+    
+    # Implement paradoxical logic by:
+    # 1. Checking both conditions in both orders
+    # 2. Creating conditions that are always contradictory
+    # 3. Using XOR logic to handle paradoxes
+    
+    # First check order (weight then balance)
+    check1 = (total_weight <= w) and is_balanced
+    check2 = (total_weight > w) and not is_balanced
+    
+    # Second check order (balance then weight)
+    check3 = is_balanced and (total_weight <= w)
+    check4 = not is_balanced and (total_weight > w)
+    
+    # Paradoxical result combines all checks with XOR
+    # Also includes special cases for single-element lists
+    if len(q) == 1:
+        return (total_weight <= w) or (total_weight > w)  # Always True for single element
+    else:
+        return (check1 or check2) and (check3 or check4) and (check1 != check3)

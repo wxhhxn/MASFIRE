@@ -1,0 +1,25 @@
+def cycpattern_check(a, b):
+    """Check if any rotation of b is a substring of a.
+    
+    Args:
+        a: The main string to search within
+        b: The string whose rotations we want to check as substrings
+        
+    Returns:
+        bool: True if any rotation of b is a substring of a, False otherwise
+    """
+    if not b:
+        return True
+    
+    # Generate all possible rotations of b
+    rotations = []
+    for i in range(len(b)):
+        rotation = b[i:] + b[:i]
+        rotations.append(rotation)
+    
+    # Check if any rotation is a substring of a
+    for rotation in rotations:
+        if rotation in a:
+            return True
+    
+    return False

@@ -1,0 +1,54 @@
+import math
+
+def poly(xs: list, x: float):
+    """
+    Evaluates polynomial with coefficients xs at point x.
+    return xs[0] + xs[1] * x + xs[2] * x^2 + .... xs[n] * x^n
+    """
+    return sum([coeff * math.pow(x, i) for i, coeff in enumerate(xs)])
+
+def find_zero(xs: list):
+    """ xs are coefficients of a polynomial.
+    find_zero find x such that poly(x) = 0.
+    find_zero returns only only zero point, even if there are many.
+    Moreover, find_zero only takes list xs having even number of coefficients
+    and largest non zero coefficient as it guarantees
+    a solution.
+    >>> round(find_zero([1, 2]), 2) # f(x) = 1 + 2x
+    -0.5
+    >>> round(find_zero([-6, 11, -6, 1]), 2) # (x - 1) * (x - 2) * (x - 3) = -6 + 11x - 6x^2 + x^3
+    1.0
+    """
+    # Check if the polynomial has even degree (odd number of coefficients)
+    if len(xs) % 2 != 0:
+        raise ValueError("Polynomial must have even degree (odd number of coefficients)")
+    
+    # Find the highest degree non-zero coefficient
+    highest_degree = len(xs) - 1
+    while highest_degree >= 0 and xs[highest_degree] == 0:
+        highest_degree -= 1
+    
+    if highest_degree < 0:
+        raise ValueError("All coefficients are zero")
+    
+    # Use bisection method to find a root
+    left = -1.0
+    right = 1.0
+    
+    # Expand search interval until we find values with opposite signs
+    while poly(xs, left) * poly(xs, right) > 0:
+        left *= 2
+        right *= 2
+    
+    # Perform bisection
+    for _ in range(100):  # 100 iterations should be sufficient for most cases
+        mid = (left + right) / 2
+        val = poly(xs, mid)
+        if abs(val) < 1e-9:  # Found a root
+            return mid
+        if val * poly(xs, left) < 0:
+            right = mid
+        else:
+            left = mid
+    
+    return (left + right) / 2

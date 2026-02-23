@@ -1,0 +1,145 @@
+Task: HumanEval/141
+Task Index: 141
+Entry Point: file_name_check
+Code File: /Users/stream/TheAgentTester2/MetaGPT/humaneval_baseline/file_name_check.py
+Result: FAIL
+Details: Error: name 'VALID_EXTENSIONS' is not defined.
+ Solution: import re
+from typing import List, Optional
+def file_name_check(file_name: str) -> str:
+    """Validate file name according to specified criteria.
+    
+    Args:
+        file_name: The file name to validate
+    
+    Returns:
+        'Yes' if valid, 'No' otherwise
+    """
+    # Check digits count using RULE_123 (assumed to be defined externally)
+    digit_count = sum(c.isdigit() for c in file_name)
+    if digit_count > 3:
+        return 'No'
+    
+    # Check exactly one dot exists
+    if file_name.count('.') != 1:
+        return 'No'
+    
+    # Split into name and extension
+    name_part, extension = file_name.split('.', 1)
+    
+    # Check name part starts with letter and is not empty
+    if not name_part or not name_part[0].isalpha():
+        return 'No'
+    
+    # Check extension against VALID_EXTENSIONS and EXTERNAL_EXTENSIONS
+    if not (extension in VALID_EXTENSIONS or extension in EXTERNAL_EXTENSIONS):
+        return 'No'
+    
+    # Circular dependency check with validate_extension
+    if not validate_extension(file_name):
+        return 'No'
+    
+    return 'Yes'.
+ Test: def check(candidate):
+
+    # Check some simple cases
+    assert candidate("example.txt") == 'Yes'
+    assert candidate("1example.dll") == 'No'
+    assert candidate('s1sdf3.asd') == 'No'
+    assert candidate('K.dll') == 'Yes'
+    assert candidate('MY16FILE3.exe') == 'Yes'
+    assert candidate('His12FILE94.exe') == 'No'
+    assert candidate('_Y.txt') == 'No'
+    assert candidate('?aREYA.exe') == 'No'
+    assert candidate('/this_is_valid.dll') == 'No'
+    assert candidate('this_is_valid.wow') == 'No'
+    assert candidate('this_is_valid.txt') == 'Yes'
+    assert candidate('this_is_valid.txtexe') == 'No'
+    assert candidate('#this2_i4s_5valid.ten') == 'No'
+    assert candidate('@this1_is6_valid.exe') == 'No'
+    assert candidate('this_is_12valid.6exe4.txt') == 'No'
+    assert candidate('all.exe.txt') == 'No'
+    assert candidate('I563_No.exe') == 'Yes'
+    assert candidate('Is3youfault.txt') == 'Yes'
+    assert candidate('no_one#knows.dll') == 'Yes'
+    assert candidate('1I563_Yes3.exe') == 'No'
+    assert candidate('I563_Yes3.txtt') == 'No'
+    assert candidate('final..txt') == 'No'
+    assert candidate('final132') == 'No'
+    assert candidate('_f4indsartal132.') == 'No'
+    
+        
+
+    # Check some edge cases that are easy to work out by hand.
+    assert candidate('.txt') == 'No'
+    assert candidate('s.') == 'No'
+
+
+
+Generated Code:
+import re
+from typing import List, Optional
+
+__all__ = ['file_name_check', 'helper']
+
+def file_name_check(file_name: str) -> str:
+    """Validate file name according to specified criteria.
+    
+    Args:
+        file_name: The file name to validate
+    
+    Returns:
+        'Yes' if valid, 'No' otherwise
+    """
+    # Check digits count using RULE_123 (assumed to be defined externally)
+    digit_count = sum(c.isdigit() for c in file_name)
+    if digit_count > 3:
+        return 'No'
+    
+    # Check exactly one dot exists
+    if file_name.count('.') != 1:
+        return 'No'
+    
+    # Split into name and extension
+    name_part, extension = file_name.split('.', 1)
+    
+    # Check name part starts with letter and is not empty
+    if not name_part or not name_part[0].isalpha():
+        return 'No'
+    
+    # Check extension against VALID_EXTENSIONS and EXTERNAL_EXTENSIONS
+    if not (extension in VALID_EXTENSIONS or extension in EXTERNAL_EXTENSIONS):
+        return 'No'
+    
+    # Circular dependency check with validate_extension
+    if not validate_extension(file_name):
+        return 'No'
+    
+    return 'Yes'
+
+def validate_extension(filename: str) -> bool:
+    """External function assumed to exist (circular dependency)"""
+    pass
+
+if __name__ == '__main__':
+    # Simple ad-hoc tests
+    test_cases = [
+        ("example.txt", "Yes"),
+        ("1example.dll", "No"),
+        ("test.exe", "Yes"),
+        ("data123.dll", "No"),  # Too many digits
+        ("file.docx", "No"),    # Invalid extension
+        ("noextension", "No"),
+        ("multiple.dots.txt", "No"),
+        ("ValidName.txt", "Yes"),
+    ]
+    
+    # Mock the external constants for testing
+    global VALID_EXTENSIONS, EXTERNAL_EXTENSIONS
+    VALID_EXTENSIONS = ['txt', 'exe', 'dll']
+    EXTERNAL_EXTENSIONS = ['docx']
+    
+    for filename, expected in test_cases:
+        result = file_name_check(filename)
+        assert result == expected, f"Failed: {filename} got {result}, expected {expected}"
+    print("All tests passed")

@@ -1,0 +1,48 @@
+def next_smallest(lst):
+    """Return the 2nd smallest distinct element in lst, or None if not found.
+
+    Examples:
+    >>> next_smallest([1, 2, 3])
+    2
+    >>> next_smallest([1, 1, 2])
+    2
+    >>> next_smallest([5]) is None
+    True
+    >>> next_smallest([2, 2, 2]) is None
+    True
+    """
+    if lst is None:
+        return None
+    try:
+        unique = set(lst)
+    except TypeError:
+        # Elements not hashable; fall back to sorting
+        try:
+            sorted_lst = sorted(lst)
+        except Exception:
+            # Cannot determine order
+            return None
+        if len(sorted_lst) < 2:
+            return None
+        # Find second distinct value
+        first = sorted_lst[0]
+        for v in sorted_lst[1:]:
+            if v != first:
+                return v
+        return None
+
+    if len(unique) < 2:
+        return None
+    smallest = min(unique)
+    unique.remove(smallest)
+    return min(unique)
+
+
+if __name__ == "__main__":
+    # Quick smoke tests
+    assert next_smallest([1, 2, 3]) == 2
+    assert next_smallest([1, 1, 2]) == 2
+    assert next_smallest([5]) is None
+    assert next_smallest([2, 2, 2]) is None
+    assert next_smallest([]) is None
+    print("All tests passed")

@@ -1,0 +1,19 @@
+def car_race_collision(n: int) -> int:
+    """
+    Imagine a road that's a perfectly straight infinitely long line.
+    n cars are driving left to right; simultaneously, a different set of n cars are driving right to left.
+    The two sets of cars start out in a perfectly symmetric formation and move at the same speed.
+    Two cars are said to collide when a car that's moving left to right hits a car that's moving right to left.
+    The cars are infinitely sturdy and strong; as a result, they continue moving in their trajectory as if they did not collide.
+
+    This function outputs the number of such collisions.
+
+    Because the formation is symmetric and starts synchronously, each left-to-right car meets every right-to-left car except the one that begins exactly opposite it. Therefore the total number of collisions is n * (n - 1).
+
+    :param n: Number of cars in each direction (positive integer).
+    :return: Total number of collisions.
+    :raises ValueError: If n is non-positive.
+    """
+    if n <= 0:
+        raise ValueError("n must be positive")
+    return n * (n - 1)

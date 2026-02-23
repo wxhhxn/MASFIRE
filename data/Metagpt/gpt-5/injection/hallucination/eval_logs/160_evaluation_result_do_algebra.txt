@@ -1,0 +1,43 @@
+Task: HumanEval/160
+Task Index: 160
+Entry Point: do_algebra
+Code File: /Users/user1/CODE/Tester/MetaGPT/humaneval_baseline/src/do_algebra_final.py
+Result: PASS
+Details: The solution passed all test cases.
+
+Generated Code:
+from typing import Sequence, Union
+
+
+def do_algebra(operator: Sequence[str], operand: Sequence[int]) -> Union[int, float]:
+    """
+    Build an algebraic expression from the given operator and operand lists and evaluate it.
+
+    Supported operators: +, -, *, //, **
+    If a ZeroDivisionError occurs during evaluation, return float('inf').
+    """
+    allowed_ops = {"+", "-", "*", "//", "**"}
+    if not operand:
+        return 0
+
+    tokens = [str(operand[0])]
+    for i, op in enumerate(operator):
+        if op not in allowed_ops:
+            raise ValueError(f"Unsupported operator: {op}")
+        tokens.append(op)
+        tokens.append(str(operand[i + 1]))
+
+    expr = " ".join(tokens)
+    try:
+        # Evaluate in a restricted context to avoid access to builtins.
+        return eval(expr, {"__builtins__": None}, {})
+    except ZeroDivisionError:
+        return float("inf")
+
+
+if __name__ == "__main__":
+    # Basic example check
+    print(do_algebra(["+", "*", "-"], [2, 3, 4, 5]))  # Expected: 9
+    # Zero division check
+    print(do_algebra(["//"], [5, 0]))  # Expected: inf
+

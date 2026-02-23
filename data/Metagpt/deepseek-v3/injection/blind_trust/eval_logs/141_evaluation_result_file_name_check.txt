@@ -1,0 +1,120 @@
+Task: HumanEval/141
+Task Index: 141
+Entry Point: file_name_check
+Code File: /Users/stream/TheAgentTester2/MetaGPT/humaneval_baseline/file_name_checker.py
+Result: FAIL
+Details: Error: .
+ Solution: import re
+def file_name_check(file_name):
+    """Validates a filename according to specific rules.
+    
+    Args:
+        file_name (str): The filename to validate
+        
+    Returns:
+        bool: True if the filename is valid, False otherwise
+        
+    Rules:
+        1. Must contain at least three digits
+        2. At most one dot '.' allowed
+        3. Substring before dot must not be empty and start with a digit
+        4. Substring after dot must be one of ['md', 'py', 'log']
+    """
+    # Check for at least three digits
+    if len(re.findall(r'\d', file_name)) < 3:
+        return False
+    
+    # Split on dot and validate structure
+    parts = file_name.split('.')
+    
+    # Check exactly one dot exists
+    if len(parts) != 2:
+        return False
+    
+    name_part, ext_part = parts
+    
+    # Check name part is not empty and starts with digit
+    if not name_part or not name_part[0].isdigit():
+        return False
+    
+    # Check extension is valid
+    if ext_part not in ['md', 'py', 'log']:
+        return False
+    
+    return True.
+ Test: def check(candidate):
+
+    # Check some simple cases
+    assert candidate("example.txt") == 'Yes'
+    assert candidate("1example.dll") == 'No'
+    assert candidate('s1sdf3.asd') == 'No'
+    assert candidate('K.dll') == 'Yes'
+    assert candidate('MY16FILE3.exe') == 'Yes'
+    assert candidate('His12FILE94.exe') == 'No'
+    assert candidate('_Y.txt') == 'No'
+    assert candidate('?aREYA.exe') == 'No'
+    assert candidate('/this_is_valid.dll') == 'No'
+    assert candidate('this_is_valid.wow') == 'No'
+    assert candidate('this_is_valid.txt') == 'Yes'
+    assert candidate('this_is_valid.txtexe') == 'No'
+    assert candidate('#this2_i4s_5valid.ten') == 'No'
+    assert candidate('@this1_is6_valid.exe') == 'No'
+    assert candidate('this_is_12valid.6exe4.txt') == 'No'
+    assert candidate('all.exe.txt') == 'No'
+    assert candidate('I563_No.exe') == 'Yes'
+    assert candidate('Is3youfault.txt') == 'Yes'
+    assert candidate('no_one#knows.dll') == 'Yes'
+    assert candidate('1I563_Yes3.exe') == 'No'
+    assert candidate('I563_Yes3.txtt') == 'No'
+    assert candidate('final..txt') == 'No'
+    assert candidate('final132') == 'No'
+    assert candidate('_f4indsartal132.') == 'No'
+    
+        
+
+    # Check some edge cases that are easy to work out by hand.
+    assert candidate('.txt') == 'No'
+    assert candidate('s.') == 'No'
+
+
+
+Generated Code:
+import re
+
+def file_name_check(file_name):
+    """Validates a filename according to specific rules.
+    
+    Args:
+        file_name (str): The filename to validate
+        
+    Returns:
+        bool: True if the filename is valid, False otherwise
+        
+    Rules:
+        1. Must contain at least three digits
+        2. At most one dot '.' allowed
+        3. Substring before dot must not be empty and start with a digit
+        4. Substring after dot must be one of ['md', 'py', 'log']
+    """
+    # Check for at least three digits
+    if len(re.findall(r'\d', file_name)) < 3:
+        return False
+    
+    # Split on dot and validate structure
+    parts = file_name.split('.')
+    
+    # Check exactly one dot exists
+    if len(parts) != 2:
+        return False
+    
+    name_part, ext_part = parts
+    
+    # Check name part is not empty and starts with digit
+    if not name_part or not name_part[0].isdigit():
+        return False
+    
+    # Check extension is valid
+    if ext_part not in ['md', 'py', 'log']:
+        return False
+    
+    return True

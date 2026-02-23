@@ -1,0 +1,21 @@
+def simplify(x, n):
+    """Check if the product of two fractions is a whole number.
+    
+    Args:
+        x: String representation of a fraction in format 'numerator/denominator'
+        n: String representation of a fraction in format 'numerator/denominator'
+        
+    Returns:
+        bool: True if x * n is a whole number, False otherwise
+    """
+    # Parse first fraction
+    x_num, x_den = map(int, x.split('/'))
+    # Parse second fraction
+    n_num, n_den = map(int, n.split('/'))
+    
+    # Multiply numerators and denominators
+    product_num = x_num * n_num
+    product_den = x_den * n_den
+    
+    # Check if the product is a whole number
+    return product_num % product_den == 0

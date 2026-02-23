@@ -1,0 +1,23 @@
+# Implementation of double_the_difference function
+
+def double_the_difference(nums):
+    """Return sum of squares of odd integers in nums, ignoring negatives and non-integers.
+
+    Args:
+        nums (iterable): iterable of items to process.
+
+    Returns:
+        int: sum of squares of odd non-negative integers found in nums.
+    """
+    total = 0
+    for n in nums:
+        if isinstance(n, int) and n >= 0 and n % 2 == 1:
+            total += n * n
+    return total
+
+
+if __name__ == "__main__":
+    # simple tests
+    assert double_the_difference([1, 2, 3, -1, 3.0, '5']) == 1*1 + 3*3
+    assert double_the_difference([]) == 0
+    print('OK')

@@ -1,0 +1,32 @@
+import re
+
+
+def valid_date(date: str) -> bool:
+    if not isinstance(date, str) or not date:
+        return False
+    # Require exact numeric format with slashes and 4-digit year; leading zeros optional
+    if not re.fullmatch(r"\d{1,2}/\d{1,2}/\d{4}", date):
+        return False
+
+    m_str, d_str, y_str = date.split("/")
+    try:
+        m = int(m_str)
+        d = int(d_str)
+        y = int(y_str)
+    except ValueError:
+        return False
+
+    if not (2000 <= y <= 2099):
+        return False
+    if not (1 <= m <= 12):
+        return False
+
+    if m in (1, 3, 5, 7, 8, 10, 12):
+        max_day = 31
+    elif m in (4, 6, 9, 11):
+        max_day = 30
+    else:
+        # February allowed up to 30 days by spec
+        max_day = 30
+
+    return 1 <= d <= max_day

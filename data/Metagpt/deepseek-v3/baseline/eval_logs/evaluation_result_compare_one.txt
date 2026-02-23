@@ -1,0 +1,50 @@
+Task: HumanEval/137
+Entry Point: compare_one
+Code File: humaneval_baseline/compare_one.py
+Result: PASS
+Details: The solution passed all test cases.
+
+Generated Code:
+def compare_one(a, b):
+    """
+    Compare two values that can be integers, floats, or strings representing real numbers.
+    Returns the larger value in its original type, or None if they are equal.
+    Handles both '.' and ',' as decimal separators in string representations.
+
+    Args:
+        a: First value (int, float, or str)
+        b: Second value (int, float, or str)
+
+    Returns:
+        The larger value in its original type, or None if equal
+
+    Examples:
+        compare_one(1, 2.5) ➞ 2.5
+        compare_one(1, "2,3") ➞ "2,3"
+        compare_one("5,1", "6") ➞ "6"
+        compare_one("1", 1) ➞ None
+    """
+    def convert_to_float(value):
+        if isinstance(value, str):
+            # Replace comma with dot for consistent float parsing
+            value = value.replace(',', '.')
+            try:
+                return float(value)
+            except ValueError:
+                return None
+        elif isinstance(value, (int, float)):
+            return float(value)
+        return None
+
+    a_float = convert_to_float(a)
+    b_float = convert_to_float(b)
+
+    if a_float is None or b_float is None:
+        return None
+
+    if abs(a_float - b_float) < 1e-9:  # Handling floating point precision
+        return None
+    elif a_float > b_float:
+        return a
+    else:
+        return b

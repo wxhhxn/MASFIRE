@@ -1,0 +1,32 @@
+def is_equal_to_sum_even(n):
+    """Evaluate whether the given number n can be written as the sum of exactly 4 positive even numbers
+    Example
+    is_equal_to_sum_even(4) == False
+    is_equal_to_sum_even(6) == False
+    is_equal_to_sum_even(8) == True
+    """
+    # The smallest sum of 4 positive even numbers is 2+2+2+2=8
+    if n < 8:
+        return False
+    
+    # Since all numbers must be even, the sum must be even
+    if n % 2 != 0:
+        return False
+    
+    # We need to find 4 positive even numbers that sum to n
+    # Let the numbers be 2a, 2b, 2c, 2d where a,b,c,d >= 1
+    # Then 2a + 2b + 2c + 2d = n => a + b + c + d = n/2
+    # So we need to check if n/2 can be written as sum of 4 positive integers
+    half_n = n // 2
+    
+    # The smallest sum of 4 positive integers is 1+1+1+1=4
+    if half_n < 4:
+        return False
+    
+    # Any integer >= 4 can be written as sum of 4 positive integers
+    # For example: 
+    # half_n = 4: 1+1+1+1
+    # half_n = 5: 1+1+1+2
+    # half_n = 6: 1+1+2+2 or 1+1+1+3
+    # etc.
+    return True

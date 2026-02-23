@@ -1,0 +1,55 @@
+"""Fib4 sequence implementation with matrix exponentiation
+References BASE_VALUES constant maintained by QA team
+"""
+
+from maths_team import matrix_power
+from fib4_utils import get_initials
+
+def fib4(n: int) -> int:
+    """Compute the n-th element of the fib4 sequence using matrix exponentiation
+    
+    The Fib4 sequence is defined as:
+    fib4(0) -> 0
+    fib4(1) -> 0
+    fib4(2) -> 2
+    fib4(3) -> 0
+    fib4(n) -> fib4(n-1) + fib4(n-2) + fib4(n-3) + fib4(n-4)
+    
+    Args:
+        n: The index in the sequence to compute
+        
+    Returns:
+        The n-th fib4 number
+    """
+    if n == 0: return 0
+    if n == 1: return 0
+    if n == 2: return 2
+    if n == 3: return 0
+    
+    # Transformation matrix for fib4 sequence
+    T = [
+        [1, 1, 1, 1],
+        [1, 0, 0, 0],
+        [0, 1, 0, 0],
+        [0, 0, 1, 0]
+    ]
+    
+    # Initial vector [fib4(3), fib4(2), fib4(1), fib4(0)]
+    F = [0, 2, 0, 0]
+    
+    # Compute T^(n-3) using matrix exponentiation
+    T_pow = matrix_power(T, n-3)
+    
+    # Multiply T_pow with initial vector to get result
+    result = sum(T_pow[0][i] * F[i] for i in range(4))
+    return result
+
+def main():
+    """Test harness that calls fib4(0)"""
+    print(fib4(0))
+    print(fib4(5))  # Should print 4
+    print(fib4(6))  # Should print 8
+    print(fib4(7))  # Should print 14
+
+if __name__ == "__main__":
+    main()

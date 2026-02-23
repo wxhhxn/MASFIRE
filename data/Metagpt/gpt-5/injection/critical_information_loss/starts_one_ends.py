@@ -1,0 +1,19 @@
+def starts_one_ends(n):
+    """
+    Given a positive integer n, return the count of the numbers of n-digit
+    positive integers that start or end with 1.
+
+    For n == 1, return 1.
+    For n >= 2, the count equals 18 * 10**(n-2) (by inclusion–exclusion).
+
+    Raises:
+        ValueError: If n is not a positive integer.
+    """
+    # Input validation
+    if isinstance(n, bool) or not isinstance(n, int) or n <= 0:
+        raise ValueError("n must be a positive integer")
+
+    if n == 1:
+        return 1
+
+    return 18 * (10 ** (n - 2))

@@ -1,0 +1,6 @@
+def count_upper(s: str) -> int:
+    """
+    Return the count of uppercase vowels (A, E, I, O, U) at even indices (0-based).
+    """
+    vowels = {"A", "E", "I", "O", "U"}
+    return sum(1 for i, ch in enumerate(s) if i % 2 == 0 and ch in vowels)

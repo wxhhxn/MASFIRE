@@ -1,0 +1,36 @@
+Task: HumanEval/1
+Task Index: 1
+Entry Point: separate_paren_groups
+Code File: /Users/user1/CODE/MetaGPT_TEST/humaneval_baseline/separate_paren_groups.py
+Result: PASS
+Details: The solution passed all test cases.
+
+Generated Code:
+from typing import List
+
+
+def separate_paren_groups(paren_string: str) -> List[str]:
+    """Separate balanced, non-nested parenthesis groups from the input string.
+    Spaces are ignored.
+
+    >>> separate_paren_groups('( ) (( )) (( )( ))')
+    ['()', '(())', '(()())']
+    """
+    s = ''.join(ch for ch in paren_string if ch in '()')
+    groups: List[str] = []
+    depth = 0
+    current: List[str] = []
+
+    for ch in s:
+        if ch == '(':
+            depth += 1
+            current.append(ch)
+        elif ch == ')':
+            current.append(ch)
+            depth -= 1
+            if depth == 0:
+                groups.append(''.join(current))
+                current = []
+
+    return groups
+

@@ -1,0 +1,10 @@
+from typing import List, Sequence
+
+
+def compare(game: Sequence[int], guess: Sequence[int]) -> List[int]:
+    """
+    You are given two arrays (lists) of scores and guesses of equal length.
+    Return a list of the same length denoting how far off each guess was.
+    If guess[i] == game[i], the value is 0; otherwise, it is abs(guess[i] - game[i]).
+    """
+    return [0 if a == b else abs(b - a) for a, b in zip(game, guess)]

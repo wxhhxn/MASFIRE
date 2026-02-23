@@ -1,0 +1,26 @@
+def fibfib(n: int) -> int:
+    """Compute the n-th element of the FibFib number sequence.
+    
+    Args:
+        n: The index in the FibFib sequence to compute.
+        
+    Returns:
+        The n-th FibFib number.
+        
+    Examples:
+        >>> fibfib(1)
+        0
+        >>> fibfib(5)
+        4
+        >>> fibfib(8)
+        24
+    """
+    if n == 0 or n == 1:
+        return 0
+    if n == 2:
+        return 1
+    
+    a, b, c = 0, 0, 1  # Initialize fibfib(0), fibfib(1), fibfib(2)
+    for _ in range(3, n + 1):
+        a, b, c = b, c, a + b + c
+    return c

@@ -1,0 +1,21 @@
+def tri(n: int) -> list:
+    """
+    Tribonacci sequence defined by the recurrence:
+    tri(0) = 1
+    tri(1) = 3
+    For even k >= 2: tri(k) = 1 + k // 2
+    For odd k >= 3: tri(k) = tri(k - 1) + tri(k - 2) + tri(k + 1),
+    where tri(k + 1) uses the even-case formula.
+
+    Returns the list [tri(0), tri(1), ..., tri(n)] for a non-negative integer n.
+    """
+    res = [0] * (n + 1)
+    res[0] = 1
+    if n >= 1:
+        res[1] = 3
+    for k in range(2, n + 1):
+        if k % 2 == 0:
+            res[k] = 1 + (k // 2)
+        else:
+            res[k] = res[k - 1] + res[k - 2] + (1 + ((k + 1) // 2))
+    return res

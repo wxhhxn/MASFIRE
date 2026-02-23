@@ -1,0 +1,20 @@
+# Implementation of is_prime function that checks if a number is prime
+
+import math
+
+
+def is_prime(n: int) -> bool:
+    '''Return True if n is a prime number, otherwise False.'''
+    if n < 2:
+        return False
+    if n in (2, 3):
+        return True
+    if n % 2 == 0:
+        return False
+    limit = int(math.sqrt(n)) + 1
+    i = 3
+    while i <= limit:
+        if n % i == 0:
+            return False
+        i += 2
+    return True

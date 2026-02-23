@@ -1,0 +1,50 @@
+from typing import List, Tuple
+
+
+def find_closest_elements(numbers: List[float]) -> Tuple[float, float]:
+    """Return the two closest numbers from the list in ascending order.
+
+    Behavior:
+    - Round each value to 6 decimals to mitigate tiny floating-point noise.
+    - If any rounded value appears at least twice, return the largest such duplicate pair (v, v).
+    - Otherwise, deduplicate, sort in descending order, and scan adjacent pairs to find the minimal difference.
+    - On ties (equal differences), prefer the pair with larger values.
+    - Raise ValueError if fewer than two values are available after deduplication.
+    """
+    rounded = [round(x, 6) for x in numbers]
+    if len(rounded) < 2:
+        raise ValueError("At least two numbers are required")
+
+    # Detect duplicates (difference zero) first; choose the largest duplicate value.
+    counts = {}
+    for v in rounded:
+        counts[v] = counts.get(v, 0) + 1
+    dup_values = [v for v, c in counts.items() if c >= 2]
+    if dup_values:
+        dup_values.sort(reverse=True)
+        v = dup_values[0]
+        return (v, v)
+
+    # Deduplicate and ensure at least two values remain.
+    unique = list(set(rounded))
+    if len(unique) < 2:
+        raise ValueError("At least two distinct numbers are required")
+
+    # Sort in descending order and scan adjacent pairs.
+    unique.sort(reverse=True)
+
+    best_a, best_b = unique[0], unique[1]
+    best_diff = best_a - best_b
+
+    # Start from the second pair; keep earlier pair on ties to prefer larger values.
+    for i in range(1, len(unique) - 1):
+        a, b = unique[i], unique[i + 1]
+        diff = a - b  # non-negative due to descending order
+        if diff < best_diff:
+            best_diff = diff
+            best_a, best_b = a, b
+        # If diff == best_diff, keep the earlier (larger) pair by doing nothing.
+
+    # Return in ascending order
+    smaller, larger = (best_b, best_a) if best_a >= best_b else (best_a, best_b)
+    return (smaller, larger)

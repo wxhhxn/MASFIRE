@@ -1,0 +1,41 @@
+def exchange(lst1, lst2):
+    """
+    Determines if elements can be swapped between two lists to make all elements in first list even.
+    Only index-aligned swaps are allowed (swap lst1[i] with lst2[i]).
+    Swapping two odd numbers makes both even due to parity cancellation.
+    
+    Args:
+        lst1 (list): First list of numbers
+        lst2 (list): Second list of numbers
+    
+    Returns:
+        str: "YES" if possible to make lst1 all even, "NO" otherwise
+    """
+    # Count the number of odd elements in lst1 and available even swaps in lst2
+    odd_in_lst1 = 0
+    available_evens_in_lst2 = 0
+    available_odds_in_lst2 = 0
+    
+    for a, b in zip(lst1, lst2):
+        if a % 2 != 0:
+            odd_in_lst1 += 1
+            if b % 2 == 0:
+                available_evens_in_lst2 += 1
+            else:
+                available_odds_in_lst2 += 1
+    
+    # Each odd in lst1 needs either:
+    # 1. An even from lst2 at same position, or
+    # 2. Another odd from lst2 at same position (which would cancel both)
+    required_swaps = odd_in_lst1
+    
+    # Available swaps are:
+    # 1. All available evens (1-for-1)
+    # 2. Pairs of available odds (each pair counts as 1 swap)
+    available_swaps = available_evens_in_lst2 + (available_odds_in_lst2 // 2)
+    
+    return "YES" if available_swaps >= required_swaps else "NO"
+
+# Example invocation
+if __name__ == "__main__":
+    print(exchange([1, 2, 3, 4], [1, 2, 3, 4]))  # Expected output: "YES"

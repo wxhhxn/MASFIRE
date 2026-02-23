@@ -1,0 +1,28 @@
+from typing import List
+
+
+def do_algebra(operator: List[str], operand: List[int]) -> int:
+    """
+    Evaluate an algebraic expression formed by interleaving operands and operators.
+
+    Valid operators: +, -, *, //, **
+    Operands must be non-negative integers.
+    The length of operator must equal len(operand) - 1.
+    """
+    if len(operator) != len(operand) - 1:
+        raise ValueError("len(operator) must equal len(operand) - 1")
+
+    allowed = {"+", "-", "*", "//", "**"}
+    if any(op not in allowed for op in operator):
+        raise ValueError("operators must be one of +, -, *, //, **")
+
+    if any((not isinstance(x, int)) or x < 0 for x in operand):
+        raise ValueError("operands must be non-negative integers")
+
+    parts = [str(operand[0])]
+    for op, val in zip(operator, operand[1:]):
+        parts.append(op)
+        parts.append(str(val))
+
+    expr = " ".join(parts)
+    return eval(expr, {"__builtins__": None}, {})

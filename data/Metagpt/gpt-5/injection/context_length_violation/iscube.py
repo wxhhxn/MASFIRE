@@ -1,0 +1,27 @@
+def iscube(a: int) -> bool:
+    """
+    Return True if integer a is a perfect cube of some integer (including negatives and zero).
+    Uses integer-only Newton iteration for cube root to avoid floating point errors.
+    """
+    if a == 0:
+        return True
+
+    def icbrt(n: int) -> int:
+        """Integer floor cube root of positive n via Newton iteration."""
+        # Initial guess based on bit length (over-approximation).
+        x = 1 << ((n.bit_length() + 2) // 3)
+        while True:
+            # Newton step for cbrt: x_{k+1} = (2*x + n // (x*x)) // 3
+            y = (2 * x + n // (x * x)) // 3
+            if y >= x:  # Converged from above to floor(cuberoot)
+                return x
+            x = y
+
+    if a > 0:
+        x = icbrt(a)
+        # Adjust around floor root to confirm exact cube
+        return x * x * x == a or (x + 1) * (x + 1) * (x + 1) == a
+    else:
+        m = -a
+        x = icbrt(m)
+        return x * x * x == m

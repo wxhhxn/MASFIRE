@@ -1,0 +1,40 @@
+"""Implementation of smallest_change function to make array palindromic."""
+
+from typing import List, Optional
+
+
+def smallest_change(arr: Optional[List[int]]) -> int:
+    """
+    Return the minimum number of single-element changes required to make arr a palindrome.
+    A single change can replace any element with any value. The optimal strategy is to
+    fix mismatched symmetric pairs; each mismatched pair requires one change.
+
+    Examples:
+    - [1, 2, 3, 2, 1] -> 0
+    - [1, 2, 3, 4, 1] -> 1
+    - [1, 2, 3, 4] -> 2
+    """
+    if arr is None:
+        return 0
+
+    n = len(arr)
+    changes = 0
+    for i in range(n // 2):
+        if arr[i] != arr[-1 - i]:
+            changes += 1
+    return changes
+
+
+if __name__ == "__main__":
+    # Basic sanity tests
+    tests = [
+        ([1, 2, 3, 2, 1], 0),
+        ([1, 2, 3, 4, 1], 1),
+        ([], 0),
+        ([1], 0),
+        ([1, 2, 3, 4], 2),
+    ]
+
+    for arr, expected in tests:
+        res = smallest_change(arr)
+        print(f"{arr} -> {res} (expected {expected})")

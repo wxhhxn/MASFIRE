@@ -1,0 +1,62 @@
+{
+  "task_id": "323",
+  "original_operation": "select_column",
+  "mutated_operation": "select_row",
+  "original_chain_length": 3,
+  "mutated_chain_length": 0,
+  "iterations_chain_length": 4,
+  "original_chain": [
+    {
+      "operation_name": "select_row",
+      "parameter_and_conf": [],
+      "thought": "\n"
+    },
+    {
+      "operation_name": "select_column",
+      "parameter_and_conf": [],
+      "thought": "\n"
+    },
+    {
+      "operation_name": "group_column",
+      "parameter_and_conf": [],
+      "thought": "\n"
+    }
+  ],
+  "mutated_chain": [],
+  "iterations_chain": [
+    {
+      "operation_name": "select_row",
+      "parameter_and_conf": [],
+      "thought": "\n"
+    },
+    {
+      "operation_name": "select_column",
+      "parameter_and_conf": [],
+      "thought": "\n"
+    },
+    {
+      "operation_name": "group_column",
+      "parameter_and_conf": [],
+      "thought": "\n"
+    },
+    {
+      "operation_name": "simple_query",
+      "parameter_and_conf": [
+        [
+          "15",
+          1.0
+        ]
+      ],
+      "thought": "Explanation: Count the number of film entries in the table. There are 15 rows, each representing a distinct film, so the total is 15."
+    }
+  ],
+  "mutation_analysis": "工具选择错误: select_column → select_row | 本应按列筛选（基于列名/列索引）却改为按行筛选（基于行号/行索引），导致选中对象的轴从“列”变为“行”，数据范围和语义发生根本改变（可能选中单行的多个字段而非单列的多条记录）。\n\n下游语义不匹配: select_row 取回的数据形态与后续 expect column 操作（如 group_column）不匹配 | 可能引起类型/维度错误或无效分组（group_column 需要列作为分组键），要么导致运行时失败，要么生成错误/空的聚合结果。\n\n操作序列变化: 原始推理链为 [select_row, select_column, group_column]，变异推理链为空 | 变异不仅替换了单个工具，还使整个操作序列缺失或被中断，导致后续步骤（分组等）未执行，处理流水线被截断，需恢复原有步骤或调整后续操作以适配行选择。",
+  "behavior_analysis": {
+    "behavior_category": "Agent 直接接收正确信息，不受错误影响",
+    "behavior_reason": "依据日志与 judge_thought：chain 中明确出现了变异工具 select_row 且并未看到任何纠正或重试动作（iteration 0 的 chain 包含 select_row、select_column、group_column），但 judge 标记为“[Correct]”，judge_thought 的解释直接给出基于行数的计数结果（15）。Agent 并未检测或修复工具选择错误，也没有上层干预或回滚记录，仍然得出正确答案，表明执行路径或消息传递有直接通路使得最终结果不依赖被污染的工具调用。故归类为“直接接收正确信息，不受错误影响”。"
+  },
+  "correctness": {
+    "is_correct": null,
+    "error": "评估函数未导入"
+  }
+}

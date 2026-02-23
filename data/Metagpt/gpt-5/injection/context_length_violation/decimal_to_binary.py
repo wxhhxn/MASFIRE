@@ -1,0 +1,24 @@
+def decimal_to_binary(decimal):
+    """Convert a non-negative decimal integer to its binary representation
+    wrapped with 'db' at the beginning and end.
+
+    Returns:
+        str: The formatted binary string, e.g., 'db1111db' for 15.
+
+    Raises:
+        ValueError: If `decimal` is a negative integer.
+        TypeError: If `decimal` is not an integer.
+
+    Examples:
+        >>> decimal_to_binary(15)
+        'db1111db'
+        >>> decimal_to_binary(32)
+        'db100000db'
+        >>> decimal_to_binary(0)
+        'db0db'
+    """
+    if not isinstance(decimal, int):
+        raise TypeError("decimal must be an integer")
+    if decimal < 0:
+        raise ValueError("decimal must be non-negative")
+    return f"db{format(decimal, 'b')}db"

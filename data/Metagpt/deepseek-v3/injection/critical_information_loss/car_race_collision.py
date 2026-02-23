@@ -1,0 +1,16 @@
+def car_race_collision(n: int) -> int:
+    """
+    Calculate the number of collisions between two groups of cars moving in opposite directions.
+
+    Args:
+        n: Number of cars in each group (left-to-right and right-to-left)
+
+    Returns:
+        int: Total number of collisions between the two groups of cars
+
+    Explanation:
+        Each left-to-right car will collide with all right-to-left cars that started to its right.
+        This forms a complete bipartite graph where each pair from opposite groups collides exactly once.
+        Therefore, the total collisions is n * n = n^2.
+    """
+    return n * n

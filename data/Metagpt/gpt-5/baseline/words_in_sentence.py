@@ -1,0 +1,23 @@
+def words_in_sentence(sentence):
+    """
+    Return a string containing the words from the input sentence whose lengths are prime numbers,
+    preserving their original order. Words are parsed using str.split(). A prime length is an
+    integer >= 2 with no divisors other than 1 and itself.
+    """
+    def is_prime(n: int) -> bool:
+        if n < 2:
+            return False
+        if n == 2:
+            return True
+        if n % 2 == 0:
+            return False
+        i = 3
+        while i * i <= n:
+            if n % i == 0:
+                return False
+            i += 2
+        return True
+
+    words = sentence.split()
+    filtered = [w for w in words if is_prime(len(w))]
+    return " ".join(filtered)

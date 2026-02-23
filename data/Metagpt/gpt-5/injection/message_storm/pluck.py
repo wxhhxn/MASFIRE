@@ -1,0 +1,19 @@
+def pluck(arr):
+    """
+    Return [smallest_even_value, index] for the smallest even value in arr.
+    If multiple nodes have the same smallest even value, return the one with the
+    smallest index. If there are no even values or arr is empty, return [].
+    """
+    if not arr:
+        return []
+
+    best_value = None
+    best_index = -1
+
+    for i, v in enumerate(arr):
+        if v % 2 == 0:
+            if best_value is None or v < best_value:
+                best_value = v
+                best_index = i
+
+    return [best_value, best_index] if best_value is not None else []

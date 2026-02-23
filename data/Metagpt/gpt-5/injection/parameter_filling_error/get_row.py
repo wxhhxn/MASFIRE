@@ -1,0 +1,18 @@
+from typing import List, Tuple
+
+
+def get_row(lst: List[List[int]], x: int) -> List[Tuple[int, int]]:
+    """
+    Given a jagged 2D list of integers `lst` and an integer `x`, return a list of
+    (row_index, col_index) tuples indicating every occurrence of `x`.
+
+    The rows are processed in ascending order, and within each row, the column
+    indices are sorted in descending order.
+    """
+    result: List[Tuple[int, int]] = []
+    for row_idx, row in enumerate(lst):
+        cols = [col_idx for col_idx, val in enumerate(row) if val == x]
+        cols.sort(reverse=True)
+        for col_idx in cols:
+            result.append((row_idx, col_idx))
+    return result

@@ -1,0 +1,101 @@
+Task: HumanEval/67
+Task Index: 67
+Entry Point: fruit_distribution
+Code File: /Users/user1/CODE/Tester/MetaGPT/humaneval_baseline/fruit_distribution.py
+Result: FAIL
+Details: Error: .
+ Solution: import re
+import math
+def fruit_distribution(s, n):
+    """
+    Given a string s describing counts of apples and oranges in the form like
+    "5 apples and 6 oranges" and an integer n for total fruits in the basket,
+    return the number of mango fruits: apples + oranges - n.
+    Examples:
+    fruit_distribution("5 apples and 6 oranges", 19) -> -8
+    fruit_distribution("0 apples and 1 oranges", 3) -> -2
+    fruit_distribution("2 apples and 3 oranges", 100) -> -95
+    fruit_distribution("100 apples and 1 oranges", 120) -> -19
+    """
+    s = s or ""
+    # Extract oranges first, then apples
+    oranges_match = re.search(r'(-?\d+(?:\.\d+)?)\s*oranges?', s, re.IGNORECASE)
+    apples_match = re.search(r'(-?\d+(?:\.\d+)?)\s*apples?', s, re.IGNORECASE)
+
+    oranges_val = 0
+    apples_val = 0
+
+    if oranges_match:
+        try:
+            oranges_val = int(math.floor(float(oranges_match.group(1))))
+        except Exception:
+            oranges_val = 0
+
+    if apples_match:
+        try:
+            apples_val = int(math.floor(float(apples_match.group(1))))
+        except Exception:
+            apples_val = 0
+
+    try:
+        total = float(n)
+    except Exception:
+        total = 0.0
+
+    result = apples_val + oranges_val - total
+    return int(math.floor(result)).
+ Test: def check(candidate):
+
+    # Check some simple cases
+    assert candidate("5 apples and 6 oranges",19) == 8
+    assert candidate("5 apples and 6 oranges",21) == 10
+    assert candidate("0 apples and 1 oranges",3) == 2
+    assert candidate("1 apples and 0 oranges",3) == 2
+    assert candidate("2 apples and 3 oranges",100) == 95
+    assert candidate("2 apples and 3 oranges",5) == 0
+    assert candidate("1 apples and 100 oranges",120) == 19
+
+
+Generated Code:
+import re
+import math
+
+def fruit_distribution(s, n):
+    """
+    Given a string s describing counts of apples and oranges in the form like
+    "5 apples and 6 oranges" and an integer n for total fruits in the basket,
+    return the number of mango fruits: apples + oranges - n.
+    Examples:
+    fruit_distribution("5 apples and 6 oranges", 19) -> -8
+    fruit_distribution("0 apples and 1 oranges", 3) -> -2
+    fruit_distribution("2 apples and 3 oranges", 100) -> -95
+    fruit_distribution("100 apples and 1 oranges", 120) -> -19
+    """
+    s = s or ""
+    # Extract oranges first, then apples
+    oranges_match = re.search(r'(-?\d+(?:\.\d+)?)\s*oranges?', s, re.IGNORECASE)
+    apples_match = re.search(r'(-?\d+(?:\.\d+)?)\s*apples?', s, re.IGNORECASE)
+
+    oranges_val = 0
+    apples_val = 0
+
+    if oranges_match:
+        try:
+            oranges_val = int(math.floor(float(oranges_match.group(1))))
+        except Exception:
+            oranges_val = 0
+
+    if apples_match:
+        try:
+            apples_val = int(math.floor(float(apples_match.group(1))))
+        except Exception:
+            apples_val = 0
+
+    try:
+        total = float(n)
+    except Exception:
+        total = 0.0
+
+    result = apples_val + oranges_val - total
+    return int(math.floor(result))
+

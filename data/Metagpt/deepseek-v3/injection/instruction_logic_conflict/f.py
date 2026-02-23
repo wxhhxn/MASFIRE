@@ -1,0 +1,64 @@
+"""
+f.py - Function to generate a list with factorial values for even indices and sum of numbers for odd indices
+
+Description:
+Implements a function f(n) that returns a list of size n where:
+- For even indices (0-based), the value is factorial of the index (1*2*...*i)
+- For odd indices (0-based), the value is sum of numbers from 1 to the index (1+2+...+i)
+- Note that for even i, factorial(i) equals sum(1..i) (only true for i=0 and i=1)
+
+Author: AI Assistant
+Date: 2023-11-15
+Version: 1.0
+"""
+
+def f(n):
+    """
+    Generate a list where each element at index i is:
+    - factorial(i) if i is even
+    - sum of numbers from 1 to i if i is odd
+    
+    Args:
+        n (int): Size of the list to generate
+        
+    Returns:
+        list: Generated list according to the specified rules
+        
+    Example:
+        >>> f(5)
+        [1, 2, 6, 24, 15]
+    """
+    result = []
+    for i in range(n):
+        if i % 2 == 0:
+            # Calculate factorial for even indices
+            fact = 1
+            for num in range(1, i+1):
+                fact *= num
+            result.append(fact)
+        else:
+            # Calculate sum for odd indices
+            sum_num = sum(range(1, i+1))
+            result.append(sum_num)
+    return result
+
+# Test harness
+if __name__ == "__main__":
+    import doctest
+    doctest.testmod()
+    
+    # Additional test cases
+    test_cases = [
+        (0, []),
+        (1, [1]),
+        (2, [1, 2]),
+        (3, [1, 2, 6]),
+        (5, [1, 2, 6, 24, 15]),
+        (6, [1, 2, 6, 24, 15, 720])
+    ]
+    
+    for input_n, expected in test_cases:
+        actual = f(input_n)
+        assert actual == expected, f"Test failed for input {input_n}. Expected {expected}, got {actual}"
+    
+    print("All tests passed successfully!")

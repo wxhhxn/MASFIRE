@@ -1,0 +1,22 @@
+def monotonic(l: list):
+    """Return True is list elements are monotonically increasing or decreasing.
+    >>> monotonic([1, 2, 4, 20])
+    True
+    >>> monotonic([1, 20, 4, 10])
+    False
+    >>> monotonic([4, 1, 0, -10])
+    True
+    """
+    n = len(l)
+    if n <= 1:
+        return True
+    nondec = True
+    noninc = True
+    for i in range(n - 1):
+        if l[i] > l[i + 1]:
+            nondec = False
+        if l[i] < l[i + 1]:
+            noninc = False
+        if not nondec and not noninc:
+            return False
+    return True

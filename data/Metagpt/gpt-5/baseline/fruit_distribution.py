@@ -1,0 +1,18 @@
+import re
+
+def fruit_distribution(s, n):
+    """
+    Given a string s describing the counts of apples and oranges (e.g., '5 apples and 6 oranges')
+    and an integer n representing the total number of fruits in the basket, return the number
+    of mango fruits: n - apples - oranges.
+
+    Examples:
+    fruit_distribution('5 apples and 6 oranges', 19) -> 8
+    fruit_distribution('0 apples and 1 oranges', 3) -> 2
+    fruit_distribution('2 apples and 3 oranges', 100) -> 95
+    fruit_distribution('100 apples and 1 oranges', 120) -> 19
+    """
+    nums = [int(x) for x in re.findall(r"-?\d+", s)]
+    apples = nums[0] if len(nums) > 0 else 0
+    oranges = nums[1] if len(nums) > 1 else 0
+    return n - apples - oranges

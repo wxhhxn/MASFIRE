@@ -1,0 +1,76 @@
+# Developer notes:
+# Purpose: Determine if string b or any of its cyclic rotations is a substring of string a.
+# Approach: Generate each rotation of b by slicing (b[i:] + b[:i]) and check membership using Python's
+#           `in` operator for substrings. Early return True on first match; otherwise return False.
+# Complexity: Let n = len(a), m = len(b). We generate m rotations; each `in` check is up to O(n*m) worst-case
+#             in CPython's naive substring search, yielding worst-case O(m * (n + m)) behavior in practical terms.
+#             Space complexity is O(m) to hold temporary rotations.
+
+
+def cycpattern_check(a: str, b: str) -> bool:
+    """Return True if b or any of its cyclic rotations is a substring of a; otherwise False.
+
+    Rules:
+    - If b is empty: return True.
+    - If len(b) > len(a): return False.
+    - Otherwise, for i in range(len(b)), let rotated = b[i:] + b[:i]; if rotated in a: return True.
+      If none match, return False.
+    - Case-sensitive; inputs are not modified.
+
+    Examples:
+    cycpattern_check("abcd","abd") => False
+    cycpattern_check("hello","ell") => True
+    cycpattern_check("whassup","psus") => False
+    cycpattern_check("abab","baa") => True
+    cycpattern_check("efef","eeff") => False
+    cycpattern_check("himenss","simen") => True
+    """
+    if b == "":
+        return True
+    if len(b) > len(a):
+        return False
+
+    for i in range(len(b)):
+        rotated = b[i:] + b[:i]
+        if rotated in a:
+            return True
+    return False
+
+
+if __name__ == "__main__":
+    # Usage examples and test harness
+    # Provided examples
+    assert cycpattern_check("abcd", "abd") is False
+    assert cycpattern_check("hello", "ell") is True
+    assert cycpattern_check("whassup", "psus") is False
+    assert cycpattern_check("abab", "baa") is True
+    assert cycpattern_check("efef", "eeff") is False
+    assert cycpattern_check("himenss", "simen") is True
+
+    # Edge cases
+    # Empty b should be True for any a
+    assert cycpattern_check("anything", "") is True
+    # b longer than a should be False
+    assert cycpattern_check("short", "longer") is False
+    # Exact match
+    assert cycpattern_check("abc", "abc") is True
+    # Definite non-match
+    assert cycpattern_check("abc", "acb") is False
+
+    # Demonstration prints
+    cases = [
+        ("abcd", "abd"),
+        ("hello", "ell"),
+        ("whassup", "psus"),
+        ("abab", "baa"),
+        ("efef", "eeff"),
+        ("himenss", "simen"),
+        ("anything", ""),
+        ("short", "longer"),
+        ("abc", "abc"),
+        ("abc", "acb"),
+    ]
+    for a_str, b_str in cases:
+        print(f"cycpattern_check({a_str!r}, {b_str!r}) -> {cycpattern_check(a_str, b_str)}")
+
+    print("All asserts passed.")

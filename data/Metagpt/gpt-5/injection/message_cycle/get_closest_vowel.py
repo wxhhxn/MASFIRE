@@ -1,0 +1,14 @@
+def get_closest_vowel(word: str) -> str:
+    """Return the closest vowel from the right that stands between two consonants.
+    Vowels at the beginning and end do not count. Treat 'y' as a consonant.
+    Vowels are AEIOUaeiou. If none is found, return an empty string.
+    """
+    vowels = set("AEIOUaeiou")
+    n = len(word)
+    if n < 3:
+        return ""
+    for i in range(n - 2, 0, -1):
+        ch = word[i]
+        if ch in vowels and (word[i - 1] not in vowels) and (word[i + 1] not in vowels):
+            return ch
+    return ""

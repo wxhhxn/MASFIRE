@@ -1,0 +1,19 @@
+def Strongest_Extension(class_name, extensions):
+    """Return f"{class_name}.{strongest_extension}" where strength is CAP - SM.
+    CAP: count of uppercase letters in the extension name.
+    SM: count of lowercase letters in the extension name.
+    Non-letter characters are ignored. Ties are broken by the first occurrence.
+    If extensions is empty, returns f"{class_name}.".
+    """
+    best_ext = None
+    best_strength = None
+    for ext in extensions:
+        cap = sum(1 for c in ext if c.isupper())
+        sm = sum(1 for c in ext if c.islower())
+        strength = cap - sm
+        if best_strength is None or strength > best_strength:
+            best_strength = strength
+            best_ext = ext
+    if best_ext is None:
+        return f"{class_name}."
+    return f"{class_name}.{best_ext}"

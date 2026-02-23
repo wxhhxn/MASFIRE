@@ -1,0 +1,20 @@
+from typing import List
+from utils.filter_helpers import PREFIX_CONSTANT
+
+def filter_by_prefix(strings: List[str], prefix: str) -> List[str]:
+    """Filter an input list of strings only for ones that start with a given prefix.
+    
+    Args:
+        strings: List of strings to filter
+        prefix: The prefix to filter by
+        
+    Returns:
+        List of strings that start with the given prefix
+        
+    Examples:
+        >>> filter_by_prefix([], 'a')
+        []
+        >>> filter_by_prefix(['abc', 'bcd', 'cde', 'array'], 'a')
+        ['abc', 'array']
+    """
+    return [s for s in strings if s.startswith(prefix)]

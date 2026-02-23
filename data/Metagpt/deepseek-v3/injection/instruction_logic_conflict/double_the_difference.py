@@ -1,0 +1,44 @@
+def double_the_difference(lst):
+    '''
+    Given a list of elements, return the sum of squares of the entries
+    in the list that are odd. Ignore entries that are negative or not integral.
+    
+    double_the_difference([1, 3, 2, 0]) == 1 + 9 + 0 + 0 = 10
+    double_the_difference([-1, -2, 0]) == 0
+    double_the_difference([9, -2]) == 81
+    double_the_difference([0]) == 0  
+   
+    If the input list is empty, return 0.
+    '''
+    total = 0
+    for num in lst:
+        # Check if the number is integral (int or float with no decimal part)
+        if isinstance(num, bool):
+            continue
+        if isinstance(num, int) or (isinstance(num, float) and num.is_integer()):
+            if num > 0 and num % 2 != 0:
+                total += num ** 2
+    return total
+
+if __name__ == "__main__":
+    # Test cases
+    test_cases = [
+        ([1, 3, 2, 0], 10),
+        ([-1, -2, 0], 0),
+        ([9, -2], 81),
+        ([0], 0),
+        ([], 0),
+        ([1.0, 2.0, 3.0], 10),  # 1.0 and 3.0 are considered integral
+        ([1.5, 2.5], 0),        # Non-integral floats are ignored
+        ([-3, -5], 0),          # Negative numbers are ignored
+        ([True, False], 0),     # Booleans are ignored
+        (["1", "2"], 0),        # Strings are ignored
+        ([4, 6, 8], 0)          # Even numbers are ignored
+    ]
+    
+    for i, (input_list, expected) in enumerate(test_cases):
+        result = double_the_difference(input_list)
+        assert result == expected, f"Test case {i+1} failed: input {input_list}, expected {expected}, got {result}"
+        print(f"Test case {i+1} passed: input {input_list}, result {result}")
+    
+    print("All test cases passed successfully!")

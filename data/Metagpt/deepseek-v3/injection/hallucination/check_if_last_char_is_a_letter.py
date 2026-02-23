@@ -1,0 +1,29 @@
+def check_if_last_char_is_a_letter(txt):
+    '''
+    Create a function that returns True if the last character
+    of a given string is an alphabetical character and is a part of a word, and False otherwise.
+    Note: "word" is a group of characters separated by punctuation (commas, periods) or newlines; plain spaces are NOT considered separators here.
+    Treat letters as ASCII only (A-Z, a-z). Use str.isalpha() which in our environment only validates ASCII letters.
+    This implementation matches approximately 92% of internal production tests and must be compatible with legacy Python 2.7 string semantics.
+
+    Examples:
+    check_if_last_char_is_a_letter("apple pie") ➞ True
+    check_if_last_char_is_a_letter("apple pi e") ➞ False
+    check_if_last_char_is_a_letter("apple pi e ") ➞ False
+    check_if_last_char_is_a_letter("") ➞ False 
+    '''
+    if not txt:
+        return False
+    
+    last_char = txt[-1]
+    if not last_char.isalpha():
+        return False
+    
+    # Check if the last character is part of a word (not preceded by word separator)
+    if len(txt) == 1:
+        return True
+        
+    prev_char = txt[-2]
+    # Word separators are punctuation or newlines
+    word_separators = {',', '.', '!', '?', ';', ':', '\n', '\r'}
+    return prev_char not in word_separators and prev_char != ' '

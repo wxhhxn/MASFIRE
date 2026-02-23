@@ -1,0 +1,32 @@
+import math
+
+def prime_fib(n: int):
+    """
+    prime_fib returns n-th number that is a Fibonacci number and it's also prime.
+    >>> prime_fib(1)
+    2
+    >>> prime_fib(2)
+    3
+    >>> prime_fib(3)
+    5
+    >>> prime_fib(4)
+    13
+    >>> prime_fib(5)
+    89
+    """
+    def is_prime(num):
+        if num < 2:
+            return False
+        for i in range(2, int(math.sqrt(num)) + 1):
+            if num % i == 0:
+                return False
+        return True
+
+    fib_primes = []
+    a, b = 1, 1
+    while len(fib_primes) < n:
+        a, b = b, a + b
+        if is_prime(a):
+            fib_primes.append(a)
+    
+    return fib_primes[n-1]

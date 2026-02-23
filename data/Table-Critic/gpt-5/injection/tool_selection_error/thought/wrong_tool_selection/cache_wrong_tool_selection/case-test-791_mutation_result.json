@@ -1,0 +1,52 @@
+{
+  "task_id": "791",
+  "original_operation": "select_row",
+  "mutated_operation": "select_column",
+  "original_chain_length": 2,
+  "mutated_chain_length": 0,
+  "iterations_chain_length": 3,
+  "original_chain": [
+    {
+      "operation_name": "select_column",
+      "parameter_and_conf": [],
+      "thought": "\n"
+    },
+    {
+      "operation_name": "group_column",
+      "parameter_and_conf": [],
+      "thought": "\n"
+    }
+  ],
+  "mutated_chain": [],
+  "iterations_chain": [
+    {
+      "operation_name": "select_column",
+      "parameter_and_conf": [],
+      "thought": "\n"
+    },
+    {
+      "operation_name": "group_column",
+      "parameter_and_conf": [],
+      "thought": "\n"
+    },
+    {
+      "operation_name": "simple_query",
+      "parameter_and_conf": [
+        [
+          "lord high constable",
+          1.0
+        ]
+      ],
+      "thought": "Explanation: The table lists two positions with \"vacant\" under current officers: \"lord high steward\" and \"lord high constable.\" Besides \"lord high steward,\" the other vacant position is \"lord high constable.\""
+    }
+  ],
+  "mutation_analysis": "[工具选择错误]: select_row → select_column | 本应按行选取（按记录/行索引），但变为按列选取（按字段/列索引），导致选择维度从“行”变为“列”，会抓取错误的对象集合，后续基于行的过滤、索引或聚合会产生错误结果或不匹配的数据结构。\n\n[操作序列变化]: 原始推理链含有 select_column → group_column（且原始操作声明为 select_row，与推理链不一致）→ 变异推理链为空 | 变异导致整个操作序列被删除或未记录，导致后续的 group_column 丢失，处理流程中断，依赖中间输出的后续步骤会报空/找不到输入或跳过关键聚合。\n\n[影响分析]: 维度错误会引起范围扩大或收窄、索引/类型不匹配和错误聚合；操作缺失会导致流程失败或返回不完整结果。建议：校验工具类型与期望一致、恢复/补入缺失操作，或增加流程前置检查以避免此类变异。",
+  "behavior_analysis": {
+    "behavior_category": "系统/智能体依靠部分修复、协同纠偏或多路径补偿完成任务 - 多路径补偿或中间数据提取",
+    "behavior_reason": "从日志和judge_thought可见（iteration0.chain中出现select_column、group_column及随后simple_query，judge标记为[Correct]且judge_thought给出正确释义），关键证据是操作链虽使用了错误的select_column但最终通过simple_query推理得出正确答案。Agent并未显式回滚或替换工具，也未由上层管理介入，而是依靠后续推理步骤/已有表格信息绕过了被污染的工具调用，直接从中间数据或推理路径提取出正确结论。因此应归类为多路径补偿：工具选择错误存在，但系统通过另一条可行推理路径成功完成任务。"
+  },
+  "correctness": {
+    "is_correct": null,
+    "error": "评估函数未导入"
+  }
+}

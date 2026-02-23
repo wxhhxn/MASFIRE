@@ -1,0 +1,14 @@
+def rounded_avg(n, m):
+    """Compute the average of integers from n through m inclusive, round using Python's built-in round (banker's rounding),
+    and return the binary representation as a '0b...' string. If n > m, return -1.
+
+    Examples:
+    rounded_avg(1, 5) => '0b11'
+    rounded_avg(7, 5) => -1
+    rounded_avg(10, 20) => '0b1111'
+    rounded_avg(20, 33) => '0b11010'
+    """
+    if n > m:
+        return -1
+    avg = (n + m) / 2
+    return bin(round(avg))

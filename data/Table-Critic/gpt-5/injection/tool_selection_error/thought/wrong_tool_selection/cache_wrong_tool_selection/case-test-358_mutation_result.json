@@ -1,0 +1,72 @@
+{
+  "task_id": "358",
+  "original_operation": "select_column",
+  "mutated_operation": "select_row",
+  "original_chain_length": 4,
+  "mutated_chain_length": 0,
+  "iterations_chain_length": 5,
+  "original_chain": [
+    {
+      "operation_name": "select_row",
+      "parameter_and_conf": [],
+      "thought": "\n"
+    },
+    {
+      "operation_name": "select_column",
+      "parameter_and_conf": [],
+      "thought": "\n"
+    },
+    {
+      "operation_name": "sort_column",
+      "parameter_and_conf": [],
+      "thought": "\n"
+    },
+    {
+      "operation_name": "group_column",
+      "parameter_and_conf": [],
+      "thought": "\n"
+    }
+  ],
+  "mutated_chain": [],
+  "iterations_chain": [
+    {
+      "operation_name": "select_row",
+      "parameter_and_conf": [],
+      "thought": "\n"
+    },
+    {
+      "operation_name": "select_column",
+      "parameter_and_conf": [],
+      "thought": "\n"
+    },
+    {
+      "operation_name": "sort_column",
+      "parameter_and_conf": [],
+      "thought": "\n"
+    },
+    {
+      "operation_name": "group_column",
+      "parameter_and_conf": [],
+      "thought": "\n"
+    },
+    {
+      "operation_name": "simple_query",
+      "parameter_and_conf": [
+        [
+          "jansher khan",
+          1.0
+        ]
+      ],
+      "thought": "Explanation: Jansher Khan has 8 titles, which is the highest number of titles in the table (more than Jahangir Khan's 6)."
+    }
+  ],
+  "mutation_analysis": "工具选择错误: select_column → select_row | 原本应按列过滤/选择数据（select_column），却改为按行选择（select_row），导致选取轴从“列”变为“行”，数据子集完全不同，可能扩大或缩小目标范围并返回不相关记录。\n\n轴不匹配对后续操作的影响: 后续操作（sort_column、group_column）以列为单位进行排序/分组，若首步改为按行选择，后续列操作的依据丢失或变得不一致，可能引发运行错误、无效结果或需重新定位列索引。\n\n操作语义冲突: 原始链中既出现过select_row又有select_column，变异将主操作替换为select_row会改变原意（应先按列筛选再排序/分组），导致语义冲突——排序/分组目标不明确，需要重新设计操作顺序或添加列选择回补步骤。\n\n操作序列变化: 原始推理链包含 select_row → select_column → sort_column → group_column，而变异推理链为空（所有后续步骤缺失或被丢弃），表明变异不仅替换了工具，还可能导致整个操作序列被中断或省略，后续处理无法执行，流程失败或需完整重构。",
+  "behavior_analysis": {
+    "behavior_category": "Agent 直接接收正确信息，不受错误影响",
+    "behavior_reason": "依据日志与判定信息：iteration 0 的 judge 为“[Correct]”，judge_thought 明确指出通过“no. of titles”列得出 Jansher Khan 为最多头衔（8），说明最终答案与原始预期一致。尽管变异操作将 select_column 替换为 select_row（且 chain 中同时存在 select_row 与 select_column 的记录），Agent 未记录任何回滚、重试或纠错步骤，也未调用上层管理或多路径补偿机制，直接给出正确解释。行为特征为：工具选择处于混淆或被污染状态但不影响最终输出，Agent 没有主动识别或修正错误指令，且没有显式的容错动作；系统架构或信息冗余使得执行环节仍能获得正确列级信息并完成查询。因此归类为“直接接收正确信息，不受错误影响”。"
+  },
+  "correctness": {
+    "is_correct": null,
+    "error": "评估函数未导入"
+  }
+}
