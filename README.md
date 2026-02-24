@@ -198,12 +198,6 @@ The project assesses system fault tolerance capabilities across four distinct di
 - **Characteristics**: Provides mapping relationships between fault classification and tolerance mechanisms
 - **Purpose**: Maps each fault type and agent behavior to specific fault tolerance dimensions
 
-#### Tolerance Dimension Summary
-
-- **Prompt-level FT**: Success when proper prompting prevents fault manifestation
-- **Logical-level FT**: Success when system-level filtering and validation catch faults
-- **Mechanism-level FT**: Success when architectural features provide redundancy and recovery
-- **Reasoning-level FT**: Success when agents use semantic understanding to detect and resolve faults
 
 
 ## Fault Injection Methods
