@@ -143,9 +143,7 @@ The project uses three standard task sets from different domains to assess the p
 
 ![Fault Taxonomy](images/fault_taxonomy.png)
 
-
-
-## Fault Tolerance Mechanism Evaluation
+Based on the classification system, the project identifies and categorizes faults that occur within and between agents in multi-agent systems.
 
 The project assesses system fault tolerance capabilities across four distinct dimensions:
 
@@ -158,7 +156,7 @@ The project assesses system fault tolerance capabilities across four distinct di
 
 2. **Rule-Based FT**
    - Fault tolerance emerging from explicit procedural logic and heuristic rules encoded in the MAS implementation
-   - Includes automatically deduplicates redundant messages and other deterministic behaviors
+   - Includes automatic message deduplication and other deterministic behaviors
    - Activates when predefined conditions are met, regardless of the underlying model's reasoning capabilities
 
 3. **Prompt-Level FT**
@@ -201,7 +199,6 @@ The project assesses system fault tolerance capabilities across four distinct di
 - **Characteristics**: Provides mapping relationships between fault classification and tolerance mechanisms
 - **Purpose**: Maps each fault type and agent behavior to specific fault tolerance dimensions
 
-
 #### Tolerance Dimension Summary
 
 - **Prompt-level FT**: Success when proper prompting prevents fault manifestation
@@ -232,7 +229,7 @@ The project assesses system fault tolerance capabilities across four distinct di
 
 ![Fault Injection Methods](images/all_fault_injection.png)
 
-
+### Injection Strategies
 
 1. **Prompt Modification**
    - Introduce ambiguities in system prompts
