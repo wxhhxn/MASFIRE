@@ -144,7 +144,7 @@ The project uses three standard task sets from different domains to assess the p
 
 ### Fault Classification System Documentation
 
-![Fault Taxonomy](images/fault_taxonomy.pdf)
+![Fault Taxonomy](images/fault_taxonomy.png)
 
 
 
@@ -212,7 +212,7 @@ The project assesses system fault tolerance capabilities across four distinct di
 
 ### Detailed Fault Injection Methods Documentation
 
-![Fault Injection Methods](images/all_fault_injection.pdf)
+![Fault Injection Methods](images/all_fault_injection.png)
 
 Based on detailed specifications from `all_fault_injection.pdf`, the project employs the following methodology:
 
@@ -278,15 +278,15 @@ The project injects faults across multiple dimensions to comprehensively evaluat
 The theoretical foundation and methodology of this project are derived from the following two detailed documents:
 
 ### 📋 Fault Classification System
-- **File**: [fault_taxonomy.pdf](images/fault_taxonomy.pdf)
+- **File**: [fault_taxonomy.png](images/fault_taxonomy.png)
 - **Content**: Complete fault type classification framework and characteristic descriptions
 
-![Fault Taxonomy](images/fault_taxonomy.pdf)
+![Fault Taxonomy](images/fault_taxonomy.png)
 
 ### 📋 Fault Injection Methodology
-- **File**: [all_fault_injection.pdf](images/all_fault_injection.pdf)
+- **File**: [all_fault_injection.png](images/all_fault_injection.png)
 - **Content**: Detailed fault injection strategies, implementation methods, and injection dimensions
 
-![Fault Injection Methods](images/all_fault_injection.pdf)
+![Fault Injection Methods](images/all_fault_injection.png)
 
 
