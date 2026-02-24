@@ -201,27 +201,6 @@ The project assesses system fault tolerance capabilities across four distinct di
 - **Characteristics**: Provides mapping relationships between fault classification and tolerance mechanisms
 - **Purpose**: Maps each fault type and agent behavior to specific fault tolerance dimensions
 
-#### Fault Type to Tolerance Mechanism Mapping
-
-The tag.csv file documents how different faults are handled across four tolerance dimensions:
-
-| Fault Category | Key Tolerance Dimensions | Example Behaviors |
-|---|---|---|
-| **Role Ambiguity** | Prompt-level FT, Mechanism-level FT | Self-compensation, system filtering, agent compensation |
-| **Blind Trust** | Prompt-level FT, Reasoning-level FT, Mechanism-level FT | Independent judgment, external compensation, no judgment |
-| **Instruction Logic Conflict** | Reasoning-level FT, Mechanism-level FT | Rationalization, clarification requests, conflict detection |
-| **Instruction Ambiguity** | Reasoning-level FT, Mechanism-level FT | Guessing, user inquiry, architecture constraints |
-| **Message Storm** | Logical-level FT, Reasoning-level FT | Message filtering, duplicate tolerance |
-| **Message Cycle** | Logical-level FT, Reasoning-level FT | Message filtering, cycle tolerance |
-| **Message Broadcast Amplification** | Logical-level FT, Reasoning-level FT | Message filtering, irrelevant message tolerance |
-| **Hallucination** | Mechanism-level FT, Reasoning-level FT | Intent inference, rejection, information repair |
-| **Critical Information Loss** | Mechanism-level FT, Reasoning-level FT | External repair, autonomous repair, inherent recovery |
-| **Inexecutable Plan** | Mechanism-level FT, Reasoning-level FT | Plan restoration, partial execution, error response |
-| **Tool Selection Error** | Mechanism-level FT, Reasoning-level FT | Self-correction, redundancy, multipath compensation |
-| **Parameter Filling Error** | Mechanism-level FT, Reasoning-level FT | Self-correction, redundancy, multipath compensation |
-| **Tool Format Error** | Mechanism-level FT, Reasoning-level FT | Self-correction, multipath compensation, redundancy |
-| **Memory Loss** | Mechanism-level FT, Reasoning-level FT | External repair, autonomous restoration, inherent recovery |
-| **Context Length Violation** | Logical-level FT, Reasoning-level FT, Mechanism-level FT | User inquiry, context filtering, architecture filtering |
 
 #### Tolerance Dimension Summary
 
