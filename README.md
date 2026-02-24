@@ -55,7 +55,7 @@ data/
 |-----------|-------------|
 | **CAMEL** | Multi-agent collaboration framework supporting agent-to-agent communication | 
 | **MetaGPT** | Large-scale multi-agent framework supporting complex workflows | 
-| **Table-Critic** | Table processing and validation framework ｜
+| **Table-Critic** | Table processing and validation framework 
 
 ### 2. LLM Models
 
