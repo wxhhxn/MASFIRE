@@ -44,7 +44,7 @@ MASFIRE/
 │   ├── metagpt.csv                 # MetaGPT framework test results 
 │   ├── tablecritic.csv             # Table-Critic framework test results summary
 │   └── tag.csv                     # Fault labels and fault tolerance mechanism classification 
-├── images/  
+└── images/  
 ```
 
 ## Key Datasets
@@ -206,22 +206,6 @@ The project assesses system fault tolerance capabilities across four distinct di
 - **Mechanism-level FT**: Success when architectural features provide redundancy and recovery
 - **Reasoning-level FT**: Success when agents use semantic understanding to detect and resolve faults
 
-**Fault Classifications**:
-  - Role Ambiguity
-  - Instruction Ambiguity
-  - Instruction Logic Conflict
-  - Blind Trust
-  - Critical Information Loss
-  - Hallucination
-  - Parameter Filling Error
-  - Tool Format Error
-  - Tool Selection Error
-  - Message Cycle
-  - Message Storm
-  - Message Broadcast Amplification
-  - Memory Loss
-  - Context Length Violation
-  - Inexecutable Plan
 
 ## Fault Injection Methods
 
