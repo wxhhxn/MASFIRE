@@ -1,15 +1,15 @@
-# Multi-Agent System Fault Injection and Fault Tolerance Evaluation Project
+# Multi-Agent System Fault Injection & Tolerance
 
 ## Project Overview
 
-This project is a systematic research effort focused on **fault injection, fault classification, and fault tolerance analysis in multi-agent systems**. Through structured fault injection testing of multi-agent systems driven by different LLM models, we evaluate their robustness and fault tolerance capabilities when encountering various types of faults.
+Study of **fault injection, classification, and tolerance** in multi-agent systems, comparing robustness across models and frameworks.
 
 ## Core Research Objectives
 
-1. **Systematic Fault Injection**: Design and implement fault injection methods for multi-agent systems
-2. **Fault Classification Framework**: Establish a comprehensive fault type classification framework
-3. **Fault Tolerance Evaluation**: Assess multi-agent system responses and recovery capabilities under various fault scenarios
-4. **Model Comparison Analysis**: Compare performance differences among different LLM models (DeepSeek-v3, GPT-5, etc.)
+1. **Fault Injection**: Design injection methods
+2. **Fault Taxonomy**: Define fault types
+3. **Tolerance Evaluation**: Measure recovery under faults
+4. **Model Comparison**: Compare DeepSeek-v3 vs GPT-5
 
 ## Project Structure
 
@@ -53,36 +53,44 @@ MASFIRE/
 
 | Framework | Description |
 |-----------|-------------|
-| **CAMEL** | Multi-agent collaboration framework supporting agent-to-agent communication | 
-| **MetaGPT** | Large-scale multi-agent framework supporting complex workflows | 
-| **Table-Critic** | Table processing and validation framework 
+| **CAMEL** | Multi-agent collaboration | 
+| **MetaGPT** | Large-scale workflows | 
+| **Table-Critic** | Table QA & validation |
 
 ### 2. LLM Models
 
-- **DeepSeek-v3**: An efficient open-source model
-- **GPT-5**: The most advanced commercial language model
+- **DeepSeek-v3**: Open-source
+- **GPT-5**: Commercial
 
 ### 3. Test Modes
 
-- **Baseline**: Fundamental tests without fault injection to assess normal system performance
-- **Injection**: Tests with fault injection to evaluate system fault tolerance capabilities
+- **Baseline**: No fault injection
+- **Injection**: With faults
+
+## Runtime Dependencies & Dataset Preparation
+
+Align runtime dependencies with upstream projects:
+
+- Table-Critic: https://github.com/Peiying-Yu/Table-Critic
+- MetaGPT: https://github.com/FoundationAgents/MetaGPT
+- CAMEL: https://github.com/camel-ai/camel
+
+For WebShop dataset preparation:
+
+- WebShop: https://github.com/princeton-nlp/webshop
 
 ## Benchmark Testing
 
 ### Benchmark Overview
 
-The project uses three standard task sets from different domains to assess the performance and fault tolerance capabilities of multi-agent systems, covering three critical application areas: code generation, table question answering, and web interaction.
+Three benchmarks cover code generation, table QA, and web interaction.
 
 ### 1. MetaGPT - HumanEval (Code Generation)
 
-**Framework Characteristics**: Large-scale multi-agent system
-- Number of agents: Dynamically determined (2-4 agents) based on task difficulty
-- Application domain: Code generation
+**Framework Characteristics**: Large-scale system, 2–4 agents
 
-**Task Description**:
-- Code generation tasks similar to competitive programming problems
-- Examples: Determine if the difference between any two numbers in a list is less than a threshold, compute GCD, find shortest palindrome substring, etc.
-- **Total tasks**: 164
+**Task Description**: Competitive-programming style code generation
+**Total tasks**: 164
 
 **Baseline Performance (Without Fault Injection)**:
 
@@ -95,14 +103,10 @@ The project uses three standard task sets from different domains to assess the p
 
 ### 2. Table-Critic - WikiTQ (Table Question Answering)
 
-**Framework Characteristics**: Medium-scale multi-agent system
-- Number of agents: Fixed 5-agent workflow
-- Application domain: Table QA and data analysis
+**Framework Characteristics**: Medium-scale, fixed 5-agent workflow
 
-**Task Description**:
-- Given relevant tables and questions, the model must provide answers
-- Example: How many people were murdered in 1940-1941?
-- **Total tasks**: 400 (from test set; original dataset split: 11,321 training + 2,831 validation + 4,344 test)
+**Task Description**: Table QA
+**Total tasks**: 400 (test split)
 
 **Baseline Performance (Without Fault Injection)**:
 
@@ -113,15 +117,10 @@ The project uses three standard task sets from different domains to assess the p
 
 ### 3. CAMEL - WebShop (Web Shopping)
 
-**Framework Characteristics**: Simple-scale multi-agent system
-- Number of agents: 2 agents
-- Application domain: Web environment interaction and shopping decisions
+**Framework Characteristics**: Simple-scale, 2 agents
 
-**Task Description**:
-- Given normalized, text-based web shopping environment and shopping instructions
-- Agents need to browse pages, view details, select product attributes, and click purchase buttons
-- Example: Find me a machine-washable men's long-sleeve t-shirt in dark brown, size 5XL, under $50
-- **Total tasks**: 251 (annotated and difficulty-classified by AgentBoard)
+**Task Description**: Web shopping interaction
+**Total tasks**: 251 (annotated by AgentBoard: https://github.com/hkust-nlp/AgentBoard)
 
 **Baseline Performance (Without Fault Injection)**:
 
@@ -131,11 +130,11 @@ The project uses three standard task sets from different domains to assess the p
 | **DeepSeek-v3** | 33.0% | 83 |
 
 **Benchmark Design Characteristics**:
-1. **Multi-domain Coverage**: Code generation, data analysis, web interaction
-2. **Model Scale Variance**: From simple 2-agent to complex dynamic 4-agent systems
-3. **Difficulty Hierarchy**: Covers Simple, Easy, Medium, Hard difficulty levels
-4. **Standardized Tasks**: Uses industry-recognized benchmark sets (HumanEval, WikiTQ, WebShop)
-5. **Comprehensive Evaluation**: Assesses both baseline performance and fault tolerance under injection
+1. **Multi-domain Coverage**
+2. **Agent Scale Variance**
+3. **Difficulty Hierarchy**
+4. **Standardized Benchmarks**
+5. **Baseline + Injection**
 
 ## Fault Classification Framework
 
@@ -264,5 +263,4 @@ The project injects faults across multiple dimensions to comprehensively evaluat
 - **Model Evaluation**: Provide references for LLM selection
 - **Tolerance Optimization**: Improve system fault handling capabilities
 - **Risk Assessment**: Identify potential risks in production environments
-
 
