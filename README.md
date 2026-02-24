@@ -44,28 +44,25 @@ data/
 │   ├── metagpt.csv                 # MetaGPT framework test results 
 │   ├── tablecritic.csv             # Table-Critic framework test results summary
 │   └── tag.csv                     # Fault labels and fault tolerance mechanism classification 
-│
-└── images/
-    ├── all_fault_injection.pdf     # Detailed fault injection methodology
-    └── fault_taxonomy.pdf          # Fault classification framework
+
 ```
 
 ## Key Datasets
 
-### 1. Testing Frameworks (3)
+### 1. Testing Frameworks
 
-| Framework | Description | Data Rows |
-|-----------|-------------|-----------|
-| **CAMEL** | Multi-agent collaboration framework supporting agent-to-agent communication | 1,603 |
-| **MetaGPT** | Large-scale multi-agent framework supporting complex workflows | 4,606 |
-| **Table-Critic** | Table processing and validation framework | 5,289 |
+| Framework | Description |
+|-----------|-------------|
+| **CAMEL** | Multi-agent collaboration framework supporting agent-to-agent communication | 
+| **MetaGPT** | Large-scale multi-agent framework supporting complex workflows | 
+| **Table-Critic** | Table processing and validation framework ｜
 
-### 2. LLM Models (2)
+### 2. LLM Models
 
 - **DeepSeek-v3**: An efficient open-source model
 - **GPT-5**: The most advanced commercial language model
 
-### 3. Test Modes (2)
+### 3. Test Modes
 
 - **Baseline**: Fundamental tests without fault injection to assess normal system performance
 - **Injection**: Tests with fault injection to evaluate system fault tolerance capabilities
@@ -202,11 +199,53 @@ The project assesses system fault tolerance capabilities across four distinct di
 - **Fields**: Fault Category, Agent Behavior, Fault Tolerance Summary
 - **Record Count**: 72
 - **Characteristics**: Provides mapping relationships between fault classification and tolerance mechanisms
-- **Fault Classifications**:
+- **Purpose**: Maps each fault type and agent behavior to specific fault tolerance dimensions
+
+#### Fault Type to Tolerance Mechanism Mapping
+
+The tag.csv file documents how different faults are handled across four tolerance dimensions:
+
+| Fault Category | Key Tolerance Dimensions | Example Behaviors |
+|---|---|---|
+| **Role Ambiguity** | Prompt-level FT, Mechanism-level FT | Self-compensation, system filtering, agent compensation |
+| **Blind Trust** | Prompt-level FT, Reasoning-level FT, Mechanism-level FT | Independent judgment, external compensation, no judgment |
+| **Instruction Logic Conflict** | Reasoning-level FT, Mechanism-level FT | Rationalization, clarification requests, conflict detection |
+| **Instruction Ambiguity** | Reasoning-level FT, Mechanism-level FT | Guessing, user inquiry, architecture constraints |
+| **Message Storm** | Logical-level FT, Reasoning-level FT | Message filtering, duplicate tolerance |
+| **Message Cycle** | Logical-level FT, Reasoning-level FT | Message filtering, cycle tolerance |
+| **Message Broadcast Amplification** | Logical-level FT, Reasoning-level FT | Message filtering, irrelevant message tolerance |
+| **Hallucination** | Mechanism-level FT, Reasoning-level FT | Intent inference, rejection, information repair |
+| **Critical Information Loss** | Mechanism-level FT, Reasoning-level FT | External repair, autonomous repair, inherent recovery |
+| **Inexecutable Plan** | Mechanism-level FT, Reasoning-level FT | Plan restoration, partial execution, error response |
+| **Tool Selection Error** | Mechanism-level FT, Reasoning-level FT | Self-correction, redundancy, multipath compensation |
+| **Parameter Filling Error** | Mechanism-level FT, Reasoning-level FT | Self-correction, redundancy, multipath compensation |
+| **Tool Format Error** | Mechanism-level FT, Reasoning-level FT | Self-correction, multipath compensation, redundancy |
+| **Memory Loss** | Mechanism-level FT, Reasoning-level FT | External repair, autonomous restoration, inherent recovery |
+| **Context Length Violation** | Logical-level FT, Reasoning-level FT, Mechanism-level FT | User inquiry, context filtering, architecture filtering |
+
+#### Tolerance Dimension Summary
+
+- **Prompt-level FT**: Success when proper prompting prevents fault manifestation
+- **Logical-level FT**: Success when system-level filtering and validation catch faults
+- **Mechanism-level FT**: Success when architectural features provide redundancy and recovery
+- **Reasoning-level FT**: Success when agents use semantic understanding to detect and resolve faults
+
+**Fault Classifications**:
   - Role Ambiguity
   - Instruction Ambiguity
   - Instruction Logic Conflict
-  - Other types...
+  - Blind Trust
+  - Critical Information Loss
+  - Hallucination
+  - Parameter Filling Error
+  - Tool Format Error
+  - Tool Selection Error
+  - Message Cycle
+  - Message Storm
+  - Message Broadcast Amplification
+  - Memory Loss
+  - Context Length Violation
+  - Inexecutable Plan
 
 ## Fault Injection Methods
 
@@ -214,9 +253,7 @@ The project assesses system fault tolerance capabilities across four distinct di
 
 ![Fault Injection Methods](images/all_fault_injection.png)
 
-Based on detailed specifications from `all_fault_injection.pdf`, the project employs the following methodology:
 
-### Injection Strategies
 
 1. **Prompt Modification**
    - Introduce ambiguities in system prompts
@@ -233,10 +270,6 @@ Based on detailed specifications from `all_fault_injection.pdf`, the project emp
    - Modify message content
    - Simulate faulty responses
 
-4. **System Environment Changes**
-   - Simulate system failures
-   - Modify tool availability
-   - Alter execution constraints
 
 ### Injection Dimensions
 
@@ -271,22 +304,5 @@ The project injects faults across multiple dimensions to comprehensively evaluat
 - **Model Evaluation**: Provide references for LLM selection
 - **Tolerance Optimization**: Improve system fault handling capabilities
 - **Risk Assessment**: Identify potential risks in production environments
-
-
-## Core Reference Documents
-
-The theoretical foundation and methodology of this project are derived from the following two detailed documents:
-
-### 📋 Fault Classification System
-- **File**: [fault_taxonomy.png](images/fault_taxonomy.png)
-- **Content**: Complete fault type classification framework and characteristic descriptions
-
-![Fault Taxonomy](images/fault_taxonomy.png)
-
-### 📋 Fault Injection Methodology
-- **File**: [all_fault_injection.png](images/all_fault_injection.png)
-- **Content**: Detailed fault injection strategies, implementation methods, and injection dimensions
-
-![Fault Injection Methods](images/all_fault_injection.png)
 
 
