@@ -14,7 +14,7 @@ This project is a systematic research effort focused on **fault injection, fault
 ## Project Structure
 
 ```
-data/
+MASFIRE/
 ├── data/                           # Main data directory
 │   ├── Camel/                      # CAMEL multi-agent framework test results
 │   │   ├── deepseek-v3/            # DeepSeek v3 model results
