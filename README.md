@@ -59,8 +59,9 @@ MASFIRE/
 
 ### 2. LLM Models
 
-- **DeepSeek-v3**: Open-source
-- **GPT-5**: Commercial
+- **DeepSeek-v3 (Open-source)**: weaker in performance
+
+- **GPT-5 (Commercial)**: stronger in performance
 
 ### 3. Test Modes
 
