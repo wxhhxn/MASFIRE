@@ -177,24 +177,20 @@ The project assesses system fault tolerance capabilities across four distinct di
 
 ### camel.csv
 - **Fields**: Test System, Base Model, Failure Type, Task ID, Agent Behavior Category, Task Result
-- **Record Count**: 1,603
 - **Model Coverage**: deepseek-v3, gpt-5
 - **Fault Types**: Blind Trust and multiple other types
 - **Task Results**: PASS/FAIL
 
 ### metagpt.csv
 - **Fields**: Similar to camel.csv
-- **Record Count**: 4,606
 - **Characteristics**: Comprehensive test results for MetaGPT framework
 
 ### tablecritic.csv
 - **Fields**: Similar to camel.csv
-- **Record Count**: 5,289
 - **Characteristics**: Comprehensive test results for Table-Critic framework
 
 ### tag.csv
 - **Fields**: Fault Category, Agent Behavior, Fault Tolerance Summary
-- **Record Count**: 72
 - **Characteristics**: Provides mapping relationships between fault classification and tolerance mechanisms
 - **Purpose**: Maps each fault type and agent behavior to specific fault tolerance dimensions
 
