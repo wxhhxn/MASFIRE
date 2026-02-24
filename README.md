@@ -44,7 +44,7 @@ data/
 │   ├── metagpt.csv                 # MetaGPT framework test results 
 │   ├── tablecritic.csv             # Table-Critic framework test results summary
 │   └── tag.csv                     # Fault labels and fault tolerance mechanism classification 
-
+├── images/  
 ```
 
 ## Key Datasets
